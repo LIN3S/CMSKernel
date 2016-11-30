@@ -1,0 +1,70 @@
+# This file is part of the CMS Kernel library.
+#
+# Copyright (c) 2016 LIN3S <info@lin3s.com>
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
+
+services:
+    lin3s.cms_kernel.application.command.menu.add_menu:
+        class: LIN3S\CMSKernel\Application\Command\Menu\AddMenuHandler
+        arguments:
+            - "@lin3s.cms_kernel.infrastructure.persistence.doctrine.orm.repository.menu"
+        tags:
+            -
+                name: command_handler
+                handles: LIN3S\CMSKernel\Application\Command\Menu\AddMenuCommand
+
+    lin3s.cms_kernel.application.command.menu.add_menu_item:
+        class: LIN3S\CMSKernel\Application\Command\Menu\AddMenuItemHandler
+        arguments:
+            - "@lin3s.cms_kernel.infrastructure.persistence.doctrine.orm.repository.menu"
+        tags:
+            -
+                name: command_handler
+                handles: LIN3S\CMSKernel\Application\Command\Menu\AddMenuItemHandlerCommand
+
+    lin3s.cms_kernel.application.command.menu.add_menu_translation:
+        class: LIN3S\CMSKernel\Application\Command\Menu\AddMenuTranslationHandler
+        arguments:
+            - "@lin3s.cms_kernel.infrastructure.persistence.doctrine.orm.repository.menu"
+        tags:
+            -
+                name: command_handler
+                handles: LIN3S\CMSKernel\Application\Command\Menu\AddMenuTranslationCommand
+
+    lin3s.cms_kernel.application.command.menu.change_parent_menu_item:
+        class: LIN3S\CMSKernel\Application\Command\Menu\ChangeParentMenuItemHandler
+        arguments:
+            - "@lin3s.cms_kernel.infrastructure.persistence.doctrine.orm.repository.menu"
+        tags:
+            -
+                name: command_handler
+                handles: LIN3S\CMSKernel\Application\Command\Menu\ChangeParentMenuItemCommand
+
+    lin3s.cms_kernel.application.command.menu.remove_menu:
+        class: LIN3S\CMSKernel\Application\Command\Menu\RemoveMenuHandler
+        arguments:
+            - "@lin3s.cms_kernel.infrastructure.persistence.doctrine.orm.repository.menu"
+        tags:
+            -
+                name: command_handler
+                handles: LIN3S\CMSKernel\Application\Command\Menu\RemoveMenuCommand
+
+    lin3s.cms_kernel.application.command.menu.remove_menu_item:
+        class: LIN3S\CMSKernel\Application\Command\Menu\RemoveMenuItemHandler
+        arguments:
+            - "@lin3s.cms_kernel.infrastructure.persistence.doctrine.orm.repository.menu"
+        tags:
+            -
+                name: command_handler
+                handles: LIN3S\CMSKernel\Application\Command\Menu\RemoveMenuItemCommand
+
+    lin3s.cms_kernel.application.command.menu.remove_menu_translation:
+        class: LIN3S\CMSKernel\Application\Command\Menu\RemoveMenuTranslationHandler
+        arguments:
+            - "@lin3s.cms_kernel.infrastructure.persistence.doctrine.orm.repository.menu"
+        tags:
+            -
+                name: command_handler
+                handles: LIN3S\CMSKernel\Application\Command\Menu\RemoveMenuTranslationCommand

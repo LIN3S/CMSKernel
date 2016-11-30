@@ -1,0 +1,16 @@
+<div class="translate-list-field-head">
+    {% for locale in locales %}
+        {% set locale = locale|split('_')[0] %}
+
+        {% if locale == 'en' %}
+            <img class="translate-list-field-head__flag"
+                 src="{{ asset('bundles/lin3scmsadminbridge/images/gb.png') }}"/>
+        {% elseif locale == 'es' %}
+            <img class="translate-list-field-head__flag"
+                 src="{{ asset('bundles/lin3scmsadminbridge/images/es.png') }}"/>
+        {% elseif locale == 'eu' %}
+            <img class="translate-list-field-head__flag"
+                 src="{{ asset('bundles/lin3scmsadminbridge/images/_basque-country.png') }}"/>
+        {% endif %}
+    {% endfor %}
+</div>

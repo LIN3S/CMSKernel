@@ -1,0 +1,27 @@
+@import '../.././../../../../../../../vendor/lin3s/admin-bundle/src/LIN3S/AdminBundle/Resources/private/scss/helpers/grid';
+@import '../.././../../../../../../../vendor/lin3s/admin-bundle/src/LIN3S/AdminBundle/Resources/private/scss/variables/colors';
+
+$language-switcher-language-color: $color-white;
+$language-switcher-current-language-color: $color-cerulean;
+
+.language-switcher {
+}
+
+.language-switcher__language {
+  color: $language-switcher-language-color;
+  position: relative;
+  margin-left: 10px;
+
+  &:not(:last-child)::after {
+    color: $language-switcher-language-color;
+    content: '|';
+    height: 100%;
+    position: absolute;
+    right: -10px;
+    top: -1px;
+  }
+}
+
+.language-switcher__language--current {
+  color: $language-switcher-current-language-color;
+}

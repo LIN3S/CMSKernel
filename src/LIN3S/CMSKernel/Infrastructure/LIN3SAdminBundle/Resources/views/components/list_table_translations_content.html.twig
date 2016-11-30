@@ -1,0 +1,20 @@
+{% set translations = [] %}
+{% for translation in entity.translations %}
+    {% set translations = translations|merge([translation.locale.locale]) %}
+{% endfor %}
+
+<div class="translate-list-field-content">
+    {% for locale in locales %}
+        {% set actionIcon = locale in translations ? 'edit' : 'add' %}
+        <a href="{{ url('lin3s_admin_custom', {
+            entity: entityConfig.name,
+            action: action,
+            id: entity.id,
+            entityConfig: entityConfig,
+            locale: locale
+        }) }}">
+            <img class="translate-list-field-content__icon"
+                 src="{{ asset('bundles/lin3scmsadminbridge/svg/' ~ actionIcon ~ '.svg') }}"/>
+        </a>
+    {% endfor %}
+</div>

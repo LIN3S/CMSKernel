@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                          http://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
+
+    <entity name="LIN3S\CMSKernel\Domain\Model\Menu\MenuItem" table="menu_item">
+        <id name="id" type="menu_item_id" column="id"/>
+
+        <embedded name="link" class="LIN3S\CMSKernel\Domain\Model\Menu\MenuItemLink" use-column-prefix="false"/>
+
+        <field name="createdOn" type="datetime" column="created_on" nullable="false"/>
+        <field name="updatedOn" type="datetime" column="updated_on" nullable="false"/>
+        <field name="parentId" type="menu_item_id" column="parent_id" nullable="true"/>
+
+        <many-to-one field="menuTranslation" target-entity="LIN3S\CMSKernel\Domain\Model\Menu\MenuTranslation"
+                     inversed-by="translations">
+            <join-column name="menu_translation_id" referenced-column-name="id"/>
+        </many-to-one>
+    </entity>
+</doctrine-mapping>
