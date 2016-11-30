@@ -46,7 +46,7 @@ services:
             - "@lin3s_admin.form.handler"
             - "@lin3s.cms_kernel.application.command_bus"
             - "@twig"
-            - "@session"
+            - "@session.flash_bag"
         tags:
             - { name: "lin3s_admin.action" }
 
