@@ -49,16 +49,14 @@ class NewTranslatableActionType implements ActionType
         $this->urlGenerator = $urlGenerator;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function execute($entity, EntityConfiguration $config, Request $request, $options = null)
     {
         $this->checkRequired($options, 'form');
 
         $locale = $request->query->get('locale');
-//        if (loquesea) {
-//            // TODO: HACER EL IF DE ARRIBA CUANDO EL LOCALE QUE NOS LLEGA NO ESTÁ DEFINIDO EN LA CONFIG
+
+//        TODO: Check if locale is defined in the bundle configuration
+//        if (whatever) {
 //            throw new NotFoundHttpException(
 //                sprintf('%s locale is not supported from the admin', $locale)
 //            );

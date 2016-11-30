@@ -19,7 +19,7 @@ use LIN3S\CMSKernel\Domain\Model\Translation\TranslationDoesNotExistException;
 use LIN3S\SharedKernel\Application\CommandBus;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
@@ -29,7 +29,7 @@ class TranslateActionType implements ActionType
 {
     use EntityId;
 
-    private $session;
+    private $flashBag;
     private $twig;
     private $formHandler;
     private $commandBus;
@@ -38,17 +38,14 @@ class TranslateActionType implements ActionType
         FormHandler $formHandler,
         CommandBus $commandBus,
         \Twig_Environment $twig,
-        Session $session
+        FlashBagInterface $flashBag
     ) {
         $this->twig = $twig;
-        $this->session = $session;
+        $this->flashBag = $flashBag;
         $this->formHandler = $formHandler;
         $this->commandBus = $commandBus;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function execute($entity, EntityConfiguration $config, Request $request, $options = null)
     {
         $this->checkRequired($options, 'form');
@@ -61,8 +58,9 @@ class TranslateActionType implements ActionType
         }
 
         $locale = $request->query->get('locale');
-//        if (loquesea) {
-//            // TODO: HACER EL IF DE ARRIBA CUANDO EL LOCALE QUE NOS LLEGA NO ESTÁ DEFINIDO EN LA CONFIG
+
+//        TODO: Check if locale is defined in the bundle configuration
+//        if (whatever) {
 //            throw new NotFoundHttpException(
 //                sprintf('%s locale is not supported from the admin', $locale)
 //            );
@@ -86,7 +84,7 @@ class TranslateActionType implements ActionType
                 $this->commandBus->handle(
                     $form->getData()
                 );
-                $this->session->getFlashBag()->add(
+                $this->flashBag->add(
                     'lin3s_admin_success',
                     sprintf(
                         'The %s translation is successfully saved',
@@ -94,7 +92,7 @@ class TranslateActionType implements ActionType
                     )
                 );
             } else {
-                $this->session->getFlashBag()->add(
+                $this->flashBag->add(
                     'lin3s_admin_error',
                     sprintf(
                         'Errors while saving %s translation. Please check all fields and try again',
