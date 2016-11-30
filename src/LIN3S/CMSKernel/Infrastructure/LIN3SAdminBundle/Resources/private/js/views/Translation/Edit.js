@@ -14,7 +14,7 @@ import ReactDOM from 'react-dom';
 
 import EventPublisher from './../../EventPublisherInstance';
 import {DOMReadyEventSubscriber} from 'lin3s-event-bus';
-import {ConfirmationModal} from '../../../../../../../../../../vendor/lin3s/admin-bundle/src/LIN3S/AdminBundle/Resources/private/js/lib/index';
+import {ConfirmationModal} from './../../../../../../../../../../../admin-bundle/src/LIN3S/AdminBundle/Resources/private/js/lib/index';
 
 const removeTranslationCallBack = (element) => {
   return window.location.replace(
