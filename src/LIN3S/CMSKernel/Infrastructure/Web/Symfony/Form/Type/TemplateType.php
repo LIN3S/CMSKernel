@@ -19,7 +19,7 @@ use Symfony\Component\Form\FormInterface;
  */
 abstract class TemplateType
 {
-    protected $templateName;
+    abstract public function templateName();
 
     abstract public function view();
 
@@ -34,7 +34,7 @@ abstract class TemplateType
     public function buildForm(FormInterface $form, array $options = [])
     {
         if ($form->has('templateName')) {
-            $form->get('templateName')->setData($this->templateName);
+            $form->get('templateName')->setData($this->templateName());
         }
         $this->buildTemplateForm($form, $options);
 
