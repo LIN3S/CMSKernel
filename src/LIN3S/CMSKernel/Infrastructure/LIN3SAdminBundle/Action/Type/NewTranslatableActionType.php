@@ -13,6 +13,8 @@ namespace LIN3S\CMSKernel\Infrastructure\LIN3SAdminBundle\Action\Type;
 
 use LIN3S\AdminBundle\Action\ActionType;
 use LIN3S\AdminBundle\Action\Type\EntityId;
+use LIN3S\AdminBundle\Action\Type\OptionResolver;
+use LIN3S\AdminBundle\Action\Type\Redirect;
 use LIN3S\AdminBundle\Configuration\EntityConfiguration;
 use LIN3S\AdminBundle\Form\FormHandler;
 use LIN3S\SharedKernel\Application\CommandBus;
@@ -28,6 +30,8 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 class NewTranslatableActionType implements ActionType
 {
     use EntityId;
+    use OptionResolver;
+    use Redirect;
 
     private $flashBag;
     private $twig;
@@ -77,7 +81,7 @@ class NewTranslatableActionType implements ActionType
                     )
                 );
 
-                return $this->redirect($options, $config->name(), $form->getData());
+                return $this->redirect($this->urlGenerator, $options, $config->name(), $form->getData());
             } else {
                 $this->flashBag->add(
                     'lin3s_admin_error',
@@ -95,36 +99,6 @@ class NewTranslatableActionType implements ActionType
                 'entityConfig' => $config,
                 'locale'       => $locale,
                 'form'         => $form->createView(),
-            ])
-        );
-    }
-
-    private function checkRequired($options, $field)
-    {
-        if (!isset($options[$field])) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    '%s option is required so, you must declare inside action in the admin.yml', $field
-                )
-            );
-        }
-    }
-
-    public function redirect($options, $entity, $command)
-    {
-        if (!isset($options['redirectAction'])) {
-            return new RedirectResponse(
-                $this->urlGenerator->generate('lin3s_admin_list', [
-                    'entity' => $entity,
-                ])
-            );
-        }
-
-        return new RedirectResponse(
-            $this->urlGenerator->generate('lin3s_admin_custom', [
-                'action' => $options['redirectAction'],
-                'entity' => $entity,
-                'id'     => $command->id(),
             ])
         );
     }

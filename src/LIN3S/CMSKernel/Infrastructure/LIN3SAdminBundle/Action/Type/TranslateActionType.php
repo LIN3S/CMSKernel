@@ -13,6 +13,7 @@ namespace LIN3S\CMSKernel\Infrastructure\LIN3SAdminBundle\Action\Type;
 
 use LIN3S\AdminBundle\Action\ActionType;
 use LIN3S\AdminBundle\Action\Type\EntityId;
+use LIN3S\AdminBundle\Action\Type\OptionResolver;
 use LIN3S\AdminBundle\Configuration\EntityConfiguration;
 use LIN3S\AdminBundle\Form\FormHandler;
 use LIN3S\CMSKernel\Domain\Model\Translation\TranslationDoesNotExistException;
@@ -28,6 +29,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class TranslateActionType implements ActionType
 {
     use EntityId;
+    use OptionResolver;
 
     private $flashBag;
     private $twig;
@@ -110,16 +112,5 @@ class TranslateActionType implements ActionType
                 'form'         => $form->createView(),
             ])
         );
-    }
-
-    private function checkRequired($options, $field)
-    {
-        if (!isset($options[$field])) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    '%s option is required so, you must declare inside action in the admin.yml', $field
-                )
-            );
-        }
     }
 }
