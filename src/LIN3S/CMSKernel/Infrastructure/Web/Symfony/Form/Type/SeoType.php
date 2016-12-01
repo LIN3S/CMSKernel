@@ -17,6 +17,9 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * @author Beñat Espiña <benatespina@gmail.com>
+ */
 class SeoType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)

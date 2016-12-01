@@ -11,7 +11,7 @@
 
 namespace LIN3S\CMSKernel\Infrastructure\Web\Symfony\Action;
 
-use App\Infrastructure\Web\Symfony\Form\Type\TemplateType;
+use LIN3S\CMSKernel\Infrastructure\Web\Symfony\Form\TemplateFormRegistry;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,17 +21,23 @@ class PageTemplateFormAction
 {
     private $templating;
     private $factory;
+    private $templateFormRegistry;
 
-    public function __construct(FormFactoryInterface $factory, EngineInterface $templating)
-    {
+    public function __construct(
+        FormFactoryInterface $factory,
+        EngineInterface $templating,
+        TemplateFormRegistry $templateFormRegistry
+    ) {
         $this->templating = $templating;
         $this->factory = $factory;
+        $this->templateFormRegistry = $templateFormRegistry;
     }
 
     public function action($template)
     {
         $form = $this->factory->createNamedBuilder('', FormType::class, null, ['csrf_protection' => false])->getForm();
-        $form = TemplateType::buildForm($form, $template);
+        $formType = $this->templateFormRegistry->get($template);
+        $form = (new $formType())->buildForm($form);
 
         return new Response(
             $this->templating->render('template_form.html.twig', [

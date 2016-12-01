@@ -24,7 +24,6 @@ class Lin3sCmsKernelExtension extends Extension
         $loader->load('command_bus.yml');
         $loader->load('commands.yml');
         $loader->load('data_transformers.yml');
-        $loader->load('http_actions.yml');
         $loader->load('queries.yml');
         $loader->load('repositories.yml');
         $loader->load('twig.yml');

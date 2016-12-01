@@ -18,6 +18,17 @@ abstract class AbstractTemplateFactory implements TemplateFactory
 {
     abstract public function templates();
 
+    public function keyOf($aValue)
+    {
+        $templates = $this->templates();
+        while ($value = current($templates)) {
+            if ($value === get_class($aValue)) {
+                return key($templates);
+            }
+            next($templates);
+        }
+    }
+
     public function build($name, array $content)
     {
         if (!array_key_exists($name, $this->templates())) {
