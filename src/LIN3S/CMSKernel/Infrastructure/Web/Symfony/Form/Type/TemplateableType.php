@@ -57,6 +57,7 @@ abstract class TemplateableType extends AbstractType
                 ? $this->templateFactory->keyOf($data->template())
                 : key($templates);
 
+            $this->removeAddedTemplateForms($event->getForm());
             $this->templateType($templateName)->buildForm($event->getForm(), $options);
         });
 
@@ -69,6 +70,7 @@ abstract class TemplateableType extends AbstractType
                 ? $data['templateName']
                 : key($templates);
 
+            $this->removeAddedTemplateForms($event->getForm());
             $this->templateType($templateName)->buildForm($event->getForm(), $options);
         });
     }
@@ -101,5 +103,13 @@ abstract class TemplateableType extends AbstractType
         }
 
         return $templates;
+    }
+
+    private function removeAddedTemplateForms(FormInterface $form)
+    {
+        foreach ($this->templateFormRegistry->types() as $type) {
+            $type = new $type();
+            $type->removeForm($form);
+        }
     }
 }

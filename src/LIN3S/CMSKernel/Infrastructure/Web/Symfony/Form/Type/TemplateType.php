@@ -31,7 +31,9 @@ abstract class TemplateType
 
     abstract protected function formsFromData($data, $forms);
 
-    public function buildForm(FormInterface $form, array $options = [])
+    abstract public function removeForm(FormInterface $form);
+
+    final public function buildForm(FormInterface $form, array $options = [])
     {
         if ($form->has('templateName')) {
             $form->get('templateName')->setData($this->templateName());
@@ -41,7 +43,7 @@ abstract class TemplateType
         return $form;
     }
 
-    public function mapDataToForms($data, $forms)
+    final public function mapDataToForms($data, $forms)
     {
         if (!$data instanceof Template) {
             throw new \LogicException(
