@@ -35,7 +35,7 @@ abstract class TemplateableType extends AbstractType
         $this->templateFactory = $templateFactory;
     }
 
-    abstract protected function view($templateName);
+    abstract public function view($templateName);
 
     abstract protected function buildTemplateableForm(FormBuilderInterface $builder, array $options);
 
@@ -73,6 +73,16 @@ abstract class TemplateableType extends AbstractType
         });
     }
 
+    final public function templateType($templateName = null)
+    {
+        if (null !== $templateName) {
+            $templateTypeClass = $this->templateFormRegistry->get($templateName);
+            $this->templateType = new $templateTypeClass();
+        }
+
+        return $this->templateType;
+    }
+
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
         $view->vars = array_merge($view->vars, [
@@ -81,16 +91,6 @@ abstract class TemplateableType extends AbstractType
             ),
         ]);
         parent::buildView($view, $form, $options);
-    }
-
-    protected function templateType($templateName = null)
-    {
-        if (null !== $templateName) {
-            $templateTypeClass = $this->templateFormRegistry->get($templateName);
-            $this->templateType = new $templateTypeClass();
-        }
-
-        return $this->templateType;
     }
 
     protected function templateChoices()
