@@ -9,6 +9,6 @@
 
 'use strict';
 
-import './Page/index';
+import './Template/index';
 import './Translatable/index';
 import './Translation/index';

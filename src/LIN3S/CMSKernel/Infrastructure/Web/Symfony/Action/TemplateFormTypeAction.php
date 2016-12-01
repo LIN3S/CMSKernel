@@ -14,10 +14,12 @@ namespace LIN3S\CMSKernel\Infrastructure\Web\Symfony\Action;
 use LIN3S\CMSKernel\Infrastructure\Web\Symfony\Form\TemplateFormRegistry;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Templating\EngineInterface;
 
-class PageTemplateFormAction
+class TemplateFormTypeAction
 {
     private $templating;
     private $factory;
@@ -33,14 +35,18 @@ class PageTemplateFormAction
         $this->templateFormRegistry = $templateFormRegistry;
     }
 
-    public function action($template)
+    public function action(Request $request, $template)
     {
+        if (!$request->isXmlHttpRequest()) {
+            throw new NotFoundHttpException();
+        }
+
         $form = $this->factory->createNamedBuilder('', FormType::class, null, ['csrf_protection' => false])->getForm();
         $formType = $this->templateFormRegistry->get($template);
         $form = (new $formType())->buildForm($form);
 
         return new Response(
-            $this->templating->render('template_form.html.twig', [
+            $this->templating->render('template_form_type.html.twig', [
                 'form' => $form->createView(),
             ])
         );

@@ -15,7 +15,7 @@ import {DOMReadyEventSubscriber} from 'lin3s-event-bus';
 
 const onReady = () => {
   $('#templateName').on('change', (event) => {
-    $.get(`/admin/pages/templates/${$(event.currentTarget).val()}`).done((response) => {
+    $.get(`/admin/templates/${$(event.currentTarget).val()}`).done((response) => {
       $('.js-template').remove();
       $('#templateName').parent().after(response);
     });
