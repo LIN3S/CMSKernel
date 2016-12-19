@@ -10,6 +10,6 @@ services:
         class: Twig_Loader_Filesystem
         public: false
         arguments:
-            - ["%kernel.root_dir%/../vendor/lin3s/cms-kernel/src/LIN3S/CMSKernel/Infrastructure/Ui/Views/Twig"]
+            - ["%kernel.root_dir%/../vendor/lin3s/cms-kernel/src/LIN3S/CMSKernel/Infrastructure/Ui/views/Twig"]
         tags:
             - { name: twig.loader }
