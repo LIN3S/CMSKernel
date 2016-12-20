@@ -99,7 +99,7 @@ abstract class TemplateableType extends AbstractType
     {
         $templates = [];
         foreach ($this->templateFactory->templates() as $name => $template) {
-            $templates[ucfirst($name)] = $name;
+            $templates[str_replace('_', ' ', ucfirst($name))] = $name;
         }
 
         return $templates;
