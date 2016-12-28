@@ -12,9 +12,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import EventPublisher from './../../EventPublisherInstance';
+import EventPublisher from '../../EventPublisherInstance';
 import {DOMReadyEventSubscriber} from 'lin3s-event-bus';
-import NewTranslatableModal from './../../components/NewTranslatableModal/App';
+import NewTranslatableModal from '../../components/NewTranslatableModal/App';
 
 const newTranslatableCallback = (element) => {
   return window.location.replace(

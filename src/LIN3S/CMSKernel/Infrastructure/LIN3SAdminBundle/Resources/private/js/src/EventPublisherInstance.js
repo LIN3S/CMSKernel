@@ -11,7 +11,7 @@
 
 import {
   EventPublisher as Lin3sAdminBundleEventPublisher
-} from './../../../../../../../../../admin-bundle/src/LIN3S/AdminBundle/Resources/private/js/lib/index';
+} from './../../../../../../../../../../admin-bundle/src/LIN3S/AdminBundle/Resources/private/js/lib/index';
 import {EventPublisher as Lin3sEventPublisher} from 'lin3s-event-bus';
 
 let _undefined = undefined;

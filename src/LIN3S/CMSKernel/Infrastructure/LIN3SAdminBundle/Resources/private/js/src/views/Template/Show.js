@@ -10,7 +10,7 @@
 'use strict';
 
 import $ from 'jquery';
-import EventPublisher from './../../EventPublisherInstance';
+import EventPublisher from '../../EventPublisherInstance';
 import {DOMReadyEventSubscriber} from 'lin3s-event-bus';
 
 const onReady = () => {
