@@ -12,57 +12,13 @@
 namespace LIN3S\CMSKernel\Domain\Model\Translation;
 
 /**
- * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
-abstract class Translatable
+interface Translatable
 {
-    protected $translations;
+    public function translations();
 
-    public function __construct(Translation $translation)
-    {
-        $this->translations = new TranslationCollection();
-        $this->addTranslation($translation);
-    }
+    public function addTranslation(Translation $translation);
 
-    public function translations()
-    {
-        return new TranslationCollection($this->translations->getValues());
-    }
-
-    public function addTranslation(Translation $translation)
-    {
-        $translationReflection = new \ReflectionClass($translation);
-        $origin = $translationReflection->getProperty('origin');
-        $origin->setAccessible(true);
-        $origin->setValue($translation, $this);
-
-        $this->translations->add($translation);
-    }
-
-    public function removeTranslation(Locale $locale)
-    {
-        foreach ($this->translations as $translation) {
-            if ($locale->equals($translation->locale())) {
-                return $this->translations->removeElement($translation);
-            }
-        }
-        throw new TranslationDoesNotExistException($locale->locale());
-    }
-
-    public function __call($locale, $args)
-    {
-        $resultTranslation = null;
-        foreach ($this->translations() as $translation) {
-            if ($translation->locale()->equals(new Locale($locale))) {
-                $resultTranslation = $translation;
-                break;
-            }
-        }
-
-        if (!$resultTranslation instanceof Translation) {
-            throw new TranslationDoesNotExistException($locale);
-        }
-
-        return $resultTranslation;
-    }
+    public function removeTranslation(Locale $locale);
 }

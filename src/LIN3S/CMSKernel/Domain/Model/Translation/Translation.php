@@ -12,25 +12,13 @@
 namespace LIN3S\CMSKernel\Domain\Model\Translation;
 
 /**
- * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
-abstract class Translation
+interface Translation
 {
-    protected $locale;
-    protected $origin;
+    public function translations();
 
-    public function __construct(Locale $locale)
-    {
-        $this->locale = $locale;
-    }
+    public function locale();
 
-    public function locale()
-    {
-        return $this->locale;
-    }
-
-    public function origin()
-    {
-        return $this->origin;
-    }
+    public function origin();
 }

@@ -34,4 +34,41 @@ class TranslationCollection extends Collection
         }
         parent::add($translation);
     }
+
+    public function addTranslation($translation, Translatable $translatable)
+    {
+        $translationReflection = new \ReflectionClass($translation);
+        $origin = $translationReflection->getProperty('origin');
+        $origin->setAccessible(true);
+        $origin->setValue($translation, $this);
+
+        $this->add($translation);
+    }
+
+    public function removeTranslation(Locale $locale)
+    {
+        foreach ($this->toArray() as $translation) {
+            if ($locale->equals($translation->locale())) {
+                return $this->removeElement($translation);
+            }
+        }
+        throw new TranslationDoesNotExistException($locale->locale());
+    }
+
+    public function getTranslation(Locale $locale)
+    {
+        $resultTranslation = null;
+        foreach ($this->toArray() as $translation) {
+            if ($translation->locale()->equals(new Locale($locale))) {
+                $resultTranslation = $translation;
+                break;
+            }
+        }
+
+        if (!$resultTranslation instanceof Translation) {
+            throw new TranslationDoesNotExistException($locale);
+        }
+
+        return $resultTranslation;
+    }
 }
