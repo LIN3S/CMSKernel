@@ -44,7 +44,7 @@ class RemoveTranslationActionType implements ActionType
 
     public function execute($entity, EntityConfiguration $config, Request $request, $options = null)
     {
-        $id = (string) $this->getEntityId($entity, $config);
+        $id = (string)$this->getEntityId($entity, $config);
         if (!$entity) {
             throw new NotFoundHttpException(
                 sprintf('The translatable with %s id does not exist', $id)
@@ -55,7 +55,13 @@ class RemoveTranslationActionType implements ActionType
         try {
             $translation = $entity->{$locale}();
             $entity->removeTranslation($translation->locale());
-            $this->manager->persist($entity);
+
+            if ($entity->translations()->count() === 0) {
+                $this->manager->remove($entity);
+            } else {
+                $this->manager->persist($entity);
+            }
+
             $this->manager->flush();
 
             $this->flashBag->add(
