@@ -10,9 +10,11 @@ lin3s_cms_admin_bridge:
         en_US: Ingelesa
         es_ES: Gaztelania
         eu_ES: Euskara
+        fr_FR: Frantsesa
         en: Ingelesa
         es: Gaztelania
         eu: Euskara
+        fr: Frantsesa
     new:
         confirm:
             button: Sorrera formulariora joan

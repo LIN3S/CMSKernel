@@ -10,9 +10,11 @@ lin3s_cms_admin_bridge:
         en_US: Inglés
         es_ES: Español
         eu_ES: Euskera
+        fr_FR: Francés
         en: Inglés
         es: Español
         eu: Euskera
+        fr: Francés
     new:
         confirm:
             button: Ir al formulario de creación
