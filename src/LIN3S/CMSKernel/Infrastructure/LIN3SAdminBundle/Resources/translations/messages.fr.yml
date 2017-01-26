@@ -1,0 +1,31 @@
+# This file is part of the CMS Kernel library.
+#
+# Copyright (c) 2016 LIN3S <info@lin3s.com>
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
+
+lin3s_cms_admin_bridge:
+    locale:
+        en_US: English
+        es_ES: Spanish
+        eu_ES: Basque
+        fr_FR: French
+        en: English
+        es: Spanish
+        eu: Basque
+        fr: French
+    new:
+        confirm:
+            button: Accéder au formulaire de création
+            title: Choisir une langue
+            content: Tout le contenu traduisible a besoin au moins, d'une traduction
+    edit:
+        title: Traduction de la langue "%language% du / de la %entity%"
+    remove_translation:
+        button: Supprimer la traduction
+        confirmation_modal:
+            title: Supprimer la traduction
+            description: Êtes-vous sûr de vouloir supprimer la traduction? Cette opération ne peut pas être annulée.
+    translation:
+        locale_not_defined: "\"%locale%\" traduction non définie"
