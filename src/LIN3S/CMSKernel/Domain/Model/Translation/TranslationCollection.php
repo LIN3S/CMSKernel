@@ -11,8 +11,8 @@
 
 namespace LIN3S\CMSKernel\Domain\Model\Translation;
 
-use LIN3S\SharedKernel\Domain\Model\Collection;
-use LIN3S\SharedKernel\Domain\Model\CollectionElementAlreadyAddedException;
+use LIN3S\SharedKernel\Domain\Model\Collection\Collection;
+use LIN3S\SharedKernel\Domain\Model\Collection\CollectionElementAlreadyAddedException;
 
 /**
  * @author Beñat Espiña <benatespina@gmail.com>

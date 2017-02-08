@@ -11,7 +11,7 @@
 
 namespace LIN3S\CMSKernel\Domain\Model\Translation;
 
-use LIN3S\SharedKernel\Domain\Model\InvalidArgumentException;
+use LIN3S\SharedKernel\Exception\InvalidArgumentException;
 
 /**
  * @author Beñat Espiña <benatespina@gmail.com>

@@ -11,7 +11,7 @@
 
 namespace LIN3S\CMSKernel\Domain\Model\Seo;
 
-use LIN3S\SharedKernel\Domain\Model\Exception;
+use LIN3S\SharedKernel\Exception\Exception;
 
 /**
  * @author Beñat Espiña <benatespina@gmail.com>

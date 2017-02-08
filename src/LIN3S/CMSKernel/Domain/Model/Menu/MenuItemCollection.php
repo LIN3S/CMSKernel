@@ -11,8 +11,8 @@
 
 namespace LIN3S\CMSKernel\Domain\Model\Menu;
 
-use LIN3S\SharedKernel\Domain\Model\Collection;
-use LIN3S\SharedKernel\Domain\Model\CollectionElementAlreadyRemovedException;
+use LIN3S\SharedKernel\Domain\Model\Collection\Collection;
+use LIN3S\SharedKernel\Domain\Model\Collection\CollectionElementAlreadyRemovedException;
 
 /**
  * @author Beñat Espiña <benatespina@gmail.com>
