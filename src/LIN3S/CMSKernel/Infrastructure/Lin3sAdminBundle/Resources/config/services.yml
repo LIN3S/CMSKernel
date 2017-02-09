@@ -1,0 +1,60 @@
+# This file is part of the CMS Kernel library.
+#
+# Copyright (c) 2016 LIN3S <info@lin3s.com>
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
+
+services:
+    lin3s_cms_admin_bridge.list_field_type.translatable_string:
+        class: LIN3S\CMSKernel\Infrastructure\Lin3sAdminBundle\ListField\Type\TranslatableStringListField
+        arguments:
+            - "@translator.default"
+        tags:
+            - { name: lin3s_admin.list_field_type }
+
+    lin3s_cms_admin_bridge.list_field_type.translate:
+        class: LIN3S\CMSKernel\Infrastructure\Lin3sAdminBundle\ListField\Type\TranslateListFieldType
+        arguments:
+            - "@twig"
+            - "@router"
+        tags:
+            - { name: lin3s_admin.list_field_type }
+
+    lin3s_cms_admin_bridge.event_listener.locale:
+        class: LIN3S\CMSKernel\Infrastructure\Lin3sAdminBundle\EventListener\LocaleListener
+        arguments:
+            - "%kernel.default_locale%"
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest, priority: 15 }
+
+### Actions ####
+    lin3s_cms_admin_bridge.action.type.new_translatable:
+        class: LIN3S\CMSKernel\Infrastructure\Lin3sAdminBundle\Action\Type\NewTranslatableActionType
+        arguments:
+            - "@lin3s_admin.form.handler"
+            - "@lin3s.cms_kernel.application.command_bus"
+            - "@twig"
+            - "@session.flash_bag"
+            - "@router"
+        tags:
+            - { name: "lin3s_admin.action" }
+
+    lin3s_cms_admin_bridge.action.type.translate:
+        class: LIN3S\CMSKernel\Infrastructure\Lin3sAdminBundle\Action\Type\TranslateActionType
+        arguments:
+            - "@lin3s_admin.form.handler"
+            - "@lin3s.cms_kernel.application.command_bus"
+            - "@twig"
+            - "@session.flash_bag"
+        tags:
+            - { name: "lin3s_admin.action" }
+
+    lin3s_cms_admin_bridge.action.type.remove_translation:
+        class: LIN3S\CMSKernel\Infrastructure\Lin3sAdminBundle\Action\Type\RemoveTranslationActionType
+        arguments:
+            - "@router"
+            - "@doctrine.orm.entity_manager"
+            - "@session.flash_bag"
+        tags:
+            - { name: "lin3s_admin.action" }
