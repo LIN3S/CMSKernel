@@ -6,6 +6,8 @@ To get the diff for a specific change, go to https://github.com/LIN3S/CMSKernel/
 To get the diff between two versions, go to https://github.com/LIN3S/CMSKernel/compare/v0.1.0...v0.2.0
 
 * 0.2.0
-    * [BC Break] Removed `TranslatableType`. Check the docs to see how to map to a form a domain with translations
+    * [BC Break] Changed namespaces related with the Symfony code.
+    * [BC Break] Removed all about template infrastructure logic.
+    * [BC Break] Removed `TranslatableType`. Check the docs to see how to map to a form a domain with translations.
 * 0.1.0
     * Initial release
