@@ -12,9 +12,9 @@
 namespace LIN3S\CMSKernel\Infrastructure\Lin3sAdminBundle\Action\Type;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use LIN3S\AdminBundle\Action\ActionType;
-use LIN3S\AdminBundle\Action\Type\EntityId;
-use LIN3S\AdminBundle\Configuration\EntityConfiguration;
+use LIN3S\AdminBundle\Configuration\Model\Entity;
+use LIN3S\AdminBundle\Configuration\Type\ActionType;
+use LIN3S\AdminBundle\Extension\Action\EntityId;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
@@ -42,7 +42,7 @@ class RemoveTranslationActionType implements ActionType
         $this->urlGenerator = $urlGenerator;
     }
 
-    public function execute($entity, EntityConfiguration $config, Request $request, $options = null)
+    public function execute($entity, Entity $config, Request $request, $options = null)
     {
         $id = (string)$this->getEntityId($entity, $config);
         if (!$entity) {

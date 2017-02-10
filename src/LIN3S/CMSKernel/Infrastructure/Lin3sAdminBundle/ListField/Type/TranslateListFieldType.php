@@ -11,8 +11,8 @@
 
 namespace LIN3S\CMSKernel\Infrastructure\Lin3sAdminBundle\ListField\Type;
 
-use LIN3S\AdminBundle\Configuration\EntityConfiguration;
-use LIN3S\AdminBundle\ListFields\ListFieldType;
+use LIN3S\AdminBundle\Configuration\Model\Entity;
+use LIN3S\AdminBundle\Configuration\Type\ListFieldType;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
@@ -29,12 +29,12 @@ class TranslateListFieldType implements ListFieldType
         $this->twig = $twig;
     }
 
-    public function header($options, EntityConfiguration $configuration)
+    public function header($name, Entity $configuration)
     {
         return $this->twig->render('@Lin3sCmsAdminBridge/components/translate_list_field_head.twig');
     }
 
-    public function render($entity, $options, EntityConfiguration $configuration)
+    public function render($entity, $options, Entity $configuration)
     {
         if (!isset($options['action'])) {
             throw new \InvalidArgumentException('Action key is required');

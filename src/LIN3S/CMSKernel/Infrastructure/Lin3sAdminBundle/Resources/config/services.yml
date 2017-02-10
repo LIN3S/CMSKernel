@@ -11,7 +11,7 @@ services:
         arguments:
             - "@translator.default"
         tags:
-            - { name: lin3s_admin.list_field_type }
+            - { name: lin3s_admin.list_field_type, alias: translatable_string }
 
     lin3s_cms_admin_bridge.list_field_type.translate:
         class: LIN3S\CMSKernel\Infrastructure\Lin3sAdminBundle\ListField\Type\TranslateListFieldType
@@ -19,7 +19,7 @@ services:
             - "@twig"
             - "@router"
         tags:
-            - { name: lin3s_admin.list_field_type }
+            - { name: lin3s_admin.list_field_type, alias: translate }
 
     lin3s_cms_admin_bridge.event_listener.locale:
         class: LIN3S\CMSKernel\Infrastructure\Lin3sAdminBundle\EventListener\LocaleListener
@@ -38,7 +38,7 @@ services:
             - "@session.flash_bag"
             - "@router"
         tags:
-            - { name: "lin3s_admin.action" }
+            - { name: "lin3s_admin.action", alias: new_translatable }
 
     lin3s_cms_admin_bridge.action.type.translate:
         class: LIN3S\CMSKernel\Infrastructure\Lin3sAdminBundle\Action\Type\TranslateActionType
@@ -48,7 +48,7 @@ services:
             - "@twig"
             - "@session.flash_bag"
         tags:
-            - { name: "lin3s_admin.action" }
+            - { name: "lin3s_admin.action", alias: translate }
 
     lin3s_cms_admin_bridge.action.type.remove_translation:
         class: LIN3S\CMSKernel\Infrastructure\Lin3sAdminBundle\Action\Type\RemoveTranslationActionType
@@ -57,4 +57,4 @@ services:
             - "@doctrine.orm.entity_manager"
             - "@session.flash_bag"
         tags:
-            - { name: "lin3s_admin.action" }
+            - { name: "lin3s_admin.action", alias: remove_translation }

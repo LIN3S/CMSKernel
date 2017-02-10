@@ -11,8 +11,8 @@
 
 namespace LIN3S\CMSKernel\Infrastructure\Lin3sAdminBundle\ListField\Type;
 
-use LIN3S\AdminBundle\Configuration\EntityConfiguration;
-use LIN3S\AdminBundle\ListFields\ListFieldType;
+use LIN3S\AdminBundle\Configuration\Model\Entity;
+use LIN3S\AdminBundle\Configuration\Type\ListFieldType;
 use LIN3S\CMSKernel\Domain\Model\Translation\Translatable;
 use LIN3S\CMSKernel\Domain\Model\Translation\TranslationDoesNotExistException;
 use Symfony\Component\Translation\TranslatorInterface;
@@ -29,16 +29,16 @@ class TranslatableStringListField implements ListFieldType
         $this->translator = $translator;
     }
 
-    public function header($options, EntityConfiguration $configuration)
+    public function header($name, Entity $configuration)
     {
-        if (!isset($options['name'])) {
+        if (!isset($name)) {
             throw new \InvalidArgumentException('Field to be rendered must be passed as string');
         }
 
-        return $this->translator->trans($options['name']);
+        return $this->translator->trans($name);
     }
 
-    public function render($entity, $options, EntityConfiguration $configuration)
+    public function render($entity, $options, Entity $configuration)
     {
         if (!isset($options['field'])) {
             throw new \InvalidArgumentException('Field to be rendered must be passed as string');

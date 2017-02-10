@@ -11,10 +11,10 @@
 
 namespace LIN3S\CMSKernel\Infrastructure\Lin3sAdminBundle\Action\Type;
 
-use LIN3S\AdminBundle\Action\ActionType;
-use LIN3S\AdminBundle\Action\Type\EntityId;
-use LIN3S\AdminBundle\Action\Type\OptionResolver;
-use LIN3S\AdminBundle\Configuration\EntityConfiguration;
+use LIN3S\AdminBundle\Configuration\Model\Entity;
+use LIN3S\AdminBundle\Configuration\Type\ActionType;
+use LIN3S\AdminBundle\Extension\Action\EntityId;
+use LIN3S\AdminBundle\Extension\Action\OptionResolver;
 use LIN3S\AdminBundle\Form\FormHandler;
 use LIN3S\CMSKernel\Domain\Model\Translation\TranslationDoesNotExistException;
 use LIN3S\SharedKernel\Application\CommandBus;
@@ -48,7 +48,7 @@ class TranslateActionType implements ActionType
         $this->commandBus = $commandBus;
     }
 
-    public function execute($entity, EntityConfiguration $config, Request $request, $options = null)
+    public function execute($entity, Entity $config, Request $request, $options = null)
     {
         $this->checkRequired($options, 'form');
 
