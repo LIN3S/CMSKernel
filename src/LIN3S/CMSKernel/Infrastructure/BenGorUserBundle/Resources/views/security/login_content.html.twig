@@ -1,0 +1,66 @@
+{% trans_default_domain 'BenGorUser' %}
+
+<article class="bengor-user-login">
+    <img class="bengor-user-login__background" src="{{ asset('images/login-bg.jpg') }}">
+
+    <form action="{{ path(login_check) }}" method="post" class="bengor-user-login__form">
+        <div class="bengor-user-login-form__group">
+            <div class="bengor-user-login__form-header">
+                Kaixo!
+            </div>
+        </div>
+
+        <div class="bengor-user-login-form__group">
+            {% include 'component/svg_icon.svg.twig' with {
+                icon: 'login-user',
+                svgClass: 'bengor-user-login__icon'
+            } %}
+            <label class="bengor-user-login__form-label" for="email">
+                {{- 'security.view_email_label' | trans -}}
+            </label>
+            <input class="bengor-user-login__form-input" type="text" id="email" name="_email" autofocus
+                   value="{{ last_email }}"/>
+        </div>
+
+        <div class="bengor-user-login-form__group">
+            {% include 'component/svg_icon.svg.twig' with {
+                icon: 'login-key',
+                svgClass: 'bengor-user-login__icon'
+            } %}
+            <label class="bengor-user-login__form-label" for="password">
+                {{- 'security.view_password_label' | trans -}}
+            </label>
+            <input class="bengor-user-login__form-input" type="password" id="password" name="_password"/>
+        </div>
+
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"/>
+
+        {% if error %}
+            <div class="bengor-user-login-form__group">
+                <div class="bengor-user-login__form-error">
+                    {{ error.messageKey | trans(error.messageData) }}
+                </div>
+            </div>
+        {% endif %}
+
+        <div class="bengor-user-login-form__group">
+            <button class="bengor-user-login__form-submit" type="submit">
+                {{ 'admin.login.button' | trans({}, 'messages') }}
+            </button>
+        </div>
+    </form>
+
+    <section class="bengor-user-login__footer">
+        <p>
+            Ryan Mcgilchrist<br>
+            {% include 'component/svg_icon.svg.twig' with {
+                icon: 'login-creative-commons',
+                svgClass: 'bengor-user-login__icon--creative-commons'
+            } %}
+        </p>
+        <p>
+            {{ date() | date('h:i a') }} <br>
+            {{ date() | localizeddate('full', 'none', app.request.locale) }}
+        </p>
+    </section>
+</article>

@@ -1,0 +1,6 @@
+services:
+    app.form_type.wysiwyg:
+         class: LIN3S\CMSKernel\Infrastructure\Symfony\Form\Type\WysiwygType
+         arguments:
+         tags:
+             - { name: form.type }

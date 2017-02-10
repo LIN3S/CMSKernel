@@ -18,7 +18,7 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 /**
  * @author Beñat Espiña <benatespina@gmail.com>
  */
-class Lin3sCmsAdminBridgeBundle extends Bundle
+class CmsKernelAdminBridgeBundle extends Bundle
 {
     public function build(ContainerBuilder $container)
     {

@@ -31,7 +31,7 @@ class TranslateListFieldType implements ListFieldType
 
     public function header($name, Entity $configuration)
     {
-        return $this->twig->render('@Lin3sCmsAdminBridge/components/translate_list_field_head.twig');
+        return $this->twig->render('@CmsKernelAdminBridge/components/translate_list_field_head.twig');
     }
 
     public function render($entity, $options, Entity $configuration)
@@ -40,7 +40,7 @@ class TranslateListFieldType implements ListFieldType
             throw new \InvalidArgumentException('Action key is required');
         }
 
-        return $this->twig->render('@Lin3sCmsAdminBridge/components/list_table_translations_content.html.twig', [
+        return $this->twig->render('@CmsKernelAdminBridge/components/list_table_translations_content.html.twig', [
             'entity'       => $entity,
             'action'       => $options['action'],
             'entityConfig' => $configuration,

@@ -21,7 +21,7 @@ class TwigPass implements CompilerPassInterface
 {
     public function process(ContainerBuilder $container)
     {
-        $config = $container->getParameter('lin3s_cms_admin_bridge.config');
+        $config = $container->getParameter('cms_kernel_admin_bridge.config');
 
         $resultLocales = [];
         foreach ($config['locales'] as $localeType => $locales) {

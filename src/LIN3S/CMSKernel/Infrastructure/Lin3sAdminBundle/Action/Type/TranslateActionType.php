@@ -105,7 +105,7 @@ class TranslateActionType implements ActionType
         }
 
         return new Response(
-            $this->twig->render('@Lin3sCmsAdminBridge/Admin/edit_translation.html.twig', [
+            $this->twig->render('@CmsKernelAdminBridge/Admin/edit_translation.html.twig', [
                 'entity'       => $entity,
                 'entityConfig' => $config,
                 'locale'       => $locale,

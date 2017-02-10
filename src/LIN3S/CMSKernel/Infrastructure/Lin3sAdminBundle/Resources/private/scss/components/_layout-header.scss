@@ -1,0 +1,53 @@
+@import '../../../../../../../../../../admin-bundle/src/LIN3S/AdminBundle/Resources/private/scss/helpers/grid';
+@import '../../../../../../../../../../admin-bundle/src/LIN3S/AdminBundle/Resources/private/scss/variables/colors';
+
+$layout-header-name-color: $color-white;
+
+.layout-header {
+  align-items: center;
+  display: flex;
+  height: 50px;
+  justify-content: flex-end;
+  left: 10%;
+  overflow: hidden;
+  position: fixed;
+  transition: height .3s;
+  width: 90%;
+  z-index: 100;
+}
+
+.layout-header__language-switcher,
+.layout-header__me {
+  color: $layout-header-name-color;
+  font-size: 12px;
+  margin-left: 10px;
+}
+
+.layout-header__language-switcher {
+  margin-right: 20px;
+}
+
+.layout-header__button {
+  font-size: 10px;
+  margin-left: 20px;
+  margin-right: 10px;
+  padding-bottom: 0;
+  padding-top: 0;
+}
+
+@media #{$medium-up} {
+  .layout-header {
+    height: 100%;
+    justify-content: flex-end;
+    overflow: auto;
+    position: relative;
+  }
+
+  .layout-header__me {
+    margin-left: 20px;
+  }
+
+  .layout-header__button {
+    margin-right: 20px;
+  }
+}

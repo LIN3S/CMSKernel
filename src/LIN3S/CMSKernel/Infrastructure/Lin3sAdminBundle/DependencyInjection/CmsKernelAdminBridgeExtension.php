@@ -19,7 +19,7 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 /**
  * @author Beñat Espiña <benatespina@gmail.com>
  */
-class Lin3sCmsAdminBridgeExtension extends Extension
+class CmsKernelAdminBridgeExtension extends Extension
 {
     public function load(array $configs, ContainerBuilder $container)
     {
@@ -29,6 +29,6 @@ class Lin3sCmsAdminBridgeExtension extends Extension
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.yml');
 
-        $container->setParameter('lin3s_cms_admin_bridge.config', $config);
+        $container->setParameter('cms_kernel_admin_bridge.config', $config);
     }
 }

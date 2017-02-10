@@ -1,13 +1,13 @@
-{% extends '@LIN3SAdmin/Admin/new.html.twig' %}
+{% extends '@Lin3sAdmin/Admin/new.html.twig' %}
 
-{% set language = 'lin3s_cms_admin_bridge.locale.' ~ locale %}
+{% set language = 'cms_kernel_admin_bridge.locale.' ~ locale %}
 
 {% block lin3s_admin_title %}
     {% trans with {
         '%language%': language | trans,
         '%entity%': entityConfig.printNames.singular | trans | lower
     } %}
-        lin3s_cms_admin_bridge.edit.title
+        cms_kernel_admin_bridge.edit.title
     {% endtrans %}
 {% endblock %}
 
@@ -22,8 +22,8 @@
 
     <div id="react-confirmation-modal-remove-translation"
          data-url="{{ url }}"
-         data-message-title="{{ 'lin3s_cms_admin_bridge.remove_translation.confirmation_modal.title' | trans }}"
-         data-message-description="{{ 'lin3s_cms_admin_bridge.remove_translation.confirmation_modal.description' | trans }}"
-         data-button-title="{{ 'lin3s_cms_admin_bridge.remove_translation.button' | trans }}"
+         data-message-title="{{ 'cms_kernel_admin_bridge.remove_translation.confirmation_modal.title' | trans }}"
+         data-message-description="{{ 'cms_kernel_admin_bridge.remove_translation.confirmation_modal.description' | trans }}"
+         data-button-title="{{ 'cms_kernel_admin_bridge.remove_translation.button' | trans }}"
          data-button-style="button"></div>
 {% endblock %}

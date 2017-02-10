@@ -1,8 +1,8 @@
 <div class="language-switcher">
     {% for locale in locales %}
-        {% set localeTrans = 'lin3s_cms_admin_bridge.locale.' ~ locale %}
+        {% set localeTrans = 'cms_kernel_admin_bridge.locale.' ~ locale %}
 
         <a class="language-switcher__language{% if app.request.locale == locale %} language-switcher__language--current{% endif %}"
-           href="{{ path('lin3s_cms_admin_bridge_switch_locale', {_locale: locale}) }}">{{ localeTrans | trans }}</a>
+           href="{{ path('cms_kernel_admin_bridge_switch_locale', {_locale: locale}) }}">{{ localeTrans | trans }}</a>
     {% endfor %}
 </div>

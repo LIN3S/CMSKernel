@@ -5,9 +5,9 @@
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
 
-lin3s_cms_admin_bridge_switch_locale:
+cms_kernel_admin_bridge_switch_locale:
     path: /locale/{_locale}
     defaults:
-        _controller: Lin3sCmsAdminBridgeBundle:Locale:switchLocale
+        _controller: CmsKernelAdminBridgeBundle:Locale:switchLocale
     methods:
         - GET

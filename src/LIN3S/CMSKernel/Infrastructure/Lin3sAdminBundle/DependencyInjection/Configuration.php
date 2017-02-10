@@ -22,7 +22,7 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $treeBuilder->root('lin3_s_cms_admin_bridge')
+        $treeBuilder->root('cms_kernel_admin_bridge')
             ->children()
                 ->arrayNode('locales')
                     ->children()

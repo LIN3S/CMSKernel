@@ -1,0 +1,194 @@
+@import '../../../../../../../../../../admin-bundle/src/LIN3S/AdminBundle/Resources/private/scss/helpers/grid';
+
+$bengor-user-login-form-background-color: rgba(#000, .7);
+$bengor-user-login-form-white: #fff;
+$bengor-user-login-form-black: #000;
+
+$bengor-user-login-form-error: #a9422e;
+$bengor-user-login-form-error-background: #f2bdb9;
+
+$bengor-user-login-font-weight-regular: 400;
+$bengor-user-login-font-weight-bold: 700;
+
+$bengor-user-login-form-submit-primary-color: $bengor-user-login-form-white;
+$bengor-user-login-form-submit-secondary-color: darken($bengor-user-login-form-submit-primary-color, 10%);
+
+$bengor-user-login-column-gutter: 30px;
+
+$bengor-user-login-header-font-size: 72px;
+
+$bengor-user-login-font-family-title: 'Montserrat', sans-serif;
+$bengor-user-login-font-family-main: 'Roboto', sans-serif;
+
+.bengor-user-login {
+  align-items: center;
+  display: flex;
+  font-family: $bengor-user-login-font-family-main;
+  font-size: 16px;
+  font-weight: $bengor-user-login-font-weight-regular;
+  height: 100vh;
+  justify-content: center;
+  position: relative;
+}
+
+.bengor-user-login__background {
+  height: 100%;
+  width: 100%;
+}
+
+.bengor-user-login__footer {
+  bottom: 0;
+  color: $bengor-user-login-form-white;
+  display: flex;
+  flex-wrap: wrap;
+  font-weight: $bengor-user-login-font-weight-bold;
+  justify-content: center;
+  left: 0;
+  margin-bottom: #{$bengor-user-login-column-gutter / 2};
+  margin-left: $bengor-user-login-column-gutter;
+  margin-right: $bengor-user-login-column-gutter;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.bengor-user-login__icon--creative-commons {
+  fill: $bengor-user-login-form-white;
+  height: 18px;
+  width: 60px;
+}
+
+.bengor-user-login__form {
+  background-color: $bengor-user-login-form-background-color;
+  left: 0;
+  margin-left: 15px;
+  margin-right: 15px;
+  padding-bottom: #{$bengor-user-login-column-gutter * 2};
+  padding-top: #{$bengor-user-login-column-gutter * 2};
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.bengor-user-login__form-header {
+  color: $bengor-user-login-form-white;
+  display: flex;
+  font-family: $bengor-user-login-font-family-title;
+  font-size: $bengor-user-login-header-font-size;
+  justify-content: center;
+  margin-bottom: #{$bengor-user-login-column-gutter};
+}
+
+.bengor-user-login-form__group {
+  display: flex;
+  flex: 1 1 100%;
+  flex-direction: column;
+  margin-bottom: #{$bengor-user-login-column-gutter / 2};
+  margin-top: #{$bengor-user-login-column-gutter / 2};
+  padding-left: $bengor-user-login-column-gutter;
+  padding-right: $bengor-user-login-column-gutter;
+  position: relative;
+}
+
+.bengor-user-login__form-input {
+  background-color: transparent;
+  border: 1px solid $bengor-user-login-form-white;
+  color: $bengor-user-login-form-white;
+  padding-bottom: 3px;
+  padding-left: #{$bengor-user-login-column-gutter + 5};
+  padding-top: 15px;
+  transition: border .3s;
+
+  &:-webkit-autofill {
+    &,
+    &:hover,
+    &:focus,
+    &::selection,
+    &:active {
+      color: $bengor-user-login-form-white;
+      -webkit-text-fill-color: $bengor-user-login-form-white;
+    }
+  }
+}
+
+.bengor-user-login__form-label {
+  align-items: center;
+  color: $bengor-user-login-form-white;
+  display: flex;
+  padding-left: #{$bengor-user-login-column-gutter + 5};
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: all .3s;
+}
+
+.bengor-user-login__form-label--focused {
+  color: rgba($bengor-user-login-form-white, .8);
+  font-size: 12px;
+  transform: translateY(-90%);
+}
+
+.bengor-user-login__icon {
+  fill: $bengor-user-login-form-white;
+  height: 16px;
+  margin-left: 10px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+}
+
+.bengor-user-login__form-error {
+  background-color: $bengor-user-login-form-error-background;
+  border: 1px solid $bengor-user-login-form-error;
+  color: $bengor-user-login-form-error;
+  display: flex;
+  padding: 8px 12px;
+}
+
+.bengor-user-login__form-submit {
+  align-items: center;
+  background-color: $bengor-user-login-form-submit-primary-color;
+  border: 0;
+  cursor: pointer;
+  display: flex;
+  font-family: $bengor-user-login-font-family-title;
+  font-size: 16px;
+  font-weight: $bengor-user-login-font-weight-bold;
+  justify-content: center;
+  padding-bottom: 11px;
+  padding-top: 11px;
+  text-transform: uppercase;
+  transition: background-color .4s;
+  width: 100%;
+
+  &:hover {
+    background-color: $bengor-user-login-form-submit-secondary-color;
+  }
+}
+
+@media #{$medium-up} {
+  .bengor-user-login__form {
+    left: 50%;
+    margin-left: 0;
+    margin-right: 0;
+    max-width: 100%;
+    right: initial;
+    transform: translate(-50%, -50%);
+  }
+
+  .bengor-user-login__form-input {
+    width: 350px;
+  }
+
+  .bengor-user-login__footer {
+    justify-content: space-between;
+    text-align: left;
+
+    :nth-child(even) {
+      text-align: right;
+    }
+  }
+}
