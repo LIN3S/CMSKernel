@@ -1,10 +1,22 @@
+{#
+    This file is part of the CMS Kernel library.
+
+    Copyright (c) 2017-2018 LIN3S <info@lin3s.com>
+
+    For the full copyright and license information, please view the LICENSE
+    file that was distributed with this source code.
+
+    @author Mikel Tuesta <mikel@lin3s.com>
+#}
+
 {% block wysiwyg_widget %}
+    <link rel="stylesheet" href="{{ asset('bundles/lin3scmskernel/css/components/wysiwyg.min.css') }}"/>
 
     <div class="wysiwyg">
         <input id="{{ id }}" name="{{ full_name }}" class="wysiwyg__form-input" type="hidden" value="{{ value }}"/>
         <div class="wysiwyg__react-wrapper"></div>
 
-        <script src="{{ asset('bundles/lin3scmskernel/js/components/wysiwyg.js') }}"></script>
+        <script src="{{ asset('bundles/lin3scmskernel/js/components/wysiwyg.min.js') }}"></script>
     </div>
 
 {% endblock %}
