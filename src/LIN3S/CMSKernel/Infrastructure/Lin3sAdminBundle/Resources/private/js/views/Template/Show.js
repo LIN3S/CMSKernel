@@ -7,13 +7,9 @@
  * file that was distributed with this source code.
  */
 
-'use strict';
+import {$, onDomReady} from './../../../../../../Ui/Assets/js/externals.modules';
 
-import $ from 'jquery';
-import EventPublisher from '../../EventPublisherInstance';
-import {DOMReadyEventSubscriber} from 'lin3s-event-bus';
-
-const onReady = () => {
+const init = () => {
   $('#templateName').on('change', (event) => {
     $.get(`/admin/templates/${$(event.currentTarget).val()}`).done((response) => {
       $('.js-template').remove();
@@ -22,11 +18,4 @@ const onReady = () => {
   });
 };
 
-const init = () => {
-  EventPublisher.subscribe(
-    new DOMReadyEventSubscriber(
-      onReady
-    )
-  );
-};
-export default init();
+onDomReady(init);

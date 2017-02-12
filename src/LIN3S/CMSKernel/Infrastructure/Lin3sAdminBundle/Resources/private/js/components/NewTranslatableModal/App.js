@@ -7,13 +7,13 @@
  * file that was distributed with this source code.
  */
 
-'use strict';
+/* eslint-disable react/no-danger */
 
-import React, {Component} from 'react';
+import {React} from './../../../../../../Ui/Assets/js/externals.modules';
 
 import NewTranslatableModal from './Component';
 
-class App extends Component {
+class App extends React.Component {
   static propTypes = {
     button: React.PropTypes.string.isRequired,
     callback: React.PropTypes.func.isRequired,

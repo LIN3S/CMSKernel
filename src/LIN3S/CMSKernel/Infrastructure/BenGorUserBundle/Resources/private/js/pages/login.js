@@ -7,11 +7,7 @@
  * file that was distributed with this source code.
  */
 
-'use strict';
-
-import $ from 'jquery';
-import {DOMReadyEventSubscriber} from 'lin3s-event-bus';
-import EventPublisher from './../../EventPublisherInstance';
+import {$, onDomReady} from './../../../../../Ui/Assets/js/externals.modules';
 
 const focusIn = (event) => {
   $(event.currentTarget).prev().addClass('bengor-user-login__form-label--focused');
@@ -23,7 +19,7 @@ const focusOut = (event) => {
   }
 };
 
-const onReady = () => {
+const init = () => {
   const $input = $('.bengor-user-login__form-input');
 
   if ($input.length === 0) {
@@ -40,12 +36,4 @@ const onReady = () => {
   $input.focusout(focusOut);
 };
 
-const init = () => {
-  EventPublisher.subscribe(
-    new DOMReadyEventSubscriber(
-      onReady
-    )
-  );
-};
-
-export default init();
+onDomReady(init);

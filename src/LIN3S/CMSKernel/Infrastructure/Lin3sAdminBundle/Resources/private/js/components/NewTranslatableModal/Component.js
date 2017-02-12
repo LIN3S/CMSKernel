@@ -7,10 +7,7 @@
  * file that was distributed with this source code.
  */
 
-'use strict';
-
-import React, {Component} from 'react';
-import Modal from 'react-modal';
+import {React, Modal} from './../../../../../../Ui/Assets/js/externals.modules';
 
 const styles = {
   reactModalOverlay: {
@@ -54,7 +51,7 @@ const styles = {
   }
 };
 
-class NewTranslatableModal extends Component {
+class NewTranslatableModal extends React.Component {
   static propTypes = {
     args: React.PropTypes.array,
     button: React.PropTypes.string.isRequired,
@@ -80,7 +77,7 @@ class NewTranslatableModal extends Component {
         <option key={locale} value={locale}>{localeString}</option>
       );
 
-      if (0 === index) {
+      if (index === 0) {
         document
           .getElementById('react-confirm-global-action')
           .setAttribute('data-selected-locale', locale);
@@ -107,10 +104,12 @@ class NewTranslatableModal extends Component {
   content() {
     const content = JSON.parse(this.props.content);
 
+    /* eslint-disable dot-notation */
     return {
       main: content['main'] ? content.main : '',
       locales: content['locales'] ? content.locales : '',
     };
+    /* eslint-enable dot-notation */
   }
 
   render() {

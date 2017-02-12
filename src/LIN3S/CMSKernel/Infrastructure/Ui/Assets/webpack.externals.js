@@ -22,10 +22,12 @@ const
     return {
       'react': buildExternal('React', 'react'),
       'react-dom': buildExternal('ReactDOM', 'react'),
+      'react-modal': buildExternal('ReactModal', 'react-modal'),
       'lin3s-event-bus': buildExternal('lin3sEventBus', 'lin3s-event-bus'),
       'react-draft-wysiwyg': buildExternal('reactDraftWysiwyg', 'react-draft-wysiwyg'),
       'draft-js': buildExternal('draftJs', 'draft-js'),
-      'draftjs-to-html': buildExternal('draftjsToHtml', 'draftjs-to-html')
+      'draftjs-to-html': buildExternal('draftjsToHtml', 'draftjs-to-html'),
+      'jquery': buildExternal('jquery', 'jquery')
     }
   };
 

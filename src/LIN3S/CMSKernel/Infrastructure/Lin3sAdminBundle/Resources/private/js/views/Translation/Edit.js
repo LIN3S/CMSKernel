@@ -7,14 +7,11 @@
  * file that was distributed with this source code.
  */
 
-'use strict';
+import {React, ReactDOM, onDomReady} from './../../../../../../Ui/Assets/js/externals.modules';
 
-import React from 'react';
-import ReactDOM from 'react-dom';
-
-import EventPublisher from '../../EventPublisherInstance';
-import {DOMReadyEventSubscriber} from 'lin3s-event-bus';
-import {ConfirmationModal} from './../../../../../../../../../../../../admin-bundle/src/LIN3S/AdminBundle/Resources/private/js/lib/index';
+/* eslint-disable max-len */
+import {ConfirmationModal} from './../../../../../../../../../../../admin-bundle/src/LIN3S/AdminBundle/Resources/private/js/lib/index';
+/* eslint-enable max-len */
 
 const removeTranslationCallBack = (element) => {
   return window.location.replace(
@@ -22,7 +19,7 @@ const removeTranslationCallBack = (element) => {
   );
 };
 
-const onReady = () => {
+const init = () => {
   const element = document.getElementById('react-confirmation-modal-remove-translation');
 
   if (element) {
@@ -33,20 +30,13 @@ const onReady = () => {
 
     ReactDOM.render(
       <ConfirmationModal
-        trigger={trigger}
         callback={removeTranslationCallBack.bind(this, element)}
         description={element.getAttribute('data-message-description')}
-        title={element.getAttribute('data-message-title')}/>,
+        title={element.getAttribute('data-message-title')}
+        trigger={trigger}/>,
       element
     );
   }
 };
 
-const init = () => {
-  EventPublisher.subscribe(
-    new DOMReadyEventSubscriber(
-      onReady
-    )
-  );
-};
-export default init();
+onDomReady(init);

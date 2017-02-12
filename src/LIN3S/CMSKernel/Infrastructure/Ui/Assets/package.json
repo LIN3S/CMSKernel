@@ -28,7 +28,8 @@
     "lin3s-event-bus": "^0.3.2",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
-    "react-draft-wysiwyg": "^1.7.3"
+    "react-draft-wysiwyg": "^1.7.3",
+    "react-modal": "^1.6.5"
   },
   "babel": {
     "presets": [
@@ -43,11 +44,9 @@
   "scripts": {
     "build": "npm-run-all --parallel build:main:*",
     "build:prod": "npm-run-all --parallel build:prod:* -p",
-
     "build:main:event-bus-js-init": "webpack --config=webpack.event-bus-js-init.config.babel.js",
     "build:main:components": "webpack --config=webpack.components.config.babel.js",
     "build:main:bundle": "webpack --config=webpack.bundle.config.babel.js",
-
     "build:prod:event-bus-js-init": "webpack --config=webpack.event-bus-js-init.config.babel.js -p",
     "build:prod:components": "webpack --config=webpack.components.config.babel.js -p",
     "build:prod:bundle": "webpack --config=webpack.bundle.config.babel.js -p"

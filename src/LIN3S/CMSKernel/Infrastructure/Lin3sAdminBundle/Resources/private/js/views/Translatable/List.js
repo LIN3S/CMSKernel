@@ -7,14 +7,9 @@
  * file that was distributed with this source code.
  */
 
-'use strict';
+import {React, ReactDOM, onDomReady} from './../../../../../../Ui/Assets/js/externals.modules';
 
-import React from 'react';
-import ReactDOM from 'react-dom';
-
-import EventPublisher from '../../EventPublisherInstance';
-import {DOMReadyEventSubscriber} from 'lin3s-event-bus';
-import NewTranslatableModal from '../../components/NewTranslatableModal/App';
+import NewTranslatableModal from './../../components/NewTranslatableModal/App';
 
 const newTranslatableCallback = (element) => {
   return window.location.replace(
@@ -22,7 +17,7 @@ const newTranslatableCallback = (element) => {
   );
 };
 
-const onReady = () => {
+const init = () => {
   const element = document.getElementById('react-confirm-global-action');
 
   if (element) {
@@ -43,11 +38,4 @@ const onReady = () => {
   }
 };
 
-const init = () => {
-  EventPublisher.subscribe(
-    new DOMReadyEventSubscriber(
-      onReady
-    )
-  );
-};
-export default init();
+onDomReady(init);
