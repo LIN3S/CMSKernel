@@ -26,11 +26,16 @@ export default {
     libraryTarget: 'window'
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js$/,
-        loader: 'babel-loader',
-        include: include
+        include: include,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: 'babel-loader'
+          }
+        ]
       }
     ]
   },

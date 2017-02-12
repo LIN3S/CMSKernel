@@ -25,14 +25,19 @@ export default {
     path: `${outputPath}/js`,
     publicPath: '/',
     filename: 'bundle.min.js',
-    libraryTarget: 'umd'
+    libraryTarget: 'window'
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js$/,
-        loader: 'babel-loader',
-        include: include
+        include: include,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: 'babel-loader'
+          }
+        ]
       },
       {
         test: /\.(s?css)$/,

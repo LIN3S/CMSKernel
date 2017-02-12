@@ -22,13 +22,9 @@ const
 
 const
   getEntry = () => {
-    const entry = {
+    return {
       'wysiwyg': `${include}/components/wysiwyg/wysiwyg.js`
     };
-
-//     entry[`${outputPath}js/wysiwyg/`] = `${include}/components/wysiwyg/wysiwyg.js`;
-
-    return entry;
   };
 
 export default {
@@ -37,7 +33,7 @@ export default {
   output: {
     path: `${outputPath}/js`,
     publicPath: '/',
-    filename: '[name].min.js',
+    filename: '/components/[name].min.js',
     libraryTarget: 'window'
   },
   module: {
@@ -48,15 +44,7 @@ export default {
         exclude: /node_modules/,
         use: [
           {
-            loader: 'babel-loader',
-            options: {
-              presets: [
-                "react",
-                "es2015",
-                "stage-2"
-              ],
-              compact: false
-            }
+            loader: 'babel-loader'
           },
           {
             loader: 'eslint-loader',
@@ -77,7 +65,7 @@ export default {
     ]
   },
   plugins: [
-    new ExtractTextPlugin('./../css/[name].min.css'),
+    new ExtractTextPlugin('./../css/components/[name].min.css'),
     new Webpack.LoaderOptionsPlugin({
       options: {
         postcss: [
