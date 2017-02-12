@@ -15,11 +15,4 @@ use Symfony\Component\Form\AbstractType;
 
 class WysiwygType extends AbstractType
 {
-    public function mapDataToForms($data, $forms)
-    {
-    }
-
-    public function mapFormsToData($forms, &$data)
-    {
-    }
 }
