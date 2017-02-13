@@ -17,7 +17,7 @@ import Webpack from 'webpack';
 
 const
   include = join(__dirname, 'js'),
-  outputPath = './../../Symfony/Bundle/Resources/public/';
+  outputPath = join(__dirname, './../../Symfony/Bundle/Resources/public/');
 
 export default {
   entry: './js/bundle.js',

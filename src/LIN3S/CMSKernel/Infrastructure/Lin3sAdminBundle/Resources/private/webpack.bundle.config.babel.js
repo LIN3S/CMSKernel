@@ -18,7 +18,7 @@ import getWebpackExternals from './../../../Ui/Assets/webpack.externals';
 
 const
   include = join(__dirname, 'js'),
-  outputPath = './../public/';
+  outputPath = join(__dirname, './../public/');
 
 export default {
   entry: `${include}/bundle.js`,

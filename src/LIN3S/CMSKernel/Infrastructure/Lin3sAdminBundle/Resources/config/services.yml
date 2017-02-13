@@ -58,3 +58,10 @@ services:
             - "@session.flash_bag"
         tags:
             - { name: "lin3s_admin.action", alias: remove_translation }
+
+    cms_kernel_admin_bridge.twig.action_translation_filter:
+        class: LIN3S\CMSKernel\Infrastructure\Lin3sAdminBundle\Twig\TwigActionTranslationFilter
+        arguments:
+            - "@translator"
+        tags:
+            - { name: twig.extension }

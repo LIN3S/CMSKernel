@@ -65,9 +65,11 @@ class TranslatableStringListField implements ListFieldType
 
             return (string) $value;
         } catch (TranslationDoesNotExistException $exception) {
-            return $this->translator->trans('cms_kernel_admin_bridge.translation.locale_not_defined', [
-                '%locale%' => $this->translator->getLocale(),
-            ]);
+            return $this->translator->trans(
+                'cms_kernel_admin_bridge.translation.locale_not_defined',
+                ['%locale%' => $this->translator->getLocale()],
+                'CmsKernelAdminBridge'
+            );
         }
     }
 }

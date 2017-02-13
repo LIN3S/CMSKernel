@@ -24,4 +24,9 @@ class CmsKernelAdminBridgeBundle extends Bundle
     {
         $container->addCompilerPass(new TwigPass());
     }
+
+    public function getParent()
+    {
+        return 'Lin3sAdminBundle';
+    }
 }

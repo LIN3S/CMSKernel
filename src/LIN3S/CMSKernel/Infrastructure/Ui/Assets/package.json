@@ -44,11 +44,19 @@
   "scripts": {
     "build": "npm-run-all --parallel build:main:*",
     "build:prod": "npm-run-all --parallel build:prod:* -p",
-    "build:main:event-bus-js-init": "webpack --config=webpack.event-bus-js-init.config.babel.js",
-    "build:main:components": "webpack --config=webpack.components.config.babel.js",
-    "build:main:bundle": "webpack --config=webpack.bundle.config.babel.js",
-    "build:prod:event-bus-js-init": "webpack --config=webpack.event-bus-js-init.config.babel.js -p",
-    "build:prod:components": "webpack --config=webpack.components.config.babel.js -p",
-    "build:prod:bundle": "webpack --config=webpack.bundle.config.babel.js -p"
+
+    "build:main:event-bus-js-init": "webpack --config=./webpack.event-bus-js-init.config.babel.js",
+    "build:main:components": "webpack --config=./webpack.components.config.babel.js",
+    "build:main:bundle": "webpack --config=./webpack.bundle.config.babel.js",
+
+    "build:main:lin3s-admin-bridge-bundle": "webpack --config=./../../Lin3sAdminBundle/Resources/private/webpack.bundle.config.babel.js",
+    "build:main:bengor-user-bridge-bundle": "webpack --config=./../../BenGorUserBundle/Resources/private/webpack.bundle.config.babel.js",
+
+    "build:prod:event-bus-js-init": "webpack --config=./webpack.event-bus-js-init.config.babel.js -p",
+    "build:prod:components": "webpack --config=./webpack.components.config.babel.js -p",
+    "build:prod:bundle": "webpack --config=./webpack.bundle.config.babel.js -p",
+
+    "build:prod:lin3s-admin-bridge-bundle": "webpack --config=./../../Lin3sAdminBundle/Resources/private/webpack.bundle.config.babel.js -p",
+    "build:prod:bengor-user-bridge-bundle": "webpack --config=./../../BenGorUserBundle/Resources/private/webpack.bundle.config.babel.js -p"
   }
 }

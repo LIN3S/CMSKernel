@@ -9,7 +9,11 @@
  * @author Mikel Tuesta <mikel@lin3s.com>
  */
 
-import {listenDomReady, listenDomLoaded} from './../externals.modules';
+const
+  getComponentsMap = (rootPath) => {
+    return {
+      'wysiwyg': `${rootPath}/wysiwyg/wysiwyg.js`
+    };
+  };
 
-listenDomReady();
-listenDomLoaded();
+export default getComponentsMap;

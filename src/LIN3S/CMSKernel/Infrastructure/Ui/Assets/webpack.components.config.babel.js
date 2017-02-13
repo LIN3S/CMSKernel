@@ -15,20 +15,14 @@ import {join, resolve} from 'path';
 import precss from 'precss';
 import Webpack from 'webpack';
 import getWebpackExternals from './webpack.externals';
+import getComponentsMap from './js/components/components.map';
 
 const
   include = join(__dirname, 'js'),
-  outputPath = './../../Symfony/Bundle/Resources/public/';
-
-const
-  getEntry = () => {
-    return {
-      'wysiwyg': `${include}/components/wysiwyg/wysiwyg.js`
-    };
-  };
+  outputPath = join(__dirname, './../../Symfony/Bundle/Resources/public/');
 
 export default {
-  entry: getEntry(),
+  entry: getComponentsMap(`${include}/components`),
   externals: getWebpackExternals(),
   output: {
     path: `${outputPath}/js`,

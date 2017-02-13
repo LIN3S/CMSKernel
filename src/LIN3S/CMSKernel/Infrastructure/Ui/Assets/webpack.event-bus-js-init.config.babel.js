@@ -12,9 +12,9 @@
 import {join, resolve} from 'path';
 import getWebpackExternals from './webpack.externals';
 
-const include = join(__dirname, 'js');
 const
-  outputPath = './../../Symfony/Bundle/Resources/public/';
+  include = join(__dirname, 'js'),
+  outputPath = join(__dirname, './../../Symfony/Bundle/Resources/public/');
 
 export default {
   entry: './js/event-bus-js/init.js',
