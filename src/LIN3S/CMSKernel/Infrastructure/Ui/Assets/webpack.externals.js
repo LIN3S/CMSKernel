@@ -10,9 +10,9 @@
  */
 
 const
-  buildExternal = (rootName, moduleName) => {
+  buildExternal = (globalName, moduleName) => {
     return {
-      root: rootName,
+      global: globalName,
       commonjs2: moduleName,
       commonjs: moduleName,
       amd: moduleName
@@ -22,7 +22,7 @@ const
     return {
       'react': buildExternal('React', 'react'),
       'react-dom': buildExternal('ReactDOM', 'react'),
-      'react-modal': buildExternal('ReactModal', 'react-modal'),
+      'react-modal': buildExternal('Modal', 'react-modal'),
       'lin3s-event-bus': buildExternal('lin3sEventBus', 'lin3s-event-bus'),
       'react-draft-wysiwyg': buildExternal('reactDraftWysiwyg', 'react-draft-wysiwyg'),
       'draft-js': buildExternal('draftJs', 'draft-js'),
@@ -31,4 +31,4 @@ const
     }
   };
 
-export default getWebpackExternals;
+export {buildExternal, getWebpackExternals};

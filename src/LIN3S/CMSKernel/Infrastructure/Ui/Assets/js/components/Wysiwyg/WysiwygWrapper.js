@@ -19,7 +19,7 @@ import {
   convertFromHTML,
   convertToRaw,
   draftToHtml
-} from './../../externals.modules';
+} from './../../dependencies.modules';
 
 class WysiwygWrapper extends React.Component {
 

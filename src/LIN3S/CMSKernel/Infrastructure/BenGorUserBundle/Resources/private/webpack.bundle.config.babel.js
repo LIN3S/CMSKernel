@@ -14,7 +14,7 @@ import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import {join, resolve} from 'path';
 import precss from 'precss';
 import Webpack from 'webpack';
-import getWebpackExternals from './../../../Ui/Assets/webpack.externals';
+import {getWebpackExternals} from './../../../Ui/Assets/webpack.externals';
 
 const
   include = join(__dirname, 'js'),
@@ -27,7 +27,7 @@ export default {
     path: `${outputPath}/js`,
     publicPath: '/',
     filename: '/bundle.min.js',
-    libraryTarget: 'window'
+    libraryTarget: 'var'
   },
   module: {
     rules: [

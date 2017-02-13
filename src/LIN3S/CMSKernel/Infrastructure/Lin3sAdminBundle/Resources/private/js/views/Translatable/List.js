@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 
-import {React, ReactDOM, onDomReady} from './../../../../../../Ui/Assets/js/externals.modules';
+import {React, ReactDOM, onDomReady} from './../../../../../../Ui/Assets/js/dependencies.modules';
 
 import NewTranslatableModal from './../../components/NewTranslatableModal/App';
 

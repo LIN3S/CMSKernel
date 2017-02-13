@@ -9,5 +9,5 @@
  * @author Mikel Tuesta <mikel@lin3s.com>
  */
 
-import './externals.styles';
-import './externals.modules';
+import './dependencies.styles';
+import './dependencies.modules';

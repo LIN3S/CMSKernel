@@ -1,2 +1,161 @@
-.bengor-user-login{-ms-flex-align:center;align-items:center;display:-ms-flexbox;display:flex;font-family:Roboto,sans-serif;font-size:16px;font-weight:400;height:100vh;-ms-flex-pack:center;justify-content:center;position:relative}.bengor-user-login__background{height:100%;width:100%}.bengor-user-login__footer{bottom:0;color:#fff;display:-ms-flexbox;display:flex;-ms-flex-wrap:wrap;flex-wrap:wrap;font-weight:700;-ms-flex-pack:center;justify-content:center;left:0;margin-bottom:15px;margin-left:30px;margin-right:30px;position:absolute;right:0;text-align:center;text-transform:uppercase}.bengor-user-login__icon--creative-commons{fill:#fff;height:18px;width:60px}.bengor-user-login__form{background-color:rgba(0,0,0,.7);left:0;margin-left:15px;margin-right:15px;padding-bottom:60px;padding-top:60px;position:absolute;right:0;top:50%;transform:translateY(-50%)}.bengor-user-login__form-header{color:#fff;display:-ms-flexbox;display:flex;font-family:Montserrat,sans-serif;font-size:72px;-ms-flex-pack:center;justify-content:center;margin-bottom:30px}.bengor-user-login-form__group{display:-ms-flexbox;display:flex;-ms-flex:1 1 100%;flex:1 1 100%;-ms-flex-direction:column;flex-direction:column;margin-bottom:15px;margin-top:15px;padding-left:30px;padding-right:30px;position:relative}.bengor-user-login__form-input{background-color:transparent;border:1px solid #fff;color:#fff;padding-bottom:3px;padding-left:35px;padding-top:15px;transition:border .3s}.bengor-user-login__form-input:-webkit-autofill,.bengor-user-login__form-input:-webkit-autofill::selection,.bengor-user-login__form-input:-webkit-autofill:active,.bengor-user-login__form-input:-webkit-autofill:focus,.bengor-user-login__form-input:-webkit-autofill:hover{color:#fff;-webkit-text-fill-color:#fff}.bengor-user-login__form-label{-ms-flex-align:center;align-items:center;color:#fff;display:-ms-flexbox;display:flex;padding-left:35px;position:absolute;top:50%;transform:translateY(-50%);transition:all .3s}.bengor-user-login__form-label--focused{color:hsla(0,0%,100%,.8);font-size:12px;transform:translateY(-90%)}.bengor-user-login__icon{fill:#fff;height:16px;margin-left:10px;position:absolute;top:50%;transform:translateY(-50%);width:16px}.bengor-user-login__form-error{background-color:#f2bdb9;border:1px solid #a9422e;color:#a9422e;display:-ms-flexbox;display:flex;padding:8px 12px}.bengor-user-login__form-submit{-ms-flex-align:center;align-items:center;background-color:#fff;border:0;cursor:pointer;display:-ms-flexbox;display:flex;font-family:Montserrat,sans-serif;font-size:16px;font-weight:700;-ms-flex-pack:center;justify-content:center;padding-bottom:11px;padding-top:11px;text-transform:uppercase;transition:background-color .4s;width:100%}.bengor-user-login__form-submit:hover{background-color:#e6e6e6}@media only screen and (min-width:641px){.bengor-user-login__form{left:50%;margin-left:0;margin-right:0;max-width:100%;right:auto;transform:translate(-50%,-50%)}.bengor-user-login__form-input{width:350px}.bengor-user-login__footer{-ms-flex-pack:justify;justify-content:space-between;text-align:left}.bengor-user-login__footer :nth-child(2n){text-align:right}}
+.bengor-user-login {
+  -ms-flex-align: center;
+      align-items: center;
+  display: -ms-flexbox;
+  display: flex;
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  height: 100vh;
+  -ms-flex-pack: center;
+      justify-content: center;
+  position: relative; }
+
+.bengor-user-login__background {
+  height: 100%;
+  width: 100%; }
+
+.bengor-user-login__footer {
+  bottom: 0;
+  color: #fff;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  font-weight: 700;
+  -ms-flex-pack: center;
+      justify-content: center;
+  left: 0;
+  margin-bottom: 15px;
+  margin-left: 30px;
+  margin-right: 30px;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  text-transform: uppercase; }
+
+.bengor-user-login__icon--creative-commons {
+  fill: #fff;
+  height: 18px;
+  width: 60px; }
+
+.bengor-user-login__form {
+  background-color: rgba(0, 0, 0, 0.7);
+  left: 0;
+  margin-left: 15px;
+  margin-right: 15px;
+  padding-bottom: 60px;
+  padding-top: 60px;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%); }
+
+.bengor-user-login__form-header {
+  color: #fff;
+  display: -ms-flexbox;
+  display: flex;
+  font-family: "Montserrat", sans-serif;
+  font-size: 72px;
+  -ms-flex-pack: center;
+      justify-content: center;
+  margin-bottom: 30px; }
+
+.bengor-user-login-form__group {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex: 1 1 100%;
+      flex: 1 1 100%;
+  -ms-flex-direction: column;
+      flex-direction: column;
+  margin-bottom: 15px;
+  margin-top: 15px;
+  padding-left: 30px;
+  padding-right: 30px;
+  position: relative; }
+
+.bengor-user-login__form-input {
+  background-color: transparent;
+  border: 1px solid #fff;
+  color: #fff;
+  padding-bottom: 3px;
+  padding-left: 35px;
+  padding-top: 15px;
+  transition: border .3s; }
+  .bengor-user-login__form-input:-webkit-autofill, .bengor-user-login__form-input:-webkit-autofill:hover, .bengor-user-login__form-input:-webkit-autofill:focus, .bengor-user-login__form-input:-webkit-autofill::selection, .bengor-user-login__form-input:-webkit-autofill:active {
+    color: #fff;
+    -webkit-text-fill-color: #fff; }
+
+.bengor-user-login__form-label {
+  -ms-flex-align: center;
+      align-items: center;
+  color: #fff;
+  display: -ms-flexbox;
+  display: flex;
+  padding-left: 35px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: all .3s; }
+
+.bengor-user-login__form-label--focused {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 12px;
+  transform: translateY(-90%); }
+
+.bengor-user-login__icon {
+  fill: #fff;
+  height: 16px;
+  margin-left: 10px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px; }
+
+.bengor-user-login__form-error {
+  background-color: #f2bdb9;
+  border: 1px solid #a9422e;
+  color: #a9422e;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 8px 12px; }
+
+.bengor-user-login__form-submit {
+  -ms-flex-align: center;
+      align-items: center;
+  background-color: #fff;
+  border: 0;
+  cursor: pointer;
+  display: -ms-flexbox;
+  display: flex;
+  font-family: "Montserrat", sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  -ms-flex-pack: center;
+      justify-content: center;
+  padding-bottom: 11px;
+  padding-top: 11px;
+  text-transform: uppercase;
+  transition: background-color .4s;
+  width: 100%; }
+  .bengor-user-login__form-submit:hover {
+    background-color: #e6e6e6; }
+
+@media only screen and (min-width: 641px) {
+  .bengor-user-login__form {
+    left: 50%;
+    margin-left: 0;
+    margin-right: 0;
+    max-width: 100%;
+    right: initial;
+    transform: translate(-50%, -50%); }
+  .bengor-user-login__form-input {
+    width: 350px; }
+  .bengor-user-login__footer {
+    -ms-flex-pack: justify;
+        justify-content: space-between;
+    text-align: left; }
+    .bengor-user-login__footer :nth-child(even) {
+      text-align: right; } }
+
 /*# sourceMappingURL=bundle.min.css.map*/

@@ -10,7 +10,7 @@
  */
 
 import {join, resolve} from 'path';
-import getWebpackExternals from './webpack.externals';
+import {getWebpackExternals} from './webpack.externals';
 
 const
   include = join(__dirname, 'js'),
@@ -23,7 +23,7 @@ export default {
     path: `${outputPath}/js`,
     publicPath: '/',
     filename: 'event-bus-js-init.min.js',
-    libraryTarget: 'window'
+    libraryTarget: 'var'
   },
   module: {
     rules: [

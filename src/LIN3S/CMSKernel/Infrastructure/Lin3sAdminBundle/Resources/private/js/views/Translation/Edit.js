@@ -7,11 +7,9 @@
  * file that was distributed with this source code.
  */
 
-import {React, ReactDOM, onDomReady} from './../../../../../../Ui/Assets/js/externals.modules';
+import {React, ReactDOM, onDomReady} from './../../../../../../Ui/Assets/js/dependencies.modules';
 
-/* eslint-disable max-len */
-import {ConfirmationModal} from './../../../../../../../../../../../admin-bundle/src/LIN3S/AdminBundle/Resources/private/js/lib/index';
-/* eslint-enable max-len */
+import {ConfirmationModal} from './../../../../../../Ui/Assets/js/components/components.library';
 
 const removeTranslationCallBack = (element) => {
   return window.location.replace(

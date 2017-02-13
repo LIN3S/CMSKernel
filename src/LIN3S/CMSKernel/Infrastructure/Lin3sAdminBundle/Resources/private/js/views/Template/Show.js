@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 
-import {$, onDomReady} from './../../../../../../Ui/Assets/js/externals.modules';
+import {$, onDomReady} from './../../../../../../Ui/Assets/js/dependencies.modules';
 
 const init = () => {
   $('#templateName').on('change', (event) => {

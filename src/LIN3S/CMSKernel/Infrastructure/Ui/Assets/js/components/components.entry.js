@@ -9,7 +9,12 @@
  * @author Mikel Tuesta <mikel@lin3s.com>
  */
 
-import {listenDomReady, listenDomLoaded} from './../dependencies.modules';
+const
+  getComponentsMap = (rootPath) => {
+    return {
+      'confirmation-modal': `${rootPath}/ConfirmationModal/App.js`,
+      'wysiwyg': `${rootPath}/Wysiwyg/Wysiwyg.js`
+    };
+  };
 
-listenDomReady();
-listenDomLoaded();
+export default getComponentsMap;

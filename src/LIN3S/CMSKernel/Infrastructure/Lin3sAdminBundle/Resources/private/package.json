@@ -1,5 +1,5 @@
 {
-  "name": "cms-kernel-bengor-user-bridge-bundle",
+  "name": "cms-kernel-lin3s-admin-bridge-bundle",
   "author": "LIN3S",
   "private": true,
   "devDependencies": {
@@ -33,7 +33,7 @@
     ]
   },
   "scripts": {
-    "build": "webpack --config=webpack.bundle.config.babel.js",
-    "build:prod": "webpack --config=webpack.bundle.config.babel.js -p"
+    "build": "webpack --config=./webpack.bundle.config.babel.js",
+    "build:prod": "webpack --config=./webpack.bundle.config.babel.js -p"
   }
 }

@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 
-import {React, Modal} from './../../../../../../Ui/Assets/js/externals.modules';
+import {React, Modal} from './../../../../../../Ui/Assets/js/dependencies.modules';
 
 const styles = {
   reactModalOverlay: {

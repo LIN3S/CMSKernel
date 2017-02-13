@@ -20,12 +20,12 @@ const
   outputPath = join(__dirname, './../../Symfony/Bundle/Resources/public/');
 
 export default {
-  entry: './js/bundle.js',
+  entry: './js/dependencies.js',
   output: {
     path: `${outputPath}/js`,
     publicPath: '/',
-    filename: 'bundle.min.js',
-    libraryTarget: 'window'
+    filename: 'dependencies.min.js',
+    libraryTarget: 'var'
   },
   module: {
     rules: [
@@ -50,7 +50,7 @@ export default {
     ]
   },
   plugins: [
-    new ExtractTextPlugin('./../css/bundle.min.css'),
+    new ExtractTextPlugin('./../css/dependencies.min.css'),
     new Webpack.LoaderOptionsPlugin({
       options: {
         postcss: [

@@ -1,25 +1,15 @@
-/*
- * This file is part of the CMS Kernel library.
- *
- * Copyright (c) 2016-2017 LIN3S <info@lin3s.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+/* eslint react/no-danger: 0 */
 
-/* eslint-disable react/no-danger */
+import {React} from './../../dependencies.modules';
 
-import {React} from './../../../../../../Ui/Assets/js/dependencies.modules';
-
-import NewTranslatableModal from './Component';
+import ConfirmationModal3 from './Component';
 
 class App extends React.Component {
   static propTypes = {
-    button: React.PropTypes.string.isRequired,
-    callback: React.PropTypes.func.isRequired,
-    content: React.PropTypes.string.isRequired,
+    callback: React.PropTypes.func,
+    description: React.PropTypes.string,
     title: React.PropTypes.string,
-    trigger: React.PropTypes.object,
+    trigger: React.PropTypes.object
   };
 
   constructor() {
@@ -45,6 +35,13 @@ class App extends React.Component {
     document.getElementsByTagName('body')[0].style.overflow = '';
   }
 
+  buildContent() {
+    return {
+      title: this.props.title ? this.props.title : '',
+      message: this.props.description ? this.props.description : ''
+    };
+  }
+
   buildTrigger() {
     return (
       <button
@@ -58,13 +55,11 @@ class App extends React.Component {
     return (
       <div>
         {this.buildTrigger()}
-        <NewTranslatableModal
-          button={this.props.button}
+        <ConfirmationModal3
           callback={this.props.callback}
           closeModal={this.closeModal.bind(this)}
-          content={this.props.content}
+          content={this.buildContent()}
           isOpen={this.state.modalIsOpen}
-          title={this.props.title}
         />
       </div>
     );

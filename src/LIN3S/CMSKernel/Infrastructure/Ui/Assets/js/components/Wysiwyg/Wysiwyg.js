@@ -9,7 +9,7 @@
  * @author Mikel Tuesta <mikel@lin3s.com>
  */
 
-import {ReactDOM, onDomReady} from './../../externals.modules';
+import {ReactDOM, onDomReady} from './../../dependencies.modules';
 
 import WysiwygWrapper from './WysiwygWrapper';
 

@@ -9,11 +9,10 @@
  * @author Mikel Tuesta <mikel@lin3s.com>
  */
 
-const
-  getComponentsMap = (rootPath) => {
-    return {
-      'wysiwyg': `${rootPath}/wysiwyg/wysiwyg.js`
-    };
-  };
+import ConfirmationModal from './../../../../Symfony/Bundle/Resources/public/js/components/confirmation-modal.min';
+import Wysiwyg from './../../../../Symfony/Bundle/Resources/public/js/components/wysiwyg.min';
 
-export default getComponentsMap;
+export {
+  ConfirmationModal,
+  Wysiwyg
+};
