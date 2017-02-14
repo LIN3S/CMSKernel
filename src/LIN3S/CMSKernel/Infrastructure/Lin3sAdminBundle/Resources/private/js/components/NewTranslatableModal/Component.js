@@ -7,8 +7,7 @@
  * file that was distributed with this source code.
  */
 
-import React from 'react';
-import Modal from 'react-modal';
+import {React, Modal} from './../../../../../../Ui/Assets/js/bundle.modules';
 
 const styles = {
   reactModalOverlay: {

@@ -9,7 +9,7 @@
 
 /* eslint-disable react/no-danger */
 
-import React from 'react';
+import {React} from './../../../../../../Ui/Assets/js/bundle.modules';
 
 import NewTranslatableModal from './Component';
 

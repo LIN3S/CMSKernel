@@ -9,7 +9,7 @@
  * @author Mikel Tuesta <mikel@lin3s.com>
  */
 
-import {lin3sEventBus} from './../dependencies.modules';
+import {lin3sEventBus} from './../bundle.modules';
 
 lin3sEventBus.listenDomReady();
 lin3sEventBus.listenDomLoaded();

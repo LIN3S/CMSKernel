@@ -9,7 +9,7 @@
  * @author Mikel Tuesta <mikel@lin3s.com>
  */
 
-import {ReactDOM, lin3sEventBus, Wysiwyg} from './../../dependencies.modules';
+import {ReactDOM, lin3sEventBus, Wysiwyg} from './../../bundle.modules';
 
 const init = () => {
 

@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 
-import {React, ReactDOM, lin3sEventBus, ConfirmationModal} from './../../../../../../Ui/Assets/js/dependencies.modules';
+import {React, ReactDOM, lin3sEventBus, ConfirmationModal} from './../../../../../../Ui/Assets/js/bundle.modules';
 
 const removeTranslationCallBack = (element) => {
   return window.location.replace(

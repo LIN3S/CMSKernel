@@ -14,12 +14,12 @@ import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import {join, resolve} from 'path';
 import precss from 'precss';
 import Webpack from 'webpack';
-import {getWebpackExternals} from './webpack.externals';
-import getComponentsMap from './js/components/components.entry';
+import {getOutputPath, getWebpackExternals} from './webpack.build.config';
+import getComponentsMap from '../js/components/components.entry';
 
 const
-  include = join(__dirname, 'js'),
-  outputPath = join(__dirname, './../../Symfony/Bundle/Resources/public/');
+  include = join(__dirname, './../js'),
+  outputPath = join(__dirname, getOutputPath());
 
 export default {
   entry: getComponentsMap(`${include}/components`),
@@ -28,11 +28,6 @@ export default {
     path: `${outputPath}/js`,
     publicPath: '/',
     filename: '/components/[name].min.js'
-  },
-  resolve: {
-    alias: {
-      Wysiwyg: `${include}/components/Wysiwyg/Wysiwyg.js`
-    }
   },
   module: {
     rules: [

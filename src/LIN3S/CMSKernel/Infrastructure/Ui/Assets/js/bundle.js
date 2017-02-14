@@ -9,5 +9,5 @@
  * @author Mikel Tuesta <mikel@lin3s.com>
  */
 
-export * from './dependencies.styles';
-export * from './dependencies.modules';
+export * from './bundle.styles';
+export * from './bundle.modules';

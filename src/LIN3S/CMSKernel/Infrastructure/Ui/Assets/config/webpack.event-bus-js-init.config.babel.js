@@ -10,14 +10,14 @@
  */
 
 import {join, resolve} from 'path';
-import {getWebpackExternals} from './webpack.externals';
+import {getOutputPath, getWebpackExternals} from './webpack.build.config';
 
 const
-  include = join(__dirname, 'js'),
-  outputPath = join(__dirname, './../../Symfony/Bundle/Resources/public/');
+  include = join(__dirname, './../js'),
+  outputPath = join(__dirname, getOutputPath());
 
 export default {
-  entry: './js/event-bus-js/init.js',
+  entry: `${include}/event-bus-js/init.js`,
   externals: getWebpackExternals(),
   output: {
     path: `${outputPath}/js`,

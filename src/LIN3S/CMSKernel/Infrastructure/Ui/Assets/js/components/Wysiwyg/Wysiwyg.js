@@ -9,13 +9,6 @@
  * @author Mikel Tuesta <mikel@lin3s.com>
  */
 
-// import {
-//   React,
-//   reactDraftWysiwyg,
-//   draftJs,
-//   draftToHtml
-// } from './../../dependencies.modules';
-
 import React from 'react';
 import * as reactDraftWysiwyg from 'react-draft-wysiwyg';
 import draftToHtml from 'draftjs-to-html';

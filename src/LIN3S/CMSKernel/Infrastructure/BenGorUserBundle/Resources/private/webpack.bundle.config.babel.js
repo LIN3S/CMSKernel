@@ -14,7 +14,7 @@ import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import {join, resolve} from 'path';
 import precss from 'precss';
 import Webpack from 'webpack';
-import {getWebpackExternals} from './../../../Ui/Assets/webpack.externals';
+import {getWebpackExternals} from '../../../Ui/Assets/config/webpack.build.config';
 
 const
   include = join(__dirname, 'js'),

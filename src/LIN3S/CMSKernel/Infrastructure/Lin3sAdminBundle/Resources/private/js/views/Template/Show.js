@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 
-import {$, lin3sEventBus} from './../../../../../../Ui/Assets/js/dependencies.modules';
+import {$, lin3sEventBus} from './../../../../../../Ui/Assets/js/bundle.modules';
 
 const init = () => {
   $('#templateName').on('change', (event) => {

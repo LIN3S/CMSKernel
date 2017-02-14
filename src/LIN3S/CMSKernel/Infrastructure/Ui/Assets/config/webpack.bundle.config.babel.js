@@ -14,17 +14,18 @@ import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import {join, resolve} from 'path';
 import precss from 'precss';
 import Webpack from 'webpack';
+import {getOutputPath} from './webpack.build.config';
 
 const
-  include = join(__dirname, 'js'),
-  outputPath = join(__dirname, './../../Symfony/Bundle/Resources/public/');
+  include = join(__dirname, './../js'),
+  outputPath = join(__dirname, getOutputPath());
 
 export default {
-  entry: './js/dependencies.js',
+  entry: `${include}/bundle.js`,
   output: {
     path: `${outputPath}/js`,
     publicPath: '/',
-    filename: 'dependencies.min.js',
+    filename: 'bundle.min.js',
     libraryTarget: 'window'
   },
   module: {
@@ -50,7 +51,7 @@ export default {
     ]
   },
   plugins: [
-    new ExtractTextPlugin('./../css/dependencies.min.css'),
+    new ExtractTextPlugin('./../css/bundle.min.css'),
     new Webpack.LoaderOptionsPlugin({
       options: {
         postcss: [

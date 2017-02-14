@@ -1,5 +1,3 @@
-// import {React, Modal} from './../../dependencies.modules';
-
 import React from 'react';
 import Modal from 'react-modal';
 

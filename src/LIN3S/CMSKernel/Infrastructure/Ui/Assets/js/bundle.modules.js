@@ -9,32 +9,6 @@
  * @author Mikel Tuesta <mikel@lin3s.com>
  */
 
-// import {listenDomReady, listenDomLoaded, onDomReady} from 'lin3s-event-bus';
-// import React from 'react';
-// import ReactDOM from 'react-dom';
-// import Modal from 'react-modal';
-// import {Editor} from 'react-draft-wysiwyg';
-// import draftToHtml from 'draftjs-to-html';
-// import {ContentState, EditorState, convertFromHTML, convertToRaw} from 'draft-js';
-// import $ from 'jquery';
-//
-// export {
-//   listenDomReady,
-//   listenDomLoaded,
-//   onDomReady,
-//   React,
-//   ReactDOM,
-//   Modal,
-//   Editor,
-//   draftToHtml,
-//   ContentState,
-//   EditorState,
-//   convertFromHTML,
-//   convertToRaw,
-//   $
-// }
-
-
 import * as lin3sEventBus from 'lin3s-event-bus';
 import React from 'react';
 import ReactDOM from 'react-dom';

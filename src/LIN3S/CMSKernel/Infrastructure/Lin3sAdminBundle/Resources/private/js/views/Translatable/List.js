@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 
-import {React, ReactDOM, lin3sEventBus} from './../../../../../../Ui/Assets/js/dependencies.modules';
+import {React, ReactDOM, lin3sEventBus} from './../../../../../../Ui/Assets/js/bundle.modules';
 
 import NewTranslatableModal from './../../components/NewTranslatableModal/App';
 
