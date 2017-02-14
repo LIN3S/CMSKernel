@@ -7,9 +7,7 @@
  * file that was distributed with this source code.
  */
 
-import {React, ReactDOM, onDomReady} from './../../../../../../Ui/Assets/js/dependencies.modules';
-
-import {ConfirmationModal} from './../../../../../../Ui/Assets/js/components/components.library';
+import {React, ReactDOM, lin3sEventBus, ConfirmationModal} from './../../../../../../Ui/Assets/js/dependencies.modules';
 
 const removeTranslationCallBack = (element) => {
   return window.location.replace(
@@ -18,6 +16,7 @@ const removeTranslationCallBack = (element) => {
 };
 
 const init = () => {
+
   const element = document.getElementById('react-confirmation-modal-remove-translation');
 
   if (element) {
@@ -37,4 +36,4 @@ const init = () => {
   }
 };
 
-onDomReady(init);
+lin3sEventBus.onDomReady(init);

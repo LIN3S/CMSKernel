@@ -12,8 +12,7 @@
 const
   getComponentsMap = (rootPath) => {
     return {
-      'confirmation-modal': `${rootPath}/ConfirmationModal/App.js`,
-      'wysiwyg': `${rootPath}/Wysiwyg/Wysiwyg.js`
+      'wysiwyg': `${rootPath}/Wysiwyg/init.js`
     };
   };
 

@@ -78,18 +78,18 @@ class TwigActionTranslationFilter extends \Twig_Extension
                         foreach ($iteration as $iKey => $i) {
                             if (is_array($i)) {
                                 foreach ($i as $iiKey => $ii) {
-                                    $resultOptions[$optionKey][$iterationKey][$iKey][$iiKey] = $this->translator->trans($ii);
+                                    $resultOptions[$optionKey][$iterationKey][$iKey][$iiKey] = $this->translator->trans($ii, [], 'CmsKernelAdminBridge');
                                 }
                             } else {
-                                $resultOptions[$optionKey][$iterationKey][$iKey] = $this->translator->trans($i);
+                                $resultOptions[$optionKey][$iterationKey][$iKey] = $this->translator->trans($i, [], 'CmsKernelAdminBridge');
                             }
                         }
                     } else {
-                        $resultOptions[$optionKey][$iterationKey] = $this->translator->trans($iteration);
+                        $resultOptions[$optionKey][$iterationKey] = $this->translator->trans($iteration, [], 'CmsKernelAdminBridge');
                     }
                 }
             } else {
-                $resultOptions[$optionKey] = $this->translator->trans($option);
+                $resultOptions[$optionKey] = $this->translator->trans($option, [], 'CmsKernelAdminBridge');
             }
         }
 

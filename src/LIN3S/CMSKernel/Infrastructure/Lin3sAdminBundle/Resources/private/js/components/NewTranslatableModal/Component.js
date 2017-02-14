@@ -7,7 +7,8 @@
  * file that was distributed with this source code.
  */
 
-import {React, Modal} from './../../../../../../Ui/Assets/js/dependencies.modules';
+import React from 'react';
+import Modal from 'react-modal';
 
 const styles = {
   reactModalOverlay: {
@@ -69,6 +70,8 @@ class NewTranslatableModal extends React.Component {
   }
 
   componentWillMount() {
+    Modal.setAppElement('body');
+
     let index = 0;
     for (let locale in this.content().locales) {
       let localeString = this.content().locales[locale];
@@ -116,6 +119,7 @@ class NewTranslatableModal extends React.Component {
 
     return (
       <Modal
+        contentLabel={this.title()}
         isOpen={this.props.isOpen}
         onRequestClose={this.props.closeModal}
         style={{overlay: styles.reactModalOverlay, content: styles.reactModalContent}}>

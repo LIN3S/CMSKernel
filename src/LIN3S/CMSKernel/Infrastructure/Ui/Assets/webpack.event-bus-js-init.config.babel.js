@@ -22,8 +22,7 @@ export default {
   output: {
     path: `${outputPath}/js`,
     publicPath: '/',
-    filename: 'event-bus-js-init.min.js',
-    libraryTarget: 'var'
+    filename: 'event-bus-js-init.min.js'
   },
   module: {
     rules: [

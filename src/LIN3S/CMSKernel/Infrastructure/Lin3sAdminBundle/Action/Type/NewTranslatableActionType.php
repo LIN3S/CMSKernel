@@ -93,7 +93,7 @@ class NewTranslatableActionType implements ActionType
         }
 
         return new Response(
-            $this->twig->render('@LIN3SAdmin/Admin/new.html.twig', [
+            $this->twig->render('@Lin3sAdmin/Admin/new.html.twig', [
                 'entity'       => $entity,
                 'entityConfig' => $config,
                 'locale'       => $locale,

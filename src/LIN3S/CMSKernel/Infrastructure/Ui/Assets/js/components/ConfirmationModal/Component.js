@@ -1,4 +1,7 @@
-import {React, Modal} from './../../dependencies.modules';
+// import {React, Modal} from './../../dependencies.modules';
+
+import React from 'react';
+import Modal from 'react-modal';
 
 const styles = {
   reactModalOverlay: {
@@ -47,6 +50,10 @@ class ConfirmationModal extends React.Component {
     isOpen: React.PropTypes.bool
   };
 
+  componentWillMount() {
+    Modal.setAppElement('body');
+  }
+
   callback() {
     this.props.callback(this.props.args);
     this.props.closeModal();
@@ -55,6 +62,7 @@ class ConfirmationModal extends React.Component {
   render() {
     return (
       <Modal
+        contentLabel={this.props.content.title}
         isOpen={this.props.isOpen}
         onRequestClose={this.props.closeModal}
         style={{overlay: styles.reactModalOverlay, content: styles.reactModalContent}}>

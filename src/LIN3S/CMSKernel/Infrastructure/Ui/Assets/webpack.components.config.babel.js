@@ -27,8 +27,12 @@ export default {
   output: {
     path: `${outputPath}/js`,
     publicPath: '/',
-    filename: '/components/[name].min.js',
-    libraryTarget: 'var'
+    filename: '/components/[name].min.js'
+  },
+  resolve: {
+    alias: {
+      Wysiwyg: `${include}/components/Wysiwyg/Wysiwyg.js`
+    }
   },
   module: {
     rules: [

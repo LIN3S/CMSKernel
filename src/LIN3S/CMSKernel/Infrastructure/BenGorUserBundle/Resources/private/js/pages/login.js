@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 
-import {$, onDomReady} from './../../../../../Ui/Assets/js/dependencies.modules';
+import {$, lin3sEventBus} from './../../../../../Ui/Assets/js/dependencies.modules';
 
 const focusIn = (event) => {
   $(event.currentTarget).prev().addClass('bengor-user-login__form-label--focused');
@@ -36,4 +36,4 @@ const init = () => {
   $input.focusout(focusOut);
 };
 
-onDomReady(init);
+lin3sEventBus.onDomReady(init);

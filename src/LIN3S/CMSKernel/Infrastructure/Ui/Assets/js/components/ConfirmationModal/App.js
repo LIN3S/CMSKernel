@@ -1,8 +1,9 @@
 /* eslint react/no-danger: 0 */
 
-import {React} from './../../dependencies.modules';
+// import {React} from './../../dependencies.modules';
+import React from 'react';
 
-import ConfirmationModal3 from './Component';
+import ConfirmationModal from './Component';
 
 class App extends React.Component {
   static propTypes = {
@@ -55,7 +56,7 @@ class App extends React.Component {
     return (
       <div>
         {this.buildTrigger()}
-        <ConfirmationModal3
+        <ConfirmationModal
           callback={this.props.callback}
           closeModal={this.closeModal.bind(this)}
           content={this.buildContent()}

@@ -25,7 +25,7 @@ export default {
     path: `${outputPath}/js`,
     publicPath: '/',
     filename: 'dependencies.min.js',
-    libraryTarget: 'var'
+    libraryTarget: 'window'
   },
   module: {
     rules: [
