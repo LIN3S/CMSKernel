@@ -18,8 +18,4 @@ use LIN3S\SharedKernel\Domain\Model\Identity\Id;
  */
 class PageId extends Id
 {
-    public static function generate($id = null)
-    {
-        return new static($id);
-    }
 }
