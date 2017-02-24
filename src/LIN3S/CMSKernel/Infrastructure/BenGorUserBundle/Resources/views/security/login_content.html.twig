@@ -1,7 +1,15 @@
 {% trans_default_domain 'BenGorUser' %}
 
+{## This css is a trade off because this view does not know anything about LIN3SAdminBundle #}
+<link rel="stylesheet" href="{{ asset('bundles/lin3sadmin/css/bundle.min.css') }}" type="text/css">
+{##}
+
+<link rel="stylesheet" href="{{ asset('bundles/lin3scmskernel/css/bundle.min.css') }}" type="text/css">
+<link rel="stylesheet" href="{{ asset('bundles/cmskernelbengoruserbridge/css/bundle.min.css') }}" type="text/css">
+
 <article class="bengor-user-login">
-    <img class="bengor-user-login__background" src="{{ asset('images/login-bg.jpg') }}">
+    <img class="bengor-user-login__background"
+         src="{{ asset('bundles/cmskernelbengoruserbridge/images/login-bg.jpg') }}"/>
 
     <form action="{{ path(login_check) }}" method="post" class="bengor-user-login__form">
         <div class="bengor-user-login-form__group">
@@ -11,9 +19,8 @@
         </div>
 
         <div class="bengor-user-login-form__group">
-            {% include 'component/svg_icon.svg.twig' with {
-                icon: 'login-user',
-                svgClass: 'bengor-user-login__icon'
+            {% include '@CmsKernelBenGorUserBridge/svg/login_user.svg.twig' with {
+                class: 'bengor-user-login__icon'
             } %}
             <label class="bengor-user-login__form-label" for="email">
                 {{- 'security.view_email_label' | trans -}}
@@ -23,9 +30,8 @@
         </div>
 
         <div class="bengor-user-login-form__group">
-            {% include 'component/svg_icon.svg.twig' with {
-                icon: 'login-key',
-                svgClass: 'bengor-user-login__icon'
+            {% include '@CmsKernelBenGorUserBridge/svg/login_key.svg.twig' with {
+                class: 'bengor-user-login__icon'
             } %}
             <label class="bengor-user-login__form-label" for="password">
                 {{- 'security.view_password_label' | trans -}}
@@ -53,9 +59,8 @@
     <section class="bengor-user-login__footer">
         <p>
             Ryan Mcgilchrist<br>
-            {% include 'component/svg_icon.svg.twig' with {
-                icon: 'login-creative-commons',
-                svgClass: 'bengor-user-login__icon--creative-commons'
+            {% include '@CmsKernelBenGorUserBridge/svg/login_creative_commons.svg.twig' with {
+                class: 'bengor-user-login__icon--creative-commons'
             } %}
         </p>
         <p>
@@ -64,3 +69,7 @@
         </p>
     </section>
 </article>
+
+<script src="{{ asset('bundles/lin3scmskernel/js/bundle.min.js') }}"></script>
+<script src="{{ asset('bundles/lin3scmskernel/js/event-bus-js-init.min.js') }}"></script>
+<script src="{{ asset('bundles/cmskernelbengoruserbridge/js/bundle.min.js') }}"></script>
