@@ -43,16 +43,8 @@ class TwigActionTranslationFilter extends \Twig_Extension
     public function getFilters()
     {
         return [
-            'action_translation' => new \Twig_Filter_Method($this, 'actionTranslation'),
+            'action_translation' => new \Twig_Filter('action_translation', [$this, 'actionTranslation']),
         ];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getName()
-    {
-        return 'cms_kernel_admin_bridge_twig_action_translation';
     }
 
     /**
