@@ -29,3 +29,9 @@ cms_kernel_admin_bridge:
             description: ¿Seguro que deseas eliminar esta traducción? esta operación no se puede deshacer.
     translation:
         locale_not_defined: "Traducción de \"%locale%\" no disponible"
+    header:
+        me: "Hola, %email%"
+        logout: Salir
+    menu:
+        dashboard: Dashboard
+        menus: Menús

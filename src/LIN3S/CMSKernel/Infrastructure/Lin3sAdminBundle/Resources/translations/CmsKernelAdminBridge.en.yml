@@ -29,3 +29,9 @@ cms_kernel_admin_bridge:
             description: ¿Are you sure that you want to remove the translation? this operation cannot be undo.
     translation:
         locale_not_defined: "\"%locale%\" translation not defined"
+    header:
+        me: "Hi, %email%"
+        logout: Logout
+    menu:
+        dashboard: Dashboard
+        menus: Menus

@@ -1,9 +1,11 @@
+{% trans_default_domain 'CmsKernelAdminBridge' %}
+
 <div class="layout-header">
     <div class="layout-header__language-switcher">
         {% include '@CmsKernelAdminBridge/components/language_switcher.html.twig' %}
     </div>
-    <div class="layout-header__me">{{ 'admin.header.me' | trans({'%email%': app.user.email}) }}</div>
+    <div class="layout-header__me">{{ 'cms_kernel_admin_bridge.header.me' | trans({'%email%': app.user.email}) }}</div>
     <a href="{{ path('bengor_user_user_logout') }}" class="button button--primary layout-header__button">
-        {{- 'admin.header.logout' | trans -}}
+        {{- 'cms_kernel_admin_bridge.header.logout' | trans -}}
     </a>
 </div>

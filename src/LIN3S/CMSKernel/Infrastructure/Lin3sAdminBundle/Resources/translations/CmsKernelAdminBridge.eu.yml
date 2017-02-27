@@ -29,3 +29,9 @@ cms_kernel_admin_bridge:
             description: Itzulpena ezabatzea nahi ahal duzu? ekintza hau ezin da desegin.
     translation:
         locale_not_defined: "\"%locale%\" itzulpena ez dago ezarritakoen artean"
+    header:
+        me: "Kaixo, %email%"
+        logout: Itxi
+    menu:
+        dashboard: Hasiera
+        menus: Menuak
