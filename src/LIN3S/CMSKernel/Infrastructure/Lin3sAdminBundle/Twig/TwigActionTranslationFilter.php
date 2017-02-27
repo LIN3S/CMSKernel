@@ -43,7 +43,7 @@ class TwigActionTranslationFilter extends \Twig_Extension
     public function getFilters()
     {
         return [
-            'action_translation' => new \Twig_Filter('action_translation', [$this, 'actionTranslation']),
+            'action_translation' => new \Twig_SimpleFilter('action_translation', [$this, 'actionTranslation']),
         ];
     }
 
