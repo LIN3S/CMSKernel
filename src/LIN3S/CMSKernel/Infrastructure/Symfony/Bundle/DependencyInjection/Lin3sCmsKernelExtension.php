@@ -16,10 +16,18 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
+/**
+ * @author Beñat Espiña <benatespina@gmail.com>
+ */
 class Lin3sCmsKernelExtension extends Extension
 {
     public function load(array $configs, ContainerBuilder $container)
     {
+        $configuration = new Configuration();
+        $config = $this->processConfiguration($configuration, $configs);
+
+        $container->setParameter('lin3s_cms_kernel.config', $config);
+
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config/services'));
         $loader->load('command_bus.yml');
         $loader->load('commands.yml');

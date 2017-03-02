@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace LIN3S\CMSKernel\Domain\Model\Page\Template;
+namespace LIN3S\CMSKernel\Domain\Model\Template;
 
 /**
  * @author Beñat Espiña <benatespina@gmail.com>

@@ -9,12 +9,14 @@
  * file that was distributed with this source code.
  */
 
-namespace LIN3S\CMSKernel\Domain\Model\Page\Template;
+namespace LIN3S\CMSKernel\Domain\Model\Template;
 
 /**
  * @author Beñat Espiña <benatespina@gmail.com>
  */
-interface TemplateFactory
+interface Template
 {
-    public function build($name, array $content);
+    public static function fromContent(TemplateContent $content);
+
+    public function serialize();
 }

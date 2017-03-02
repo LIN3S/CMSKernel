@@ -11,8 +11,7 @@
 
 namespace LIN3S\CMSKernel\Infrastructure\Symfony\Bundle;
 
-use Doctrine\DBAL\Types\Type;
-use LIN3S\CMSKernel\Infrastructure\Persistence\Doctrine\DBAL\Page\Types\PageIdType;
+use LIN3S\CMSKernel\Infrastructure\Symfony\Bundle\DependencyInjection\Compiler\ClassMapTemplateFactoryPass;
 use LIN3S\CMSKernel\Infrastructure\Symfony\Bundle\DependencyInjection\Compiler\DoctrineORMCustomTypesPass;
 use Symfony\Component\DependencyInjection\Compiler\PassConfig;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -25,6 +24,7 @@ class Lin3sCmsKernelBundle extends Bundle
 {
     public function build(ContainerBuilder $container)
     {
+        $container->addCompilerPass(new ClassMapTemplateFactoryPass(), PassConfig::TYPE_OPTIMIZE);
         $container->addCompilerPass(new DoctrineORMCustomTypesPass(), PassConfig::TYPE_OPTIMIZE);
 
         $container->loadFromExtension('doctrine', [

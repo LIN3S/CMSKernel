@@ -9,21 +9,21 @@
  * file that was distributed with this source code.
  */
 
-namespace LIN3S\CMSKernel\Domain\Model\Page\Template;
+namespace LIN3S\CMSKernel\Domain\Model\Template;
 
 use LIN3S\SharedKernel\Exception\Exception;
 
 /**
  * @author Beñat Espiña <benatespina@gmail.com>
  */
-class TemplateNameDoesNotExistException extends Exception
+class TemplateContentDoesNotExistException extends Exception
 {
-    public function __construct($name)
+    public function __construct($property)
     {
         parent::__construct(
             sprintf(
-                'The given %s template name does not exist',
-                $name
+                'The required %s property is not defined inside given template content array',
+                $property
             )
         );
     }

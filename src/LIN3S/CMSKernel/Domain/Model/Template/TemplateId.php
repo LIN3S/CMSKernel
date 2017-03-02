@@ -9,14 +9,17 @@
  * file that was distributed with this source code.
  */
 
-namespace LIN3S\CMSKernel\Domain\Model\Page\Template;
+namespace LIN3S\CMSKernel\Domain\Model\Template;
+
+use LIN3S\SharedKernel\Domain\Model\Identity\Id;
 
 /**
  * @author Beñat Espiña <benatespina@gmail.com>
  */
-interface Template
+class TemplateId extends Id
 {
-    public static function fromContent(TemplateContent $content);
-
-    public function serialize();
+    public static function generate($id = null)
+    {
+        return new static($id);
+    }
 }
