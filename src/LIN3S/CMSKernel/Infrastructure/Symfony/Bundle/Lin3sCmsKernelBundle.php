@@ -33,36 +33,53 @@ class Lin3sCmsKernelBundle extends Bundle
                     'Lin3sCmsKernelMenu'        => [
                         'type'      => 'xml',
                         'is_bundle' => false,
-                        'dir'       => $this->basePath() . '/Menu/Mapping/',
+                        'dir'       => $this->doctrineORMBasePath() . '/Menu/Mapping/',
                         'prefix'    => 'LIN3S\CMSKernel\Domain\Model\Menu',
                     ],
                     'Lin3sCmsKernelPage'        => [
                         'type'      => 'xml',
                         'is_bundle' => false,
-                        'dir'       => $this->basePath() . '/Page/Mapping/',
+                        'dir'       => $this->doctrineORMBasePath() . '/Page/Mapping/',
                         'prefix'    => 'LIN3S\CMSKernel\Domain\Model\Page',
                     ],
                     'Lin3sCmsKernelSeo'         => [
                         'type'      => 'xml',
                         'is_bundle' => false,
-                        'dir'       => $this->basePath() . '/Seo/Mapping/',
+                        'dir'       => $this->doctrineORMBasePath() . '/Seo/Mapping/',
                         'prefix'    => 'LIN3S\CMSKernel\Domain\Model\Seo',
                     ],
                     'Lin3sCmsKernelTranslation' => [
                         'type'      => 'xml',
                         'is_bundle' => false,
-                        'dir'       => $this->basePath() . '/Translation/Mapping/',
+                        'dir'       => $this->doctrineORMBasePath() . '/Translation/Mapping/',
                         'prefix'    => 'LIN3S\CMSKernel\Domain\Model\Translation',
                     ],
                 ],
             ],
         ]);
+
+        $container->loadFromExtension('twig', [
+            'paths'       => [
+                $this->twigBasePath(),
+            ],
+            'form_themes' => [
+                'Form/wysiwyg.html.twig',
+            ],
+        ]);
+    }
+
+    private function doctrineORMBasePath()
+    {
+        return $this->basePath() . '/../../Persistence/Doctrine/ORM';
+    }
+
+    private function twigBasePath()
+    {
+        return $this->basePath() . '/../../Ui/Templates/Twig';
     }
 
     private function basePath()
     {
-        $directory = dirname((new \ReflectionClass(self::class))->getFileName());
-
-        return $directory . '/../../Persistence/Doctrine/ORM';
+        return dirname((new \ReflectionClass(self::class))->getFileName());
     }
 }
