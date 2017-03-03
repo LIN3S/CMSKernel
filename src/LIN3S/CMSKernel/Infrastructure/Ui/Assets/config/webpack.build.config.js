@@ -27,6 +27,7 @@ const
 
       // relative to the webpack's build entry-point (js/bundle.js)
       './components/ConfirmationModal/App': 'ConfirmationModal',
+      './components/TemplateSelector/TemplateSelector': 'TemplateSelector',
       './components/Wysiwyg/Wysiwyg': 'Wysiwyg'
     }
   };

@@ -1,0 +1,61 @@
+/*
+ * This file is part of the CMS Kernel package.
+ *
+ * Copyright (c) 2016-present LIN3S <info@lin3s.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @author Mikel Tuesta <mikeltuesta@gmail.com>
+ */
+
+$border-color: #ddd;
+$tab-button-background-color--inactive: #f1f1f1;
+$wysiwyg-padding-vertical: 10px;
+$wysiwyg-padding-horizontal: 15px;
+
+.wysiwyg {
+  order: 2;
+}
+
+.wysiwyg__textarea {
+  border: 1px solid $border-color;
+  min-height: 300px;
+  padding: $wysiwyg-padding-vertical $wysiwyg-padding-horizontal;
+  width: 100%;
+}
+
+.rdw-editor-toolbar {
+  border: 1px solid $border-color;
+  margin-bottom: 0;
+}
+
+.rdw-editor-main {
+  box-sizing: border-box;
+  border-bottom: 1px solid $border-color;
+  border-left: 1px solid $border-color;
+  border-right: 1px solid $border-color;
+  padding: $wysiwyg-padding-vertical $wysiwyg-padding-horizontal;
+}
+
+
+.tab__button-group {
+  clear: both;
+  float: right;
+}
+
+.tab__button {
+  cursor: pointer;
+  display: inline-block;
+  border-left: 1px solid $border-color;
+  border-top: 1px solid $border-color;
+  padding: 8px 15px;
+
+  &:last-child {
+    border-right: 1px solid $border-color;
+  }
+}
+
+.tab__button--inactive {
+  background-color: $tab-button-background-color--inactive;
+}

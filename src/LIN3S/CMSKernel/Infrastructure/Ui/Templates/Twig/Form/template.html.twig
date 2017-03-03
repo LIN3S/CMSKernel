@@ -1,0 +1,35 @@
+{#
+    This file is part of the CMS Kernel package.
+
+    Copyright (c) 2016-present LIN3S <info@lin3s.com>
+
+    For the full copyright and license information, please view the LICENSE
+    file that was distributed with this source code.
+
+    @author Beñat Espiña <benatespina@gmail.com>
+#}
+
+{% block template_widget %}
+    <div class="template">
+        <div class="template__name">
+            {%- for index, child in form %}
+                {% if child.vars.name == 'name' %}
+                    {{- form_row(child) -}}
+                {% endif %}
+            {% endfor -%}
+        </div>
+        <div class="template__children">
+            {%- for index, child in form %}
+                {% if child.vars.name == 'name' %}
+                    {{- form_row(child) -}}
+                {% else %}
+                    <div class="form__group" data-template-index="{{ index }}">
+                        {{- form_widget(child) -}}
+                    </div>
+                {% endif %}
+            {% endfor -%}
+        </div>
+    </div>
+
+    <script src="{{ asset('bundles/lin3scmskernel/js/components/templateSelector.min.js') }}"></script>
+{% endblock template_widget %}

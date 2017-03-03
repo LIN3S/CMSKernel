@@ -19,6 +19,7 @@ import * as draftJs from 'draft-js';
 import $ from 'jquery';
 
 import ConfirmationModal from './components/ConfirmationModal/App';
+import TemplateSelector from './components/TemplateSelector/TemplateSelector';
 import Wysiwyg from './components/Wysiwyg/Wysiwyg';
 
 export {
@@ -31,5 +32,6 @@ export {
   draftJs,
   $,
   ConfirmationModal,
+  TemplateSelector,
   Wysiwyg
 }

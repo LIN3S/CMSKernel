@@ -11,4 +11,5 @@
 
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
+import './../scss/components/_template-selector.scss';
 import './../scss/components/_wysiwyg.scss';

@@ -5,10 +5,13 @@
   "devDependencies": {
     "autoprefixer": "^6.7.2",
     "babel-cli": "^6.18.0",
+    "babel-eslint": "^7.1.1",
+    "babel-loader": "^6.3.2",
     "babel-plugin-transform-class-properties": "^6.18.0",
     "babel-preset-es2015": "^6.14.0",
     "babel-preset-react": "^6.16.0",
     "babel-preset-stage-2": "^6.13.0",
+    "css-loader": "^0.26.2",
     "eslint": "^3.15.0",
     "eslint-loader": "^1.6.1",
     "eslint-plugin-class-property": "^1.0.3",
@@ -18,6 +21,7 @@
     "npm-run-all": "^4.0.1",
     "postcss-loader": "^1.2.2",
     "precss": "^1.4.0",
+    "sass-loader": "^6.0.2",
     "style-loader": "^0.13.1",
     "uglify-js": "^2.7.5",
     "webpack": "^2.2.1"
@@ -25,6 +29,7 @@
   "dependencies": {
     "draft-js": "^0.10.0",
     "draftjs-to-html": "^0.6.2",
+    "jquery": "^3.1.1",
     "lin3s-event-bus": "^0.3.2",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
@@ -42,20 +47,20 @@
     ]
   },
   "scripts": {
+    "install:bundles": "npm-run-all --parallel install:bundle:*",
+    "install:bundle:main": "yarn install",
+    "install:bundle:bengoruser": "cd ../../BenGorUserBundle/Resources/private && yarn install",
+    "install:bundle:admin": "cd ../../Lin3sAdminBundle/Resources/private && yarn install",
     "build": "npm-run-all --parallel build:main:*",
     "build:prod": "npm-run-all --parallel build:prod:* -p",
-
     "build:main:event-bus-js-init": "webpack --config=./config/webpack.event-bus-js-init.config.babel.js",
     "build:main:components-init": "webpack --config=./config/webpack.components-init.config.babel.js",
     "build:main:bundle": "webpack --config=./config/webpack.bundle.config.babel.js",
-
     "build:main:lin3s-admin-bridge-bundle": "webpack --config=./../../Lin3sAdminBundle/Resources/private/webpack.bundle.config.babel.js",
     "build:main:bengor-user-bridge-bundle": "webpack --config=./../../BenGorUserBundle/Resources/private/webpack.bundle.config.babel.js",
-
     "build:prod:event-bus-js-init": "webpack --config=./config/webpack.event-bus-js-init.config.babel.js -p",
     "build:prod:components-init": "webpack --config=./config/webpack.components-init.config.babel.js -p",
     "build:prod:bundle": "webpack --config=./config/webpack.bundle.config.babel.js -p",
-
     "build:prod:lin3s-admin-bridge-bundle": "webpack --config=./../../Lin3sAdminBundle/Resources/private/webpack.bundle.config.babel.js -p",
     "build:prod:bengor-user-bridge-bundle": "webpack --config=./../../BenGorUserBundle/Resources/private/webpack.bundle.config.babel.js"
   }
