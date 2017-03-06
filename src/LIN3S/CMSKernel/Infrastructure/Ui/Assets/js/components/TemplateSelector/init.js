@@ -12,25 +12,14 @@
 import {lin3sEventBus, TemplateSelector} from './../../bundle.modules';
 
 const init = () => {
+  const templateSelectors = document.querySelectorAll('.template-selector');
 
-  const templates = document.querySelectorAll('.template');
-
-  if (templates.length === 0) {
+  if (templateSelectors.length === 0) {
     return;
   }
 
-  new TemplateSelector();
-
-  console.log('eeee');
-
-  templates.each((template) => {
-    const
-      templateName = template.querySelector('.template__name'),
-      templateChildren = template.querySelector('.template__children');
-
-    templateName.querySelector('select').value;
-
-
+  templateSelectors.forEach((templateSelector) => {
+      new TemplateSelector(templateSelector);
   });
 };
 

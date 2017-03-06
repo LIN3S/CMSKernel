@@ -1038,62 +1038,11 @@
   counter-reset: ol4; }
 
 /*# sourceMappingURL=react-draft-wysiwyg.css.map*/
-/*
- * This file is part of the CMS Kernel package.
- *
- * Copyright (c) 2016-present LIN3S <info@lin3s.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- *
- * @author Mikel Tuesta <mikeltuesta@gmail.com>
- */
-.wysiwyg {
-  -ms-flex-order: 2;
-      order: 2; }
+.template-selector__template {
+  display: none; }
 
-.wysiwyg__textarea {
-  border: 1px solid #ddd;
-  min-height: 300px;
-  padding: 10px 15px;
-  width: 100%; }
-
-.rdw-editor-toolbar {
-  border: 1px solid #ddd;
-  margin-bottom: 0; }
-
-.rdw-editor-main {
-  box-sizing: border-box;
-  border-bottom: 1px solid #ddd;
-  border-left: 1px solid #ddd;
-  border-right: 1px solid #ddd;
-  padding: 10px 15px; }
-
-.tab__button-group {
-  clear: both;
-  float: right; }
-
-.tab__button {
-  cursor: pointer;
-  display: inline-block;
-  border-left: 1px solid #ddd;
-  border-top: 1px solid #ddd;
-  padding: 8px 15px; }
-  .tab__button:last-child {
-    border-right: 1px solid #ddd; }
-
-.tab__button--inactive {
-  background-color: #f1f1f1; }
-/*
- * This file is part of the CMS Kernel package.
- *
- * Copyright (c) 2016-present LIN3S <info@lin3s.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- *
- * @author Mikel Tuesta <mikeltuesta@gmail.com>
- */
+.template-selector__template--selected {
+  display: block; }
 .wysiwyg {
   -ms-flex-order: 2;
       order: 2; }

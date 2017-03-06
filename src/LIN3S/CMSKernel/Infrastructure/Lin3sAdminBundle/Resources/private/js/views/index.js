@@ -9,6 +9,5 @@
 
 'use strict';
 
-import './Template/index';
 import './Translatable/index';
 import './Translation/index';

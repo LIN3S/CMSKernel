@@ -9,21 +9,21 @@
     @author Beñat Espiña <benatespina@gmail.com>
 #}
 
-{% block template_widget %}
-    <div class="template">
-        <div class="template__name">
+{% block template_selector_widget %}
+    <div class="template-selector">
+        <div class="template-selector__name">
             {%- for index, child in form %}
                 {% if child.vars.name == 'name' %}
                     {{- form_row(child) -}}
                 {% endif %}
             {% endfor -%}
         </div>
-        <div class="template__children">
+        <div class="template-selector__templates">
             {%- for index, child in form %}
                 {% if child.vars.name == 'name' %}
                     {{- form_row(child) -}}
                 {% else %}
-                    <div class="form__group" data-template-index="{{ index }}">
+                    <div class="form__group template-selector__template" data-template-index="{{ index }}">
                         {{- form_widget(child) -}}
                     </div>
                 {% endif %}
@@ -32,4 +32,4 @@
     </div>
 
     <script src="{{ asset('bundles/lin3scmskernel/js/components/templateSelector.min.js') }}"></script>
-{% endblock template_widget %}
+{% endblock template_selector_widget %}
