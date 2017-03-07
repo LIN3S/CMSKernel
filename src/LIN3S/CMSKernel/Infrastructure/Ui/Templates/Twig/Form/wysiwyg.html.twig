@@ -11,7 +11,7 @@
 
 {% block wysiwyg_widget %}
     <div class="wysiwyg">
-        <input id="{{ id }}" name="{{ full_name }}" class="wysiwyg__form-input" type="hidden" value="{{ value }}"/>
+        {{- form_row(form.wysiwyg, {attr: {class: 'wysiwyg__form-input'}}) -}}
         <div class="wysiwyg__react-wrapper"></div>
     </div>
 

@@ -13,7 +13,7 @@ namespace LIN3S\CMSKernel\Infrastructure\Persistence\Doctrine\DBAL\Page\Template
 
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\GuidType;
-use LIN3S\CMSKernel\Domain\Model\Page\Template\TemplateId;
+use LIN3S\CMSKernel\Domain\Model\Template\TemplateId;
 
 /**
  * @author Beñat Espiña <benatespina@gmail.com>

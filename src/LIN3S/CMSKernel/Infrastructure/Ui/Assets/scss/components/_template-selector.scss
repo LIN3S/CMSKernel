@@ -7,10 +7,20 @@
 //
 // @author Beñat Espiña <benatespina@gmail.com>
 
+$template-selector-transition-duration: .4s;
+$template-selector-margin-bottom: 15px;
+
 .template-selector__template {
-  display: none;
+  margin-bottom: 0;
+  height: 0;
+  opacity: 0;
+  transition: opacity $template-selector-transition-duration, visibility $template-selector-transition-duration;
+  visibility: hidden;
 }
 
 .template-selector__template--selected {
-  display: block;
+  height: 100%;
+  margin-bottom: $template-selector-margin-bottom;
+  opacity: 1;
+  visibility: visible;
 }

@@ -14,6 +14,7 @@ namespace LIN3S\CMSKernel\Infrastructure\Symfony\Bundle\DependencyInjection\Comp
 use LIN3S\CMSKernel\Infrastructure\Persistence\Doctrine\DBAL\Menu\Types\MenuIdType;
 use LIN3S\CMSKernel\Infrastructure\Persistence\Doctrine\DBAL\Menu\Types\MenuItemIdType;
 use LIN3S\CMSKernel\Infrastructure\Persistence\Doctrine\DBAL\Menu\Types\MenuTranslationIdType;
+use LIN3S\CMSKernel\Infrastructure\Persistence\Doctrine\DBAL\Page\Template\Types\TemplateIdType;
 use LIN3S\CMSKernel\Infrastructure\Persistence\Doctrine\DBAL\Page\Types\PageIdType;
 use LIN3S\CMSKernel\Infrastructure\Persistence\Doctrine\DBAL\Page\Types\PageTranslationIdType;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
@@ -49,6 +50,10 @@ class DoctrineORMCustomTypesPass implements CompilerPassInterface
             ],
             'page_translation_id' => [
                 'class'     => PageTranslationIdType::class,
+                'commented' => true,
+            ],
+            'template_id'             => [
+                'class'     => TemplateIdType::class,
                 'commented' => true,
             ],
         ]);

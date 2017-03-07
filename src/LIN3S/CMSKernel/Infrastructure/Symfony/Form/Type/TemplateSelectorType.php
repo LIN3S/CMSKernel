@@ -16,16 +16,16 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * @author Beñat Espiña <benatespina@gmail.com>
+ */
 class TemplateSelectorType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('name', ChoiceType::class, [
-                'choices'      => $this->getTemplates($options),
-                'choice_value' => function ($type) use ($options) {
-                    return $this->getTemplateName($type, $options);
-                },
+                'choices' => $this->getChoices($options),
             ]);
 
         foreach ($options['templates'] as $name => $template) {
@@ -40,19 +40,23 @@ class TemplateSelectorType extends AbstractType
         $resolver->setRequired('templates');
     }
 
-    private function getTemplateName($type, $options)
+    public function getBlockPrefix()
     {
-        return strtolower(array_search($type, $this->getTemplates($options)));
+        return 'template_selector';
     }
 
-    private function getTemplates(array $options)
+    private function getChoices(array $options)
     {
-        $names = [];
+        $choices = [];
         foreach ($options['templates'] as $name => $template) {
-            $names[ucfirst($name)] = $this->getType($template);
+            if (isset($template['options']) && isset($template['options']['label'])) {
+                $choices[$template['options']['label']] = $name;
+            } else {
+                $choices[ucfirst($name)] = $name;
+            }
         }
 
-        return $names;
+        return $choices;
     }
 
     private function getType($template)
@@ -62,10 +66,5 @@ class TemplateSelectorType extends AbstractType
         }
 
         return $template['type'];
-    }
-
-    public function getBlockPrefix()
-    {
-        return 'template_selector';
     }
 }

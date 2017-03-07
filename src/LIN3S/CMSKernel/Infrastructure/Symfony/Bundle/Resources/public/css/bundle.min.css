@@ -1039,10 +1039,17 @@
 
 /*# sourceMappingURL=react-draft-wysiwyg.css.map*/
 .template-selector__template {
-  display: none; }
+  margin-bottom: 0;
+  height: 0;
+  opacity: 0;
+  transition: opacity 0.4s, visibility 0.4s;
+  visibility: hidden; }
 
 .template-selector__template--selected {
-  display: block; }
+  height: 100%;
+  margin-bottom: 15px;
+  opacity: 1;
+  visibility: visible; }
 .wysiwyg {
   -ms-flex-order: 2;
       order: 2; }
