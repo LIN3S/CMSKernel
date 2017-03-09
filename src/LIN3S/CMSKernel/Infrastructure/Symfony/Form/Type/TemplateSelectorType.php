@@ -11,7 +11,10 @@
 
 namespace LIN3S\CMSKernel\Infrastructure\Symfony\Form\Type;
 
+use LIN3S\CMSKernel\Domain\Model\Template\Template;
+use LIN3S\CMSKernel\Domain\Model\Translation\InvalidLocaleException;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\DataMapperInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -19,7 +22,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * @author Beñat Espiña <benatespina@gmail.com>
  */
-class TemplateSelectorType extends AbstractType
+class TemplateSelectorType extends AbstractType implements DataMapperInterface
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -28,16 +31,54 @@ class TemplateSelectorType extends AbstractType
                 'choices' => $this->getChoices($options),
             ]);
 
-        foreach ($options['templates'] as $name => $template) {
+        foreach ($options['templates'] as $key => $template) {
             $templateOptions = isset($template['options']) ? $template['options'] : [];
 
-            $builder->add($name, $this->getType($template), $templateOptions);
+            $builder
+                ->add($this->getTemplate($template), $this->getType($template), $templateOptions)
+                ->setDataMapper($this);
         }
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setRequired('templates');
+    }
+
+    public function mapDataToForms($data, $forms)
+    {
+        if (null === $data) {
+            return [];
+        }
+        if (!$data instanceof Template) {
+            throw new InvalidLocaleException(
+                sprintf(
+                    'Given data must be %s instance, %s given',
+                    Template::class,
+                    get_class($data)
+                )
+            );
+        }
+
+        $forms = iterator_to_array($forms);
+
+        $forms['name']->setData($data::name());
+        $forms[$data::name()]->setData($data->serialize());
+    }
+
+    public function mapFormsToData($forms, &$data)
+    {
+        $forms = iterator_to_array($forms);
+
+        if (empty($data)) {
+            $data = ['name' => '', 'content' => ''];
+        }
+        $templateName = $forms['name']->getData();
+
+        $data = [
+            'name'    => $templateName,
+            'content' => $forms[$templateName]->getData(),
+        ];
     }
 
     public function getBlockPrefix()
@@ -48,15 +89,34 @@ class TemplateSelectorType extends AbstractType
     private function getChoices(array $options)
     {
         $choices = [];
-        foreach ($options['templates'] as $name => $template) {
+        foreach ($options['templates'] as $key => $template) {
             if (isset($template['options']) && isset($template['options']['label'])) {
-                $choices[$template['options']['label']] = $name;
+                $choices[$template['options']['label']] = $this->getTemplate($template);
             } else {
-                $choices[ucfirst($name)] = $name;
+                $choices[$key] = ucfirst($key);
             }
         }
 
         return $choices;
+    }
+
+    private function getTemplate($template)
+    {
+        if (!isset($template['options']['template'])) {
+            throw new \Exception('The template must have a "template" key');
+        }
+        $templateReflection = new \ReflectionClass($template['options']['template']);
+        if (!$templateReflection->implementsInterface(Template::class)) {
+            throw new \Exception(
+                sprintf(
+                    'The "template" key must be an instance of %s, %s given.',
+                    Template::class,
+                    $template['options']['template']
+                )
+            );
+        }
+
+        return $template['options']['template']::name();
     }
 
     private function getType($template)

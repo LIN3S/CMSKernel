@@ -11,9 +11,11 @@
 
 namespace LIN3S\CMSKernel\Infrastructure\Domain\Model\Template;
 
+use LIN3S\CMSKernel\Domain\Model\Template\Template;
 use LIN3S\CMSKernel\Domain\Model\Template\TemplateContent;
 use LIN3S\CMSKernel\Domain\Model\Template\TemplateFactory;
 use LIN3S\CMSKernel\Domain\Model\Template\TemplateNameDoesNotExistException;
+use LIN3S\SharedKernel\Exception\DomainException;
 
 /**
  * @author Beñat Espiña <benatespina@gmail.com>
@@ -29,10 +31,24 @@ class ClassMapTemplateFactory implements TemplateFactory
 
     public function build($name, array $content)
     {
-        if (!array_key_exists($name, $this->classMap)) {
-            throw new TemplateNameDoesNotExistException($name);
-        }
+        foreach ($this->classMap as $key => $template) {
+            if ($template instanceof Template) {
+                throw new DomainException(
+                    sprintf(
+                        'The given temple must be a %s instance, %s given',
+                        Template::class,
+                        get_class($template)
+                    )
+                );
+            }
 
-        return forward_static_call_array([$this->classMap[$name], 'fromContent'], [new TemplateContent($content)]);
+            if ($template::name() === $name) {
+                return forward_static_call_array(
+                    [$this->classMap[$key], 'fromContent'],
+                    [new TemplateContent($content)]
+                );
+            }
+        }
+        throw new TemplateNameDoesNotExistException($name);
     }
 }

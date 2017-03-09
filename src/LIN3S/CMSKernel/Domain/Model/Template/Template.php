@@ -19,4 +19,6 @@ interface Template
     public static function fromContent(TemplateContent $content);
 
     public function serialize();
+
+    public static function name();
 }

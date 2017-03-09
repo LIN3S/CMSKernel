@@ -12,6 +12,7 @@
 namespace LIN3S\CMSKernel\Infrastructure\Symfony\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 
@@ -19,7 +20,15 @@ class WysiwygType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('wysiwyg', HiddenType::class);
+        $builder
+            ->add('wysiwyg', HiddenType::class)
+            ->addModelTransformer(new CallbackTransformer(
+                function ($value) {
+                    return ['wysiwyg' => $value];
+                },
+                function ($value) {
+                    return $value['wysiwyg'];
+                }
+            ));
     }
-
 }
