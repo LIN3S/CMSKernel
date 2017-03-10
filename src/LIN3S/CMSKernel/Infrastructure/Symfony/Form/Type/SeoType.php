@@ -28,26 +28,30 @@ class SeoType extends AbstractType implements DataMapperInterface
     {
         $builder
             ->add('metaTitle', TextType::class, [
-                'required' => false,
-                'label'    => 'Meta title',
+                'label'              => 'lin3s_cms_kernel.form.type.seo.meta_title',
+                'required'           => false,
+                'translation_domain' => 'Lin3sCmsKernel',
             ])
             ->add('metaDescription', TextType::class, [
-                'required' => false,
-                'label'    => 'Meta descripción',
+                'label'              => 'lin3s_cms_kernel.form.type.seo.meta_description',
+                'required'           => false,
+                'translation_domain' => 'Lin3sCmsKernel',
             ])
             ->add('robotsIndex', ChoiceType::class, [
-                'label'   => 'Indexación',
-                'choices' => [
-                    'Sí' => true,
-                    'No' => false,
+                'choices'            => [
+                    'lin3s_cms_kernel.form.type.seo.robots_yes' => true,
+                    'lin3s_cms_kernel.form.type.seo.robots_no'  => false,
                 ],
+                'label'              => 'lin3s_cms_kernel.form.type.seo.robots_index',
+                'translation_domain' => 'Lin3sCmsKernel',
             ])
             ->add('robotsFollow', ChoiceType::class, [
-                'label'   => 'Seguimiento',
-                'choices' => [
-                    'Sí' => true,
-                    'No' => false,
+                'choices'            => [
+                    'lin3s_cms_kernel.form.type.seo.robots_yes' => true,
+                    'lin3s_cms_kernel.form.type.seo.robots_no'  => false,
                 ],
+                'label'              => 'lin3s_cms_kernel.form.type.seo.robots_follow',
+                'translation_domain' => 'Lin3sCmsKernel',
             ])
             ->setDataMapper($this);
     }

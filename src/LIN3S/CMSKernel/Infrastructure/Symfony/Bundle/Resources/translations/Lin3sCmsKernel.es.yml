@@ -1,0 +1,19 @@
+# This file is part of the CMS Kernel package.
+#
+# Copyright (c) 2016-present LIN3S <info@lin3s.com>
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
+
+lin3s_cms_kernel:
+    form:
+        type:
+            seo:
+                meta_title: Meta título
+                meta_description: Meta descripción
+                robots_index: Indexación
+                robots_follow: Seguimiento
+                robots_no: No
+                robots_yes: Sí
+            template_selector:
+                name: Nombre
