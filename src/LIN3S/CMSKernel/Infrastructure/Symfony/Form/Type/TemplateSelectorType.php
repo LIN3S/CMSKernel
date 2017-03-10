@@ -13,6 +13,7 @@ namespace LIN3S\CMSKernel\Infrastructure\Symfony\Form\Type;
 
 use LIN3S\CMSKernel\Domain\Model\Template\Template;
 use LIN3S\CMSKernel\Domain\Model\Translation\InvalidLocaleException;
+use LIN3S\SharedKernel\Exception\InvalidArgumentException;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\DataMapperInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -48,10 +49,10 @@ class TemplateSelectorType extends AbstractType implements DataMapperInterface
     public function mapDataToForms($data, $forms)
     {
         if (null === $data) {
-            return [];
+            return;
         }
         if (!$data instanceof Template) {
-            throw new InvalidLocaleException(
+            throw new InvalidArgumentException(
                 sprintf(
                     'Given data must be %s instance, %s given',
                     Template::class,
@@ -72,13 +73,14 @@ class TemplateSelectorType extends AbstractType implements DataMapperInterface
 
         if (empty($data)) {
             $data = ['name' => '', 'content' => ''];
-        }
-        $templateName = $forms['name']->getData();
+        } else {
+            $templateName = $forms['name']->getData();
 
-        $data = [
-            'name'    => $templateName,
-            'content' => $forms[$templateName]->getData(),
-        ];
+            $data = [
+                'name'    => $templateName,
+                'content' => $forms[$templateName]->getData(),
+            ];
+        }
     }
 
     public function getBlockPrefix()
