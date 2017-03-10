@@ -71,17 +71,12 @@ class TemplateSelectorType extends AbstractType implements DataMapperInterface
     public function mapFormsToData($forms, &$data)
     {
         $forms = iterator_to_array($forms);
+        $templateName = $forms['name']->getData();
 
-        if (empty($data)) {
-            $data = ['name' => '', 'content' => ''];
-        } else {
-            $templateName = $forms['name']->getData();
-
-            $data = [
-                'name'    => $templateName,
-                'content' => $forms[$templateName]->getData(),
-            ];
-        }
+        $data = [
+            'name'    => $templateName,
+            'content' => $forms[$templateName]->getData(),
+        ];
     }
 
     public function getBlockPrefix()

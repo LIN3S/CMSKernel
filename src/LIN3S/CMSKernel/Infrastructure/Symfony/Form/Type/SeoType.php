@@ -82,21 +82,11 @@ class SeoType extends AbstractType implements DataMapperInterface
     public function mapFormsToData($forms, &$data)
     {
         $forms = iterator_to_array($forms);
-
-        if (empty($data)) {
-            $data = [
-                'metaTitle'       => '',
-                'metaDescription' => '',
-                'robotsIndex'     => true,
-                'robotsFollow'    => true,
-            ];
-        } else {
-            $data = [
-                'metaTitle'       => $forms['metaTitle']->getData(),
-                'metaDescription' => $forms['metaDescription']->getData(),
-                'robotsIndex'     => $forms['robotsIndex']->getData(),
-                'robotsFollow'    => $forms['robotsFollow']->getData(),
-            ];
-        }
+        $data = [
+            'metaTitle'       => $forms['metaTitle']->getData(),
+            'metaDescription' => $forms['metaDescription']->getData(),
+            'robotsIndex'     => $forms['robotsIndex']->getData(),
+            'robotsFollow'    => $forms['robotsFollow']->getData(),
+        ];
     }
 }
