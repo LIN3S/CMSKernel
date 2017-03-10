@@ -11,9 +11,9 @@ lin3s_cms_kernel:
             seo:
                 meta_title: Meta titre
                 meta_description: Meta description
-                robots_index: Indexage
-                robots_follow: Le suivi
-                robots_no: Aucun
+                robots_index: Indexation
+                robots_follow: Suivre
+                robots_no: Non
                 robots_yes: Oui
             template_selector:
                 name: Nom
