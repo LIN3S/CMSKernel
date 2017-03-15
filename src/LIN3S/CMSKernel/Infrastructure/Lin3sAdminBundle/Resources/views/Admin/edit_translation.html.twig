@@ -1,4 +1,4 @@
-{% extends '@Lin3sAdmin/Admin/new.html.twig' %}
+{% extends '@Lin3sAdmin/Admin/form.html.twig' %}
 
 {% trans_default_domain 'CmsKernelAdminBridge' %}
 
@@ -13,7 +13,7 @@
     {% endtrans %}
 {% endblock %}
 
-{% block lin3s_admin_actions %}
+{% block lin3s_admin_global_actions %}
     {% set url = url('lin3s_admin_custom', {
         action: 'removeTranslation',
         entity: entityConfig.name,

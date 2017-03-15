@@ -13,8 +13,6 @@ namespace LIN3S\CMSKernel\Infrastructure\Lin3sAdminBundle\Action\Type;
 
 use LIN3S\AdminBundle\Configuration\Model\Entity;
 use LIN3S\AdminBundle\Configuration\Type\ActionType;
-use LIN3S\AdminBundle\Extension\Action\EntityId;
-use LIN3S\AdminBundle\Extension\Action\OptionResolver;
 use LIN3S\AdminBundle\Form\FormHandler;
 use LIN3S\CMSKernel\Domain\Model\Translation\TranslationDoesNotExistException;
 use LIN3S\SharedKernel\Application\CommandBus;
@@ -28,9 +26,6 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  */
 class TranslateActionType implements ActionType
 {
-    use EntityId;
-    use OptionResolver;
-
     private $flashBag;
     private $twig;
     private $formHandler;
@@ -50,15 +45,12 @@ class TranslateActionType implements ActionType
 
     public function execute($entity, Entity $config, Request $request, $options = null)
     {
-        $this->checkRequired($options, 'form');
-
-        $id = (string) $this->getEntityId($entity, $config);
         if (!$entity) {
-            throw new NotFoundHttpException(
-                sprintf('The translatable with %s id does not exist', $id)
-            );
+            throw new NotFoundHttpException('The translatable does not exist');
         }
-
+        $entityName = $config->name();
+        $this->checkFormIsPassed($options);
+        $id = $config->id($entity);
         $locale = $request->query->get('locale');
 
 //        TODO: Check if locale is defined in the bundle configuration
@@ -74,32 +66,24 @@ class TranslateActionType implements ActionType
             $translation = null;
         }
 
-        $form = $this->formHandler->createForm(
-            $options['form'],
-            $translation, [
+        $form = $this->formHandler->createForm($options['form'], $translation, [
             'locale'  => $locale,
             'page_id' => $id,
         ]);
         if ($request->isMethod('POST') || $request->isMethod('PUT') || $request->isMethod('PATCH')) {
             $form->handleRequest($request);
             if ($form->isValid() && $form->isSubmitted()) {
-                $this->commandBus->handle(
-                    $form->getData()
-                );
+                $command = $form->getData();
+
+                $this->commandBus->handle($command);
                 $this->flashBag->add(
                     'lin3s_admin_success',
-                    sprintf(
-                        'The %s translation is successfully saved',
-                        $config->name()
-                    )
+                    sprintf('The %s translation is successfully saved', $entityName)
                 );
             } else {
                 $this->flashBag->add(
                     'lin3s_admin_error',
-                    sprintf(
-                        'Errors while saving %s translation. Please check all fields and try again',
-                        $config->name()
-                    )
+                    sprintf('Errors while saving %s translation. Please check all fields and try again', $entityName)
                 );
             }
         }
@@ -112,5 +96,14 @@ class TranslateActionType implements ActionType
                 'form'         => $form->createView(),
             ])
         );
+    }
+
+    private function checkFormIsPassed($options)
+    {
+        if (!isset($options['form'])) {
+            throw new \InvalidArgumentException(
+                '"form" option is required so, you must declare inside action in the admin.yml'
+            );
+        }
     }
 }

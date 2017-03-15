@@ -14,7 +14,6 @@ namespace LIN3S\CMSKernel\Infrastructure\Lin3sAdminBundle\Action\Type;
 use Doctrine\Common\Persistence\ObjectManager;
 use LIN3S\AdminBundle\Configuration\Model\Entity;
 use LIN3S\AdminBundle\Configuration\Type\ActionType;
-use LIN3S\AdminBundle\Extension\Action\EntityId;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
@@ -26,8 +25,6 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
  */
 class RemoveTranslationActionType implements ActionType
 {
-    use EntityId;
-
     private $manager;
     private $flashBag;
     private $urlGenerator;
@@ -44,14 +41,12 @@ class RemoveTranslationActionType implements ActionType
 
     public function execute($entity, Entity $config, Request $request, $options = null)
     {
-        $id = (string)$this->getEntityId($entity, $config);
         if (!$entity) {
-            throw new NotFoundHttpException(
-                sprintf('The translatable with %s id does not exist', $id)
-            );
+            throw new NotFoundHttpException('The translatable does not exist');
         }
-
+        $entityName = $config->name();
         $locale = $request->query->get('locale');
+
         try {
             $translation = $entity->{$locale}();
             $entity->removeTranslation($translation->locale());
@@ -66,20 +61,12 @@ class RemoveTranslationActionType implements ActionType
 
             $this->flashBag->add(
                 'lin3s_admin_success',
-                sprintf(
-                    'The %s translation of %s is successfully removed',
-                    $locale,
-                    $config->name()
-                )
+                sprintf('The %s translation of %s is successfully removed', $locale, $entityName)
             );
         } catch (\Exception $exception) {
             $this->flashBag->add(
                 'lin3s_admin_error',
-                sprintf(
-                    'Errors while remove the %s translation of %s',
-                    $locale,
-                    $config->name()
-                )
+                sprintf('Errors while remove the %s translation of %s', $locale, $entityName)
             );
         }
 
