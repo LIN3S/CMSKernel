@@ -21,7 +21,7 @@ cms_kernel_admin_bridge:
             title: Hizkuntza hautatu
             content: Itzulgarria den edukia oro, gutxienez itzulpen bat beharrezkoa du
     edit:
-        title: "%language% translation of the %entity%"
+        title: "%entity%(r)en %language% itzulpena"
     remove_translation:
         button: Itzulpena ezabatu
         confirmation_modal:

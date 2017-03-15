@@ -1,14 +1,12 @@
 {% extends '@Lin3sAdmin/Admin/form.html.twig' %}
 
-{% trans_default_domain 'CmsKernelAdminBridge' %}
-
+{% set singularName = entityConfig.printNames.singular | trans %}
 {% set language = 'cms_kernel_admin_bridge.locale.' ~ locale %}
 
+{% trans_default_domain 'CmsKernelAdminBridge' %}
+
 {% block lin3s_admin_title %}
-    {% trans with {
-        '%language%': language | trans,
-        '%entity%': entityConfig.printNames.singular | trans | lower
-    } %}
+    {% trans with {'%language%': language | trans, '%entity%': singularName} %}
         cms_kernel_admin_bridge.edit.title
     {% endtrans %}
 {% endblock %}
