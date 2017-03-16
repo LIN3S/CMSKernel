@@ -50,7 +50,7 @@ class TranslateActionType implements ActionType
         }
         $entityName = $config->name();
         $this->checkFormIsPassed($options);
-        $id = $config->id($entity);
+        $id = (string)$config->id($entity); // Ensure the id is scalar, not VO
         $locale = $request->query->get('locale');
 
 //        TODO: Check if locale is defined in the bundle configuration
