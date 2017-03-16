@@ -6,9 +6,7 @@
 {% trans_default_domain 'CmsKernelAdminBridge' %}
 
 {% block lin3s_admin_title %}
-    {% trans with {'%language%': language | trans, '%entity%': singularName} %}
-        cms_kernel_admin_bridge.edit.title
-    {% endtrans %}
+    {{ 'cms_kernel_admin_bridge.edit.title' | trans({'%language%': language | trans, '%entity%': singularName}) | capitalize }}
 {% endblock %}
 
 {% block lin3s_admin_global_actions %}
