@@ -1,0 +1,50 @@
+// This file is part of the CMS Kernel package.
+//
+// Copyright (c) 2016-present LIN3S <info@lin3s.com>
+//
+// For the full copyright and license information, please view the LICENSE
+// file that was distributed with this source code.
+//
+// @author Mikel Tuesta <mikeltuesta@gmail.com>
+
+@import './../variables/colors';
+
+$border-color--bottom: $color-white;
+$border-color: $color-border-main;
+$tab-button-background-color--inactive: $color-seashell;
+
+.tabbed__label-group {
+  clear: both;
+  float: right;
+  margin-bottom: -1px;
+  position: relative;
+  z-index: 10;
+}
+
+.tabbed__label {
+  cursor: pointer;
+  display: inline-block;
+  background-color: $tab-button-background-color--inactive;
+  border-bottom: 1px solid $border-color;
+  border-left: 1px solid $border-color;
+  border-top: 1px solid $border-color;
+  padding: 8px 15px;
+
+  > * {
+    cursor: pointer;
+  }
+
+  &:last-child {
+    border-right: 1px solid $border-color;
+  }
+}
+
+.tabbed__label--active {
+  background-color: $color-white;
+  border-bottom: 1px solid $border-color--bottom;
+}
+
+.tabbed__content-wrapper {
+  position: relative;
+  z-index: 0;
+}

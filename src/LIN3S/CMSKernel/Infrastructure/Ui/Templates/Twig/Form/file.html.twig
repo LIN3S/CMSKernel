@@ -1,0 +1,24 @@
+{#
+    This file is part of the CMS Kernel package.
+
+    Copyright (c) 2016-present LIN3S <info@lin3s.com>
+
+    For the full copyright and license information, please view the LICENSE
+    file that was distributed with this source code.
+
+    @author Mikel Tuesta <mikeltuesta@gmail.com>
+#}
+
+{% block file_widget %}
+    <div class="file">
+        {{- form_widget(form.file, {attr: {
+            class: 'file__form-input',
+            'data-upload-endpoint': form.vars.upload_endpoint,
+            'data-gallery-endpoint': form.vars.gallery_endpoint,
+            'data-mime-types': form.vars.mime_types | json_encode()
+        }}) -}}
+        <div class="file__react-wrapper"></div>
+    </div>
+
+    <script src="{{ asset('bundles/lin3scmskernel/js/components/file.min.js') }}"></script>
+{% endblock %}

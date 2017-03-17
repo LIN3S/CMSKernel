@@ -10,4 +10,5 @@
  */
 
 export * from './bundle.styles';
-export * from './bundle.modules';
+export * from './bundle.dependencies';
+export * from './bundle.components';

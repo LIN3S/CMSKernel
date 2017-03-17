@@ -14,7 +14,8 @@ const
   getComponentsMap = (rootPath) => {
     return {
       'templateSelector': `${rootPath}/TemplateSelector/init.js`,
-      'wysiwyg': `${rootPath}/Wysiwyg/init.js`
+      'wysiwyg': `${rootPath}/Wysiwyg/init.js`,
+      'file': `${rootPath}/File/init.js`
     };
   };
 

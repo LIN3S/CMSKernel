@@ -9,29 +9,20 @@
  * @author Mikel Tuesta <mikeltuesta@gmail.com>
  */
 
-import * as lin3sEventBus from 'lin3s-event-bus';
-import React from 'react';
-import ReactDOM from 'react-dom';
-import Modal from 'react-modal';
-import * as reactDraftWysiwyg from 'react-draft-wysiwyg';
-import draftToHtml from 'draftjs-to-html';
-import * as draftJs from 'draft-js';
-import $ from 'jquery';
-
+import Tabbed from './components/Tabbed/Tabbed';
 import ConfirmationModal from './components/ConfirmationModal/App';
 import TemplateSelector from './components/TemplateSelector/TemplateSelector';
 import Wysiwyg from './components/Wysiwyg/Wysiwyg';
+import File from './components/File/File';
+import FullScreenModal from './components/FullScreenModal/FullScreenModal';
+import FileSelector from './components/FileSelector/FileSelector';
 
 export {
-  lin3sEventBus,
-  React,
-  ReactDOM,
-  Modal,
-  reactDraftWysiwyg,
-  draftToHtml,
-  draftJs,
-  $,
+  Tabbed,
   ConfirmationModal,
   TemplateSelector,
-  Wysiwyg
+  FullScreenModal,
+  FileSelector,
+  Wysiwyg,
+  File
 }

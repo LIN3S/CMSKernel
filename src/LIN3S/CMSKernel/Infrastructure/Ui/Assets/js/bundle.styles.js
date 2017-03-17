@@ -9,7 +9,9 @@
  * @author Mikel Tuesta <mikeltuesta@gmail.com>
  */
 
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
-
+import './../scss/components/_tabbed.scss';
+import './../scss/components/_full-screen-modal.scss';
+import './../scss/components/_file-selector.scss';
 import './../scss/components/_template-selector.scss';
 import './../scss/components/_wysiwyg.scss';
+import './../scss/components/_file.scss';

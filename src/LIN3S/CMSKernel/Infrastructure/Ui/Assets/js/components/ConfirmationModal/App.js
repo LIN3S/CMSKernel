@@ -1,6 +1,6 @@
 /* eslint react/no-danger: 0 */
 
-import React from 'react';
+import {React} from './../../bundle.dependencies';
 
 import ConfirmationModal from './Component';
 

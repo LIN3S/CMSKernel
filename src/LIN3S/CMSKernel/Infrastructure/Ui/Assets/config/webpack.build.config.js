@@ -24,11 +24,16 @@ const
       'react-draft-wysiwyg': 'reactDraftWysiwyg',
       'draftjs-to-html': 'draftToHtml',
       'draft-js': 'draftJs',
+      'uppy': 'uppy',
 
       // relative to the webpack's build entry-point (js/bundle.js)
+      './components/Tabbed/Tabbed': 'Tabbed',
       './components/ConfirmationModal/App': 'ConfirmationModal',
       './components/TemplateSelector/TemplateSelector': 'TemplateSelector',
-      './components/Wysiwyg/Wysiwyg': 'Wysiwyg'
+      './components/FileSelector/FileSelector': 'FileSelector',
+      './components/FullScreenModal/FullScreenModal': 'FullScreenModal',
+      './components/Wysiwyg/Wysiwyg': 'Wysiwyg',
+      './components/File/File': 'File'
     }
   };
 

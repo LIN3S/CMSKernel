@@ -34,7 +34,8 @@
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-draft-wysiwyg": "^1.7.3",
-    "react-modal": "^1.6.5"
+    "react-modal": "^1.6.5",
+    "uppy": "^0.15.0"
   },
   "babel": {
     "presets": [
@@ -47,6 +48,7 @@
     ]
   },
   "scripts": {
+    "build:main:bundle:watch": "webpack --config=./config/webpack.bundle.config.babel.js --watch",
     "install:bundles": "npm-run-all --parallel install:bundle:*",
     "install:bundle:main": "yarn install",
     "install:bundle:bengoruser": "cd ../../BenGorUserBundle/Resources/private && yarn install",

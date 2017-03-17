@@ -10,24 +10,24 @@
  */
 
 import {ReactDOM, lin3sEventBus} from './../../bundle.dependencies';
-import {Wysiwyg} from './../../bundle.components';
+import {File} from './../../bundle.components';
 
 const init = () => {
 
-  const wysiwygs = document.querySelectorAll('.wysiwyg');
+  const files = document.querySelectorAll('.file');
 
-  if (wysiwygs.length === 0) {
+  if (files.length === 0) {
     return;
   }
 
-  wysiwygs.forEach((wysiwyg) => {
+  files.forEach((file) => {
     const
-      wysiwygReactWrapper = wysiwyg.querySelector('.wysiwyg__react-wrapper'),
-      wysiwygFormInput = wysiwyg.querySelector('.wysiwyg__form-input');
+      fileReactWrapper = file.querySelector('.file__react-wrapper'),
+      fileFormInput = file.querySelector('.file__form-input');
 
     ReactDOM.render(
-      <Wysiwyg formInput={wysiwygFormInput}/>,
-      wysiwygReactWrapper
+      <File formInput={fileFormInput}/>,
+      fileReactWrapper
     );
   });
 };

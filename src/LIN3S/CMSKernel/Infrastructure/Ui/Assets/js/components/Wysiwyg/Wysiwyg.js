@@ -9,10 +9,10 @@
  * @author Mikel Tuesta <mikeltuesta@gmail.com>
  */
 
-import React from 'react';
-import * as reactDraftWysiwyg from 'react-draft-wysiwyg';
-import draftToHtml from 'draftjs-to-html';
-import * as draftJs from 'draft-js';
+import {React, reactDraftWysiwyg, draftToHtml, draftJs} from './../../bundle.dependencies';
+import {Tabbed} from './../../bundle.components';
+
+import Tab from './../Tabbed/Tab';
 
 const
   Editor = reactDraftWysiwyg.Editor,
@@ -27,11 +27,6 @@ class Wysiwyg extends React.Component {
     formInput: React.PropTypes.object.isRequired
   };
 
-  static MODE = {
-    EDITOR: 'editor',
-    RAW: 'raw'
-  };
-
   constructor(props) {
     super(props);
 
@@ -39,12 +34,13 @@ class Wysiwyg extends React.Component {
     const editorContentState = this.getEditorContentStateFromHtml(editorContentHtml);
 
     this.state = {
-      editorMode: Wysiwyg.MODE.EDITOR,
+      selectedTabIndex: 0,
       editorState: EditorState.createWithContent(editorContentState),
       textareaState: editorContentHtml
     };
 
     // Pre bind mthod's context
+    this.boundOnTabSelected = this.onTabSelected.bind(this);
     this.boundOnEditorStateChange = this.onEditorStateChange.bind(this);
     this.boundOnTextareaStateChange = this.onTextareaStateChange.bind(this);
   }
@@ -78,55 +74,33 @@ class Wysiwyg extends React.Component {
     formInput.value = value;
   }
 
-  onEditorModeSelected(editorMode) {
+  onTabSelected(tabIndex) {
     this.setState({
-      editorMode: editorMode
+      selectedTabIndex: tabIndex
     });
   }
 
   render() {
-    const {editorMode, editorState, textareaState} = this.state;
-    const
-      tabInactiveStyle = 'tab__button--inactive',
-      editorModeTabStyle = 'tab__button ' + (editorMode !== Wysiwyg.MODE.EDITOR ? tabInactiveStyle : ''),
-      rawModeTabStyle = 'tab__button ' + (editorMode !== Wysiwyg.MODE.RAW ? tabInactiveStyle : '');
-
-    return <div className="tabs">
-      <div className="tab__button-group">
-        <div
-          className={editorModeTabStyle}
-          onClick={this.onEditorModeSelected.bind(this, Wysiwyg.MODE.EDITOR)}>
-          {Wysiwyg.MODE.EDITOR}
-        </div>
-        <div
-          className={rawModeTabStyle}
-          onClick={this.onEditorModeSelected.bind(this, Wysiwyg.MODE.RAW)}>
-          {Wysiwyg.MODE.RAW}
-        </div>
-      </div>
-      <div className="tabs__content">
-        <div
-          className="tab__content"
-          style={{
-            display: editorMode === Wysiwyg.MODE.EDITOR ? 'block' : 'none'
-          }}>
-          <Editor
-            editorState={editorState}
-            onEditorStateChange={this.boundOnEditorStateChange}
-          />
-        </div>
-        <div
-          className="tab__content"
-          style={{
-            display: editorMode === Wysiwyg.MODE.RAW ? 'block' : 'none'
-          }}>
-          <textarea
-            className="wysiwyg__textarea"
-            onChange={this.boundOnTextareaStateChange}
-            value={textareaState}/>
-        </div>
-      </div>
-    </div>;
+    const {selectedTabIndex, editorState, textareaState} = this.state;
+    return <Tabbed
+      onTabSelected={this.boundOnTabSelected}
+      selectedTabIndex={selectedTabIndex}>
+      <Tab label={
+        <label>Editor</label>
+      }>
+        <Editor
+          editorState={editorState}
+          onEditorStateChange={this.boundOnEditorStateChange}/>
+      </Tab>
+      <Tab label={
+        <label>Raw</label>
+      }>
+        <textarea
+          className="wysiwyg__textarea"
+          onChange={this.boundOnTextareaStateChange}
+          value={textareaState}/>
+      </Tab>
+    </Tabbed>;
   }
 }
 

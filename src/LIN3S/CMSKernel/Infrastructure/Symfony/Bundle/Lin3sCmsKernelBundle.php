@@ -63,6 +63,7 @@ class Lin3sCmsKernelBundle extends Bundle
                 $this->twigBasePath(),
             ],
             'form_themes' => [
+                'Form/file.html.twig',
                 'Form/template_selector.html.twig',
                 'Form/wysiwyg.html.twig',
             ],
