@@ -33,6 +33,7 @@ class File extends React.Component {
     this.boundOnFileSelectButtonClick = this.onFileSelectButtonClick.bind(this);
     this.boundOnModalClose = this.onModalClose.bind(this);
     this.boundOnFileSelected = this.onFileSelected.bind(this);
+    this.boundOnFileRemoveButtonClick = this.onFileRemove.bind(this);
   }
 
   getInitialFile() {
@@ -80,22 +81,32 @@ class File extends React.Component {
     });
   }
 
+  onFileRemove(file) {
+    this.setFormInputValue(null);
+    this.setState({
+      fileSelectorModalIsOpened: false,
+      selectedFile: undefined
+    });
+  }
+
   render() {
     const {formInput} = this.props;
     const {fileSelectorModalIsOpened, selectedFile} = this.state;
 
     return <div className="file__wrapper">
+      {selectedFile === undefined &&
       <button
-        className="file__select"
+        className="button file__select"
         onClick={this.boundOnFileSelectButtonClick}>
         Select
-      </button>
+      </button>}
 
       {selectedFile !== undefined &&
       <FilePreview
         cssClass="file-preview--current"
         file={selectedFile}
-        onSelected={this.boundOnFileSelectButtonClick}/>}
+        onSelected={this.boundOnFileSelectButtonClick}
+        onRemove={this.boundOnFileRemoveButtonClick}/>}
 
       <FullScreenModal isOpened={fileSelectorModalIsOpened} onClickOutside={this.boundOnModalClose}>
         <FileSelector

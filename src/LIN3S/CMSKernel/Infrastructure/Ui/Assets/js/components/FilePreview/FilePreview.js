@@ -18,6 +18,7 @@ class FilePreview extends React.Component {
     cssClass: React.PropTypes.string,
     file: React.PropTypes.instanceOf(FileModel).isRequired,
     isSelected: React.PropTypes.bool,
+    onRemove: React.PropTypes.func,
     onSelected: React.PropTypes.func
   };
 
@@ -29,15 +30,29 @@ class FilePreview extends React.Component {
 
   constructor(props) {
     super(props);
+
+    // Pre-bind methods' context
+    this.boundOnRemove = this.onRemove.bind(this);
+  }
+
+  onRemove(event) {
+    const {file, onRemove} = this.props;
+    event.stopPropagation();
+    onRemove(file);
   }
 
   render() {
-    const {cssClass, file, isSelected, onSelected} = this.props;
+    const {cssClass, file, isSelected, onRemove, onSelected} = this.props;
     const filePreviewCssClass = `file-preview ${cssClass} ${isSelected ? 'file-preview--selected' : ''}`;
+
     return <div
       className={filePreviewCssClass}
       onClick={onSelected}>
-      {file.id}
+      <label className="file-preview__name">{file.id}</label>
+      {onRemove !== undefined &&
+      <button
+        className="file-preview__delete"
+        onClick={this.boundOnRemove}>✕</button>}
     </div>
   }
 }

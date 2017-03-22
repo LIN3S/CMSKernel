@@ -8,6 +8,9 @@
 // @author Mikel Tuesta <mikeltuesta@gmail.com>
 
 @import './../base/row';
+@import './../variables/colors';
+
+$file-gallery-control-button-background-color: $color-white;
 
 .file-gallery__files-wrapper {
   align-items: stretch;
@@ -21,7 +24,6 @@
 .file-gallery__file-wrapper {
   $max-width: 50%;
   flex: 1 1 $max-width;
-  height: 120px;
   max-width: $max-width;
   padding: 10px;
   width: 100%;

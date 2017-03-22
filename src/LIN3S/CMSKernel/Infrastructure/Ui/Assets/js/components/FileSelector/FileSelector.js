@@ -32,8 +32,7 @@ class FileSelector extends React.Component {
   };
 
   static defaultProps = {
-    onCancel: () => {
-    }
+    onCancel: () => {}
   };
 
   uppy;

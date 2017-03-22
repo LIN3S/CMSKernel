@@ -10,9 +10,12 @@
 #}
 
 {% block wysiwyg_widget %}
-    <div class="wysiwyg">
-        {{- form_row(form.wysiwyg, {attr: {class: 'wysiwyg__form-input'}}) -}}
-        <div class="wysiwyg__react-wrapper"></div>
+    <div class="form__group">
+        {{ form_label(form) }}
+        <div class="wysiwyg">
+            {{- form_widget(form.wysiwyg, {attr: {class: 'wysiwyg__form-input'}}) -}}
+            <div class="wysiwyg__react-wrapper"></div>
+        </div>
     </div>
 
     <script src="{{ asset('bundles/lin3scmskernel/js/components/wysiwyg.min.js') }}"></script>

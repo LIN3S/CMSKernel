@@ -137,7 +137,7 @@ class FileGallery extends React.Component {
         </button>
         {selectedFile !== undefined &&
         <button
-          className="button"
+          className="button button--secondary"
           onClick={this.boundOnAccept}>
           Aceptar
         </button>}

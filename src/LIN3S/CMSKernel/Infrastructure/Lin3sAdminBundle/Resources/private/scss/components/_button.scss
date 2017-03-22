@@ -1,0 +1,42 @@
+// This file is part of the CMS Kernel package.
+//
+// Copyright (c) 2016-present LIN3S <info@lin3s.com>
+//
+// For the full copyright and license information, please view the LICENSE
+// file that was distributed with this source code.
+
+@import './../../node_modules/lin3s-css-grid/scss/variables';
+@import './../../../../../../../../../../admin-bundle/src/LIN3S/AdminBundle/Resources/private/scss/variables/colors';
+
+$button-background-color: $color-alabaster;
+$button-background-color--hover: $color-gallery;
+$button-background-color--active: $color-dark-mercury;
+
+$button-border-color: $color-alto;
+$button-text-color: $color-dove-grey;
+
+.button {
+  background-color: $button-background-color;
+  border: 1px solid $button-border-color;
+  border-radius: 0;
+  box-shadow: none;
+  color: $button-text-color;
+  cursor: pointer;
+  font-size: 13px;
+  outline: 0;
+  padding: 6px 10px;
+  transition: background-color .1s ease-in-out, border .1s ease-in-out;
+
+  &:hover {
+    background-color: $button-background-color--hover;
+  }
+
+  &:active {
+    background-color: $button-background-color--active;
+    outline: 0;
+  }
+}
+
+.button--secondary {
+
+}
