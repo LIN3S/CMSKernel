@@ -9,8 +9,10 @@
  * @author Mikel Tuesta <mikeltuesta@gmail.com>
  */
 
-export * from './bundle.styles';
-export * from './bundle.model';
-export * from './bundle.util';
-export * from './bundle.dependencies';
-export * from './bundle.components';
+import {reactPropType, reactPropTypeInstanceOf, reactPropTypeArrayOf} from './util/Util';
+
+export {
+  reactPropType,
+  reactPropTypeInstanceOf,
+  reactPropTypeArrayOf
+}

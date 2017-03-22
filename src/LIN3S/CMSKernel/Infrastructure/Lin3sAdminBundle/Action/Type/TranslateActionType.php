@@ -48,6 +48,7 @@ class TranslateActionType implements ActionType
         if (!$entity) {
             throw new NotFoundHttpException('The translatable does not exist');
         }
+
         $entityName = $config->name();
         $this->checkFormIsPassed($options);
         $id = (string)$config->id($entity); // Ensure the id is scalar, not VO

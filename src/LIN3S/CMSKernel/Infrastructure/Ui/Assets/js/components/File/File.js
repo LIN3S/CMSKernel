@@ -10,7 +10,7 @@
  */
 
 import {React} from './../../bundle.dependencies';
-import {FullScreenModal, FileSelector} from './../../bundle.components';
+import {FullScreenModal, FileSelector, FilePreview} from './../../bundle.components';
 
 class File extends React.Component {
 
@@ -22,12 +22,14 @@ class File extends React.Component {
     super(props);
 
     this.state = {
-      fileSelectorModalIsOpened: false
+      fileSelectorModalIsOpened: false,
+      selectedFile: undefined
     };
 
     // Pre-bind method's context
     this.boundOnFileSelectButtonClick = this.onFileSelectButtonClick.bind(this);
-    this.boundOnModalOutsideClick = this.onModalOutsideClick.bind(this);
+    this.boundOnModalClose = this.onModalClose.bind(this);
+    this.boundOnFileSelected = this.onFileSelected.bind(this);
   }
 
   setFormInputValue(value) {
@@ -44,7 +46,7 @@ class File extends React.Component {
     return JSON.parse(jsonString);
   }
 
-  onModalOutsideClick() {
+  onModalClose() {
     this.setState({
       fileSelectorModalIsOpened: false
     });
@@ -58,9 +60,17 @@ class File extends React.Component {
     });
   }
 
+  onFileSelected(file) {
+    this.setFormInputValue(file.id);
+    this.setState({
+      fileSelectorModalIsOpened: false,
+      selectedFile: file
+    });
+  }
+
   render() {
     const {formInput} = this.props;
-    const {fileSelectorModalIsOpened} = this.state;
+    const {fileSelectorModalIsOpened, selectedFile} = this.state;
 
     return <div className="file__wrapper">
       <button
@@ -68,11 +78,20 @@ class File extends React.Component {
         onClick={this.boundOnFileSelectButtonClick}>
         Select
       </button>
-      <FullScreenModal isOpened={fileSelectorModalIsOpened} onClickOutside={this.boundOnModalOutsideClick}>
+
+      {selectedFile !== undefined &&
+      <FilePreview
+        cssClass="file-preview--current"
+        file={selectedFile}
+        onSelected={this.boundOnFileSelectButtonClick}/>}
+
+      <FullScreenModal isOpened={fileSelectorModalIsOpened} onClickOutside={this.boundOnModalClose}>
         <FileSelector
           galleryEndpoint={this.getFormInputAttribute('data-gallery-endpoint')}
           id={formInput.id}
           mimeTypes={this.getArrayFromJsonString(this.getFormInputAttribute('data-mime-types'))}
+          onCancel={this.boundOnModalClose}
+          onFileSelected={this.boundOnFileSelected}
           uploadEndpoint={this.getFormInputAttribute('data-upload-endpoint')}/>
       </FullScreenModal>
     </div>

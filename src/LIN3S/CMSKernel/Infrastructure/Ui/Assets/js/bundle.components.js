@@ -14,8 +14,14 @@ import ConfirmationModal from './components/ConfirmationModal/App';
 import TemplateSelector from './components/TemplateSelector/TemplateSelector';
 import Wysiwyg from './components/Wysiwyg/Wysiwyg';
 import File from './components/File/File';
+import FilePreview from './components/FilePreview/FilePreview';
 import FullScreenModal from './components/FullScreenModal/FullScreenModal';
+import FileGallery from './components/FileGallery/FileGallery';
 import FileSelector from './components/FileSelector/FileSelector';
+import IconGallery from './components/Icon/IconGallery';
+import IconUpload from './components/Icon/IconUpload';
+import IconRawEditor from './components/Icon/IconRawEditor';
+import IconTextEditor from './components/Icon/IconTextEditor';
 
 export {
   Tabbed,
@@ -24,5 +30,11 @@ export {
   FullScreenModal,
   FileSelector,
   Wysiwyg,
-  File
+  FileGallery,
+  File,
+  FilePreview,
+  IconUpload,
+  IconGallery,
+  IconTextEditor,
+  IconRawEditor
 }

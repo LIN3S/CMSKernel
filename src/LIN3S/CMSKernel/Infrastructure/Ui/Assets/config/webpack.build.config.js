@@ -33,6 +33,7 @@ const
       './components/FileSelector/FileSelector': 'FileSelector',
       './components/FullScreenModal/FullScreenModal': 'FullScreenModal',
       './components/Wysiwyg/Wysiwyg': 'Wysiwyg',
+      './components/FileGallery/FileGallery': 'FileGallery',
       './components/File/File': 'File'
     }
   };

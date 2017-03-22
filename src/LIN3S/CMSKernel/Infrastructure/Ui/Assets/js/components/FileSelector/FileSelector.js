@@ -10,7 +10,7 @@
  */
 
 import {React, uppy} from './../../bundle.dependencies';
-import {Tabbed} from './../../bundle.components';
+import {Tabbed, FileGallery, IconGallery, IconUpload} from './../../bundle.components';
 
 import Tab from './../Tabbed/Tab';
 
@@ -18,8 +18,7 @@ const
   Uppy = uppy.Core,
   Dashboard = uppy.Dashboard,
   Informer = uppy.Informer,
-  MetaData = uppy.MetaData,
-  Tus10 = uppy.Tus10;
+  Multipart = uppy.Multipart;
 
 class FileSelector extends React.Component {
 
@@ -27,7 +26,14 @@ class FileSelector extends React.Component {
     galleryEndpoint: React.PropTypes.string.isRequired,
     id: React.PropTypes.string.isRequired,
     mimeTypes: React.PropTypes.array.isRequired,
+    onCancel: React.PropTypes.func,
+    onFileSelected: React.PropTypes.func.isRequired,
     uploadEndpoint: React.PropTypes.string.isRequired
+  };
+
+  static defaultProps = {
+    onCancel: () => {
+    }
   };
 
   uppy;
@@ -38,13 +44,17 @@ class FileSelector extends React.Component {
 
     this.state = {
       isUppyInitialized: false,
-      selectedTabIndex: 0
+      selectedTabIndex: 0,
+      needsDataReload: true
     };
 
     this.uppyTargetClassIdentifier = `uppy-${this.props.id}`;
 
     // Pre-bind method's context
-    this.boundOnFilesUploaded = this.onFilesUploaded.bind(this);
+    this.boundOnUploadStarted = this.onUploadStarted.bind(this);
+    this.boundOnFileUploadSuccess = this.onFileUploadSuccess.bind(this);
+    this.boundOnFileUploadError = this.onFileUploadError.bind(this);
+    this.boundOnFilesUploadSuccess = this.onFilesUploadSuccess.bind(this);
     this.boundOnTabSelected = this.onTabSelected.bind(this);
   }
 
@@ -58,32 +68,54 @@ class FileSelector extends React.Component {
 
   initializeUppy() {
     const {uploadEndpoint, mimeTypes} = this.props;
-    console.log(uploadEndpoint);
 
-    this.uppy = new Uppy({debug: true, autoProceed: false});
+    this.uppy = new Uppy({autoProceed: false});
     this.uppy
       .use(Dashboard, {
         inline: true,
         target: `.${this.uppyTargetClassIdentifier}`
       })
       .use(Informer, {target: Dashboard})
-      .use(Tus10, {endpoint: uploadEndpoint})
-      .use(MetaData, {
-        fields: [
-          {id: 'resizeTo', name: 'Resize to', value: 1200, placeholder: 'specify future image size'},
-          {id: 'description', name: 'Description', value: 'none', placeholder: 'describe what the file is for'}
-        ]
+      .use(Multipart, {
+        endpoint: uploadEndpoint,
+        resume: true,
+        fieldName: 'file'
       });
-    this.uppy.on('core:success', this.boundOnFilesUploaded);
+
+    this.uppy.on('core:upload', this.boundOnUploadStarted);
+    this.uppy.on('core:upload-error', this.boundOnFileUploadError);
+    this.uppy.on('core:upload-success', this.boundOnFileUploadSuccess);
+    this.uppy.on('core:success', this.boundOnFilesUploadSuccess);
     this.uppy.run();
 
     this.setState({
       isUppyInitialized: true
     });
+
+
   }
 
-  onFilesUploaded(fileCount) {
-    console.log('files uploaded!');
+  onUploadStarted(fileId) {
+    console.log('onUploadStarted');
+    this.setState({
+      needsDataReload: false
+    });
+  }
+
+  onFileUploadSuccess(fileId, resp, uploadURL) {
+    console.log(fileId, resp, uploadURL);
+  }
+
+  onFileUploadError(fileId, xhr) {
+    console.log(fileId, xhr);
+  }
+
+  onFilesUploadSuccess(fileCount) {
+    console.log('files uploaded!', fileCount);
+    this.setState({
+      selectedTabIndex: 0,
+      needsDataReload: true // mark as new data available
+    });
   }
 
   onTabSelected(tabIndex) {
@@ -92,22 +124,46 @@ class FileSelector extends React.Component {
     });
   }
 
+  removeUppyInputs() {
+    // Hacky remove uppy input files
+    const uppyInputs = document.querySelectorAll('.UppyDashboard-input');
+    uppyInputs.forEach((uppyInput) => {
+      console.log(uppyInput);
+//       uppyInput.remove();
+      uppyInput.removeAttribute('name');
+      console.log(uppyInput);
+    });
+  }
+
   render() {
-    const {selectedTabIndex} = this.state;
+    const {selectedTabIndex, needsDataReload} = this.state;
+    const {galleryEndpoint, onFileSelected, onCancel} = this.props;
+
+    this.removeUppyInputs();
 
     return <div className="file-selector">
       <Tabbed
         onTabSelected={this.boundOnTabSelected}
         selectedTabIndex={selectedTabIndex}>
         <Tab label={
-          <label>Upload</label>
+          <label className="tabbed__label-content">
+            <IconGallery/>Gallery
+          </label>
         }>
-          <div className={this.uppyTargetClassIdentifier}></div>
+          <div className="file-selector__gallery-wrapper">
+            <FileGallery
+              needsDataReload={needsDataReload}
+              endpoint={galleryEndpoint}
+              onAccept={onFileSelected}
+              onCancel={onCancel}/>
+          </div>
         </Tab>
         <Tab label={
-          <label>Gallery</label>
+          <label className="tabbed__label-content">
+            <IconUpload/>Upload
+          </label>
         }>
-          <div className="file-selector__gallery-wrapper"></div>
+          <div className={this.uppyTargetClassIdentifier}></div>
         </Tab>
       </Tabbed>
     </div>;

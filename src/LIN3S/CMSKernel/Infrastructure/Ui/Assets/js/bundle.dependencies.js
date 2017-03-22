@@ -18,6 +18,8 @@ import draftToHtml from 'draftjs-to-html';
 import * as draftJs from 'draft-js';
 import $ from 'jquery';
 import * as uppy from 'uppy';
+import 'whatwg-fetch';
+import CancelablePromise from './async/CancelablePromise';
 
 export {
   lin3sEventBus,
@@ -28,5 +30,6 @@ export {
   draftToHtml,
   draftJs,
   $,
-  uppy
+  uppy,
+  CancelablePromise
 }

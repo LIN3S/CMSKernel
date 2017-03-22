@@ -7,10 +7,13 @@
 //
 // @author Mikel Tuesta <mikeltuesta@gmail.com>
 
-.file {
-  order: 2;
-}
+@import './../variables/colors';
 
-.file__select {
-  background: black;
+$icon-fill-color: $color-black;
+$icon-side: 20px;
+
+.icon {
+  fill: $icon-fill-color;
+  height: $icon-side;
+  width: $icon-side;
 }

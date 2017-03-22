@@ -28,6 +28,12 @@ $wysiwyg-padding-horizontal: 15px;
   width: 100%;
 }
 
+///////////////////////// Editor styles override
+.rdw-editor-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
 .rdw-editor-toolbar {
   border: 1px solid $border-color;
   margin-bottom: 0;
@@ -38,10 +44,13 @@ $wysiwyg-padding-horizontal: 15px;
   border-bottom: 1px solid $border-color;
   border-left: 1px solid $border-color;
   border-right: 1px solid $border-color;
+  flex: 1;
   min-height: 240px;
+  height: auto;
   padding: $wysiwyg-padding-vertical $wysiwyg-padding-horizontal;
 }
 
 .rdw-dropdown-optionwrapper {
   overflow: auto;
 }
+///////////////////////// Editor styles override

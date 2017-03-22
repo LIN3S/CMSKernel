@@ -1,0 +1,63 @@
+// This file is part of the CMS Kernel package.
+//
+// Copyright (c) 2016-present LIN3S <info@lin3s.com>
+//
+// For the full copyright and license information, please view the LICENSE
+// file that was distributed with this source code.
+//
+// @author Mikel Tuesta <mikeltuesta@gmail.com>
+
+@import './../base/row';
+
+.file-gallery__files-wrapper {
+  align-items: stretch;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  padding: 5px;
+}
+
+.file-gallery__file-wrapper {
+  $max-width: 50%;
+  flex: 1 1 $max-width;
+  height: 120px;
+  max-width: $max-width;
+  padding: 10px;
+  width: 100%;
+}
+
+.file-gallery__controls {
+  align-items: center;
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px;
+
+  .button {
+    margin-left: 10px;
+  }
+}
+
+@media #{$medium-up} {
+  .file-gallery__file-wrapper {
+    $max-width: 1 / 4 * 100%;
+    flex: 1 1 $max-width;
+    max-width: $max-width;
+  }
+}
+
+@media #{$large-up} {
+  .file-gallery__file-wrapper {
+    $max-width: 1 / 6 * 100%;
+    flex: 1 1 $max-width;
+    max-width: $max-width;
+  }
+}
+
+@media #{$large-up} {
+  .file-gallery__file-wrapper {
+    $max-width: 1 / 8 * 100%;
+    flex: 1 1 $max-width;
+    max-width: $max-width;
+  }
+}

@@ -1,0 +1,57 @@
+// This file is part of the CMS Kernel package.
+//
+// Copyright (c) 2016-present LIN3S <info@lin3s.com>
+//
+// For the full copyright and license information, please view the LICENSE
+// file that was distributed with this source code.
+//
+// @author Mikel Tuesta <mikeltuesta@gmail.com>
+
+@import './../variables/colors';
+@import './../variables/transitions';
+@import './../variables/typography';
+
+$file-current-width: 150px;
+$file-current-height: 200px;
+
+$file-border-color: $color-border-main;
+$file-border-color--selected: $color-border-primary;
+$file-background-color: $color-seashell;
+$file-background-color--selected: $color-alto;
+$file-transition-ease: $transition-ease-main;
+$file-transition-duration: $transition-duration-200;
+
+$file-name-font-size: $font-size-11;
+$file-name-font-weight: $font-weight-500;
+$file-name-line-height: $line-height-15;
+
+.file-preview {
+  background-color: $file-background-color;
+  border: 1px solid $file-border-color;
+  cursor: pointer;
+  height: 100%;
+  transition: border $file-transition-duration $file-transition-ease;
+  width: 100%;
+}
+
+.file-preview--current {
+  height: $file-current-height;
+  width: $file-current-width;
+}
+
+.file-preview--selected {
+  background-color: $file-background-color--selected;
+  border: 1px solid $file-border-color--selected;
+}
+
+.file-preview__name {
+  font-size: $file-name-font-size;
+  font-weight: $file-name-font-weight;
+  line-height: $file-name-line-height;
+  margin-bottom: 5px;
+  max-height: 28px;
+  overflow: hidden;
+  padding: 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

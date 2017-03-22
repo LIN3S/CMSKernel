@@ -10,7 +10,7 @@
  */
 
 import {React, reactDraftWysiwyg, draftToHtml, draftJs} from './../../bundle.dependencies';
-import {Tabbed} from './../../bundle.components';
+import {Tabbed, IconTextEditor, IconRawEditor} from './../../bundle.components';
 
 import Tab from './../Tabbed/Tab';
 
@@ -86,14 +86,18 @@ class Wysiwyg extends React.Component {
       onTabSelected={this.boundOnTabSelected}
       selectedTabIndex={selectedTabIndex}>
       <Tab label={
-        <label>Editor</label>
+        <label className="tabbed__label-content">
+          <IconTextEditor/>Editor
+        </label>
       }>
         <Editor
           editorState={editorState}
           onEditorStateChange={this.boundOnEditorStateChange}/>
       </Tab>
       <Tab label={
-        <label>Raw</label>
+        <label className="tabbed__label-content">
+          <IconRawEditor/>Raw
+        </label>
       }>
         <textarea
           className="wysiwyg__textarea"

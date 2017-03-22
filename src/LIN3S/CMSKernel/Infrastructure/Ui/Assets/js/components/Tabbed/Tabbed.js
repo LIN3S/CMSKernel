@@ -10,20 +10,14 @@
  */
 
 import {React} from './../../bundle.dependencies';
+import {reactPropTypeArrayOf} from './../../bundle.util';
 
 import Tab from './Tab';
-
-const tabType = React.PropTypes.shape({
-  type: React.PropTypes.oneOf([Tab])
-});
 
 class Tabbed extends React.Component {
 
   static propTypes = {
-    children: React.PropTypes.oneOfType([
-      React.PropTypes.arrayOf(tabType), // array of Tabs
-      tabType // single Tab
-    ]).isRequired,
+    children: reactPropTypeArrayOf(Tab).isRequired,
     onTabSelected: React.PropTypes.func.isRequired,
     selectedTabIndex: React.PropTypes.number
   };
@@ -53,16 +47,14 @@ class Tabbed extends React.Component {
         })}
       </div>
       <div className="tabbed__content-wrapper">
-        {children.map((child, index) =>
-          <div
-            className="tabbed__content"
-            key={`tabbed__content-${index}`}
-            style={{
-              display: index === selectedTabIndex ? 'block' : 'none'
-            }}>
+        {children.map((child, index) => {
+          const tabCssClass = 'tabbed__content' + (index === selectedTabIndex ? ' tabbed__content--active' : '');
+          return <div
+            className={tabCssClass}
+            key={`tabbed__content-${index}`}>
             {child}
           </div>
-        )}
+        })}
       </div>
     </div>;
   }
