@@ -9,10 +9,11 @@
  * @author Mikel Tuesta <mikeltuesta@gmail.com>
  */
 
-import {reactPropType, reactPropTypeInstanceOf, reactPropTypeArrayOf} from './util/Util';
+import {makeCancelable, reactPropType, reactPropTypeInstanceOf, reactPropTypeArrayOf} from './util/Util';
 
 export {
+  makeCancelable,
   reactPropType,
-  reactPropTypeInstanceOf,
-  reactPropTypeArrayOf
+  reactPropTypeArrayOf,
+  reactPropTypeInstanceOf
 }

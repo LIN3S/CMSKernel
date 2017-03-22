@@ -11,13 +11,12 @@
 
 import {React} from './../../bundle.dependencies';
 import {FileModel} from './../../bundle.model';
-import {reactPropTypeInstanceOf} from './../../bundle.util';
 
 class FilePreview extends React.Component {
 
   static propTypes = {
     cssClass: React.PropTypes.string,
-    file: reactPropTypeInstanceOf(FileModel).isRequired,
+    file: React.PropTypes.instanceOf(FileModel).isRequired,
     isSelected: React.PropTypes.bool,
     onSelected: React.PropTypes.func
   };

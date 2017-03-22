@@ -9,30 +9,38 @@
  * @author Mikel Tuesta <mikeltuesta@gmail.com>
  */
 
-class FileVO {
+class FileModel {
 
   id;
   name;
   mimeType;
-  createdAt;
-  updatedAt;
+  createdOn;
+  updatedOn;
   size;
 
-  constructor(id, name, mimeType, createdAt, updatedAt, size) {
+  constructor(id, name, mimeType, createdOn, updatedOn, size) {
     this.id = id;
     this.name = name;
     this.mimeType = mimeType;
-    this.createdAt = createdAt;
-    this.updatedAt = updatedAt;
+    this.createdOn = createdOn;
+    this.updatedOn = updatedOn;
     this.size = size;
   }
 
-  static fromJson(jsonFile) {
-
-
-
+  static fromJsonString(jsonStringFile) {
+    return FileModel.fromJson(JSON.parse(jsonStringFile));
   }
 
+  static fromJson(jsonFile) {
+    return new FileModel(
+      jsonFile['id'],
+      jsonFile['file_name'],
+      jsonFile['mime_type'],
+      jsonFile['created_on'],
+      jsonFile['updated_on'],
+      jsonFile['size']
+    );
+  }
 }
 
-export default FileVO;
+export default FileModel;

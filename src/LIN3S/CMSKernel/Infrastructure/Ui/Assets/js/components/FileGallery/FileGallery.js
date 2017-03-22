@@ -9,8 +9,10 @@
  * @author Mikel Tuesta <mikeltuesta@gmail.com>
  */
 
-import {React, CancelablePromise as makeCancelable} from './../../bundle.dependencies';
+import {React} from './../../bundle.dependencies';
 import {FilePreview} from './../../bundle.components';
+import {FileModel} from './../../bundle.model';
+import {makeCancelable} from './../../bundle.util';
 
 class FileGallery extends React.Component {
 
@@ -81,9 +83,9 @@ class FileGallery extends React.Component {
       })
     );
 
-    this.mainPromise.promise.then((files) => {
+    this.mainPromise.promise.then((jsonFiles) => {
       this.setState({
-        files: files
+        files: jsonFiles.map(jsonFile => FileModel.fromJson(jsonFile))
       });
     });
   }

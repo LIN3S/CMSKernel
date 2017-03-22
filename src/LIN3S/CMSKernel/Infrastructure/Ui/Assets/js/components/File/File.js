@@ -11,6 +11,7 @@
 
 import {React} from './../../bundle.dependencies';
 import {FullScreenModal, FileSelector, FilePreview} from './../../bundle.components';
+import {FileModel} from './../../bundle.model';
 
 class File extends React.Component {
 
@@ -23,13 +24,24 @@ class File extends React.Component {
 
     this.state = {
       fileSelectorModalIsOpened: false,
-      selectedFile: undefined
+      selectedFile: this.getInitialFile()
     };
+
+    console.log('File', this.state.selectedFile);
 
     // Pre-bind method's context
     this.boundOnFileSelectButtonClick = this.onFileSelectButtonClick.bind(this);
     this.boundOnModalClose = this.onModalClose.bind(this);
     this.boundOnFileSelected = this.onFileSelected.bind(this);
+  }
+
+  getInitialFile() {
+    const fileJson = this.getFormInputAttribute('data-preview');
+    if (fileJson === '') {
+      return undefined;
+    }
+
+    return FileModel.fromJsonString(fileJson);
   }
 
   setFormInputValue(value) {

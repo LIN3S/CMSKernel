@@ -10,13 +10,15 @@
 #}
 
 {% block file_widget %}
+    {% set filePreview = form.vars.file_preview is not empty ? form.vars.file_preview | json_encode | raw : '' %}
+
     <div class="file">
         {{- form_widget(form.file, {attr: {
             class: 'file__form-input',
             'data-upload-endpoint': form.vars.upload_endpoint,
             'data-gallery-endpoint': form.vars.gallery_endpoint,
-            'data-mime-types': form.vars.mime_types | json_encode(),
-            'data-preview': form.vars.file_preview | json_encode()
+            'data-mime-types': form.vars.mime_types | json_encode | raw,
+            'data-preview': filePreview
         }}) -}}
         <div class="file__react-wrapper"></div>
     </div>

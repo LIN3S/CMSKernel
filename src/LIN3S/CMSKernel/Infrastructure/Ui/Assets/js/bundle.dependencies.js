@@ -9,6 +9,7 @@
  * @author Mikel Tuesta <mikeltuesta@gmail.com>
  */
 
+import 'whatwg-fetch';
 import * as lin3sEventBus from 'lin3s-event-bus';
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -18,8 +19,6 @@ import draftToHtml from 'draftjs-to-html';
 import * as draftJs from 'draft-js';
 import $ from 'jquery';
 import * as uppy from 'uppy';
-import 'whatwg-fetch';
-import CancelablePromise from './async/CancelablePromise';
 
 export {
   lin3sEventBus,
@@ -30,6 +29,5 @@ export {
   draftToHtml,
   draftJs,
   $,
-  uppy,
-  CancelablePromise
+  uppy
 }

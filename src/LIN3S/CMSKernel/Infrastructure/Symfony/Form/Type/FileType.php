@@ -46,7 +46,11 @@ class FileType extends AbstractType
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
         $fileId = $form->get('file')->getData();
-        $filePreview = $this->queryHandler->__invoke(new FileOfIdQuery($fileId));
+        $filePreview = '';
+
+        if (null !== $fileId) {
+            $filePreview = $this->queryHandler->__invoke(new FileOfIdQuery($fileId));
+        }
 
         $view->vars = array_merge($view->vars, array_merge($options, ['file_preview' => $filePreview]));
     }
