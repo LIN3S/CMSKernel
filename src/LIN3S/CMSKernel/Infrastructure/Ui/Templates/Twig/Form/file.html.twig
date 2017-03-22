@@ -15,7 +15,8 @@
             class: 'file__form-input',
             'data-upload-endpoint': form.vars.upload_endpoint,
             'data-gallery-endpoint': form.vars.gallery_endpoint,
-            'data-mime-types': form.vars.mime_types | json_encode()
+            'data-mime-types': form.vars.mime_types | json_encode(),
+            'data-preview': form.vars.file_preview | json_encode()
         }}) -}}
         <div class="file__react-wrapper"></div>
     </div>

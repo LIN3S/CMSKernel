@@ -11,6 +11,8 @@
 
 namespace LIN3S\CMSKernel\Infrastructure\Symfony\Form\Type;
 
+use BenGorFile\File\Application\Query\FileOfIdHandler;
+use BenGorFile\File\Application\Query\FileOfIdQuery;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -21,6 +23,13 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class FileType extends AbstractType
 {
+    private $queryHandler;
+
+    public function __construct(FileOfIdHandler $queryHandler)
+    {
+        $this->queryHandler = $queryHandler;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -36,7 +45,10 @@ class FileType extends AbstractType
     }
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
-        $view->vars = array_merge($view->vars, $options);
+        $fileId = $form->get('file')->getData();
+        $filePreview = $this->queryHandler->__invoke(new FileOfIdQuery($fileId));
+
+        $view->vars = array_merge($view->vars, array_merge($options, ['file_preview' => $filePreview]));
     }
 
     public function configureOptions(OptionsResolver $resolver)
