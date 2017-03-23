@@ -28,6 +28,11 @@ class TemplateContent
         return $this->content;
     }
 
+    public function has($key)
+    {
+        return array_key_exists($key, $this->content);
+    }
+
     public function get($key)
     {
         if (!array_key_exists($key, $this->content)) {
