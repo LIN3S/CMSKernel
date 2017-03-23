@@ -16,45 +16,59 @@
 
 import {React} from './../bundle.dependencies';
 
-const reactPropType = type =>
-  React.PropTypes.shape({
-    type: React.PropTypes.oneOf([type])
-  });
-
-const reactPropTypeInstanceOf = ComponentClass =>
-  React.PropTypes.oneOfType([reactPropType(ComponentClass)]);
-
-const reactPropTypeArrayOf = ComponentClass =>
-  React.PropTypes.oneOfType([
-    React.PropTypes.arrayOf(reactPropType(ComponentClass)), // array of
-    reactPropType(ComponentClass) // single instance
-  ]);
+const
+  reactPropType = type =>
+    React.PropTypes.shape({
+      type: React.PropTypes.oneOf([type])
+    }),
+  reactPropTypeInstanceOf = ComponentClass =>
+    React.PropTypes.oneOfType([reactPropType(ComponentClass)]),
+  reactPropTypeArrayOf = ComponentClass =>
+    React.PropTypes.oneOfType([
+      React.PropTypes.arrayOf(reactPropType(ComponentClass)), // array of
+      reactPropType(ComponentClass) // single instance
+    ]);
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 // This method will wrap your promise, provinding a method for canceling it.
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
-const makeCancelable = (promise) => {
-  let hasCanceled_ = false;
-  const wrappedPromise = new Promise((resolve, reject) => {
-    promise.then((val) =>
-      hasCanceled_ ? reject({isCanceled: true}) : resolve(val)
-    );
-    promise.catch((error) =>
-      hasCanceled_ ? reject({isCanceled: true}) : reject(error)
-    );
-  });
-  return {
-    promise: wrappedPromise,
-    cancel() {
-      hasCanceled_ = true;
-    },
+const
+  makeCancelable = (promise) => {
+    let hasBeenCanceled = false;
+    const wrappedPromise = new Promise((resolve, reject) => {
+      promise.then((val) =>
+        hasBeenCanceled ? reject({isCanceled: true}) : resolve(val)
+      );
+      promise.catch((error) =>
+        hasBeenCanceled ? reject({isCanceled: true}) : reject(error)
+      );
+    });
+    return {
+      promise: wrappedPromise,
+      cancel() {
+        hasBeenCanceled = true;
+      },
+    };
   };
-};
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+// This methods will help us mapping formInput values, and getting mapped formInput attributes.
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+
+const
+  setFormInputValue = (formInput, value) => {
+    formInput.value = value;
+  },
+  getFormInputAttribute = (formInput, attributeName) => {
+    return formInput.getAttribute(attributeName);
+  };
 
 export {
   makeCancelable,
   reactPropType,
   reactPropTypeArrayOf,
-  reactPropTypeInstanceOf
+  reactPropTypeInstanceOf,
+  setFormInputValue,
+  getFormInputAttribute
 };

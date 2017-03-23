@@ -9,7 +9,6 @@
  * @author Mikel Tuesta <mikeltuesta@gmail.com>
  */
 
-import 'whatwg-fetch';
 import * as lin3sEventBus from 'lin3s-event-bus';
 import React from 'react';
 import ReactDOM from 'react-dom';

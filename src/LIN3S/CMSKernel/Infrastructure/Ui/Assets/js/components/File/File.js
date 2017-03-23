@@ -12,6 +12,7 @@
 import {React} from './../../bundle.dependencies';
 import {FullScreenModal, FileSelector, FilePreview} from './../../bundle.components';
 import {FileModel} from './../../bundle.model';
+import {setFormInputValue, getFormInputAttribute} from './../../bundle.util';
 
 class File extends React.Component {
 
@@ -37,22 +38,13 @@ class File extends React.Component {
   }
 
   getInitialFile() {
-    const fileJson = this.getFormInputAttribute('data-preview');
+    const {formInput} = this.props;
+    const fileJson = getFormInputAttribute(formInput, 'data-preview');
     if (fileJson === '') {
       return undefined;
     }
 
     return FileModel.fromJsonString(fileJson);
-  }
-
-  setFormInputValue(value) {
-    const {formInput} = this.props;
-    formInput.value = value;
-  }
-
-  getFormInputAttribute(attributeName) {
-    const {formInput} = this.props;
-    return formInput.getAttribute(attributeName);
   }
 
   getArrayFromJsonString(jsonString) {
@@ -74,7 +66,8 @@ class File extends React.Component {
   }
 
   onFileSelected(file) {
-    this.setFormInputValue(file.id);
+    const {formInput} = this.props;
+    setFormInputValue(formInput, file.id);
     this.setState({
       fileSelectorModalIsOpened: false,
       selectedFile: file
@@ -82,7 +75,8 @@ class File extends React.Component {
   }
 
   onFileRemove(file) {
-    this.setFormInputValue(null);
+    const {formInput} = this.props;
+    setFormInputValue(formInput, null);
     this.setState({
       fileSelectorModalIsOpened: false,
       selectedFile: undefined
@@ -96,7 +90,7 @@ class File extends React.Component {
     return <div className="file__wrapper">
       {selectedFile === undefined &&
       <button
-        className="button file__select"
+        className="button button--cms"
         onClick={this.boundOnFileSelectButtonClick}>
         Select
       </button>}
@@ -110,12 +104,12 @@ class File extends React.Component {
 
       <FullScreenModal isOpened={fileSelectorModalIsOpened} onClickOutside={this.boundOnModalClose}>
         <FileSelector
-          galleryEndpoint={this.getFormInputAttribute('data-gallery-endpoint')}
+          galleryEndpoint={getFormInputAttribute(formInput, 'data-gallery-endpoint')}
           id={formInput.id}
-          mimeTypes={this.getArrayFromJsonString(this.getFormInputAttribute('data-mime-types'))}
+          mimeTypes={this.getArrayFromJsonString(getFormInputAttribute(formInput, 'data-mime-types'))}
           onCancel={this.boundOnModalClose}
           onFileSelected={this.boundOnFileSelected}
-          uploadEndpoint={this.getFormInputAttribute('data-upload-endpoint')}/>
+          uploadEndpoint={getFormInputAttribute(formInput, 'data-upload-endpoint')}/>
       </FullScreenModal>
     </div>
   }

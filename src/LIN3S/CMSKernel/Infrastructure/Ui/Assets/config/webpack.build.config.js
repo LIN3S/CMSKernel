@@ -38,6 +38,7 @@ const
       './components/FileGallery/FileGallery':             'FileGallery',
       './components/File/File':                           'File',
       './components/FilePreview/FilePreview':             'FilePreview',
+      './components/MenuTree/MenuTree':                   'MenuTree',
       './components/Icon/IconUpload':                     'IconUpload',
       './components/Icon/IconGallery':                    'IconGallery',
       './components/Icon/IconTextEditor':                 'IconTextEditor',

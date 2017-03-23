@@ -18,6 +18,7 @@ import FilePreview from './components/FilePreview/FilePreview';
 import FullScreenModal from './components/FullScreenModal/FullScreenModal';
 import FileGallery from './components/FileGallery/FileGallery';
 import FileSelector from './components/FileSelector/FileSelector';
+import MenuTree from './components/MenuTree/MenuTree';
 import IconGallery from './components/Icon/IconGallery';
 import IconUpload from './components/Icon/IconUpload';
 import IconRawEditor from './components/Icon/IconRawEditor';
@@ -33,6 +34,7 @@ export {
   FileGallery,
   File,
   FilePreview,
+  MenuTree,
   IconUpload,
   IconGallery,
   IconTextEditor,

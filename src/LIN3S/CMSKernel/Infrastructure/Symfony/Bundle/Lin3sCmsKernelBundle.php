@@ -66,6 +66,7 @@ class Lin3sCmsKernelBundle extends Bundle
                 'Form/file.html.twig',
                 'Form/template_selector.html.twig',
                 'Form/wysiwyg.html.twig',
+                'Form/menu_tree.html.twig',
             ],
         ]);
     }

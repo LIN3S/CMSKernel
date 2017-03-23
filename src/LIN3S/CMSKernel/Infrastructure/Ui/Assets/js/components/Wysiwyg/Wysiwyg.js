@@ -11,6 +11,7 @@
 
 import {React, reactDraftWysiwyg, draftToHtml, draftJs} from './../../bundle.dependencies';
 import {Tabbed, IconTextEditor, IconRawEditor} from './../../bundle.components';
+import {setFormInputValue} from './../../bundle.util';
 
 import Tab from './../Tabbed/Tab';
 
@@ -62,16 +63,12 @@ class Wysiwyg extends React.Component {
   }
 
   persistChanges(editorContentHtml, editorState) {
-    this.setFormInputValue(editorContentHtml);
+    const {formInput} = this.props;
+    setFormInputValue(formInput, editorContentHtml);
     this.setState({
       editorState: editorState,
       textareaState: editorContentHtml
     });
-  }
-
-  setFormInputValue(value) {
-    const {formInput} = this.props;
-    formInput.value = value;
   }
 
   onTabSelected(tabIndex) {
