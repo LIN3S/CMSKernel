@@ -1,7 +1,0 @@
-services:
-    app.form_type.file:
-        class: LIN3S\CMSKernel\Infrastructure\Symfony\Form\Type\FileType
-        arguments:
-            - "@bengor.file.application.query.file_of_id"
-        tags:
-            - { name: form.type }
