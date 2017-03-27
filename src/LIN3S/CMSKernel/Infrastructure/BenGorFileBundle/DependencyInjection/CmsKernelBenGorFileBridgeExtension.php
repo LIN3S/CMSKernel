@@ -12,8 +12,10 @@
 namespace LIN3S\CMSKernel\Infrastructure\BenGorFileBundle\DependencyInjection;
 
 use LIN3S\CMSKernel\Infrastructure\Symfony\Form\Type\FileType;
+use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
+use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 /**
@@ -27,6 +29,9 @@ class CmsKernelBenGorFileBridgeExtension extends Extension
         $config = $this->processConfiguration($configuration, $configs);
 
         $container->setParameter('cms_kernel_bengor_file_bridge.config', $config);
+
+        $loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config/services'));
+        $loader->load('routing.yml');
 
         foreach ($config['file_types'] as $key => $user) {
             $this->loaFormTypes($container, $key);

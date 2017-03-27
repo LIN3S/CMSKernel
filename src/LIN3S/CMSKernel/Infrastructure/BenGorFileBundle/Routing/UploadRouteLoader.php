@@ -27,9 +27,9 @@ class UploadRouteLoader extends RoutesLoader
     protected function register($file, array $config)
     {
         $this->routes->add(
-            $config['upload_endpoint']['name'],
+            $config['name'],
             new Route(
-                $config['upload_endpoint']['path'],
+                $config['path'],
                 [
                     '_controller' => 'cms_kernel_bengor_file.http_action.' . $file . '_upload:__invoke',
                 ],

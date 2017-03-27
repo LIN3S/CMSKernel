@@ -27,9 +27,9 @@ class GalleryRouteLoader extends RoutesLoader
     protected function register($file, array $config)
     {
         $this->routes->add(
-            $config['gallery_endpoint']['name'],
+            $config['name'],
             new Route(
-                $config['gallery_endpoint']['path'],
+                $config['path'],
                 [
                     '_controller' => 'cms_kernel_bengor_file.http_action.' . $file . '_gallery:__invoke',
                 ],

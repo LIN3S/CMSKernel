@@ -14,6 +14,7 @@ namespace LIN3S\CMSKernel\Infrastructure\BenGorFileBundle;
 use LIN3S\CMSKernel\Infrastructure\BenGorFileBundle\DependencyInjection\Compiler\CheckBenGorFileTypesPass;
 use LIN3S\CMSKernel\Infrastructure\BenGorFileBundle\DependencyInjection\Compiler\DeclareFileFormTypesPass;
 use LIN3S\CMSKernel\Infrastructure\BenGorFileBundle\DependencyInjection\Compiler\DeclareHttpActionsPass;
+use LIN3S\CMSKernel\Infrastructure\BenGorFileBundle\DependencyInjection\Compiler\RegisterRoutesPass;
 use Symfony\Component\DependencyInjection\Compiler\PassConfig;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
@@ -28,5 +29,6 @@ class CmsKernelBenGorFileBridgeBundle extends Bundle
         $container->addCompilerPass(new CheckBenGorFileTypesPass(), PassConfig::TYPE_OPTIMIZE);
         $container->addCompilerPass(new DeclareFileFormTypesPass(), PassConfig::TYPE_OPTIMIZE);
         $container->addCompilerPass(new DeclareHttpActionsPass(), PassConfig::TYPE_OPTIMIZE);
+        $container->addCompilerPass(new RegisterRoutesPass(), PassConfig::TYPE_OPTIMIZE);
     }
 }
