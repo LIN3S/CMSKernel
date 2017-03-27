@@ -31,7 +31,7 @@ class DeclareHttpActionsPass implements CompilerPassInterface
                 'cms_kernel_bengor_file.http_action.' . $fileType . '_upload',
                 (new Definition(
                     AjaxFileUploadAction::class, [
-                        $container->getDefinition('bengor.file.' . $fileType . '.command_bus'),
+                        $container->getDefinition('bengor_file.' . $fileType . '.command_bus'),
                         $fileType,
                     ]
                 ))
@@ -43,7 +43,7 @@ class DeclareHttpActionsPass implements CompilerPassInterface
                 'cms_kernel_bengor_file.http_action.' . $fileType . '_gallery',
                 (new Definition(
                     AjaxFileGalleryAction::class, [
-                        $container->getDefinition('bengor_file.application.query_handler.file.all'),
+                        $container->getDefinition('bengor.file.application.query.all_' . $fileType . 's'),
                     ]
                 ))
             );
