@@ -26,18 +26,24 @@ class DeclareFileFormTypesPass implements CompilerPassInterface
         $config = $container->getParameter('cms_kernel_bengor_file_bridge.config');
         $benGorFileConfig = $container->getParameter('bengor_file.config');
 
+        $queryHandlers = [];
         foreach ($config['file_types'] as $fileType => $fileTypeConfig) {
-            $fileTypeConfig['class'] = $benGorFileConfig['file_class'][$fileType]['class'];
+            $config['file_types'][$fileType]['class'] = $benGorFileConfig['file_class'][$fileType]['class'];
+            $config['file_types'][$fileType]['name'] = $fileType;
 
-            $container->setDefinition(
-                'cms_kernel_bengor_file_bridge.form.type.' . $fileType,
-                (new Definition(
-                    FileType::class, [
-                        $container->getDefinition('bengor.file.application.query.' . $fileType . '_of_id'),
-                        $fileTypeConfig,
-                    ]
-                ))
+            $queryHandlers[$fileType] = $container->getDefinition(
+                'bengor.file.application.query.' . $fileType . '_of_id'
             );
         }
+
+        $container->setDefinition(
+            'cms_kernel_bengor_file_bridge.form.type.file',
+            (new Definition(
+                FileType::class, [
+                    $queryHandlers,
+                    $config['file_types'],
+                ]
+            ))
+        );
     }
 }

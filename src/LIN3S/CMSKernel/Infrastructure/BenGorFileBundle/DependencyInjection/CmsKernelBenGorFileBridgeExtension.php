@@ -33,15 +33,9 @@ class CmsKernelBenGorFileBridgeExtension extends Extension
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config/services'));
         $loader->load('routing.yml');
 
-        foreach ($config['file_types'] as $key => $user) {
-            $this->loaFormTypes($container, $key);
-        }
-    }
 
-    private function loaFormTypes(ContainerBuilder $container, $fileType)
-    {
         $container->setDefinition(
-            'cms_kernel_bengor_file_bridge.form.type.' . $fileType,
+            'cms_kernel_bengor_file_bridge.form.type.file',
             (new Definition(FileType::class))->addTag('form.type')
         );
     }

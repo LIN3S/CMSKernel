@@ -13,6 +13,7 @@ namespace LIN3S\CMSKernel\Infrastructure\Symfony\Form\Type;
 
 use BenGorFile\File\Application\Query\FileOfIdHandler;
 use BenGorFile\File\Application\Query\FileOfIdQuery;
+use LIN3S\SharedKernel\Exception\InvalidArgumentException;
 use LIN3S\SharedKernel\Exception\LogicException;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
@@ -29,12 +30,12 @@ use Symfony\Component\Serializer\NameConverter\CamelCaseToSnakeCaseNameConverter
 class FileType extends AbstractType
 {
     private $configuration;
-    private $queryHandler;
+    private $queryHandlers;
     private $implicitFileType;
 
-    public function __construct(FileOfIdHandler $queryHandler, array $configuration = null)
+    public function __construct(array $queryHandlers, array $configuration = null)
     {
-        $this->queryHandler = $queryHandler;
+        $this->setQueryHandlers($queryHandlers);
         $this->configuration = $configuration;
     }
 
@@ -55,12 +56,13 @@ class FileType extends AbstractType
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
         $this->implicitFileType = $form->getConfig()->getName();
-
         $fileId = $form->get('file')->getData();
-        $filePreview = '';
 
+        $filePreview = '';
         if (null !== $fileId) {
-            $filePreview = $this->queryHandler->__invoke(new FileOfIdQuery($fileId));
+            $filePreview = $this->queryHandler($this->fileType($options))->__invoke(
+                new FileOfIdQuery($fileId)
+            );
         }
 
         $view->vars = array_merge(
@@ -104,7 +106,7 @@ class FileType extends AbstractType
             return $options['mime_types'];
         }
 
-        if (!isset($this->configuration['class'])) {
+        if (!isset($this->configuration[$this->fileType($options)]['class'])) {
             throw new LogicException(
                 'All the fallback are invalid. You can pass "entry_file" as option form, ' .
                 'or you use implicit name of the form property, or also, you can pass ' .
@@ -112,21 +114,25 @@ class FileType extends AbstractType
             );
         }
 
-        return forward_static_call_array([$this->configuration['class'], 'availableMimeTypes'], []);
+        return forward_static_call_array([
+            $this->configuration[$this->fileType($options)]['class'],
+            'availableMimeTypes',
+        ], []);
     }
 
     private function fromConfigFileType(array $options, $method = 'uploadEndpoint')
     {
-        $fileType = isset($options['entry_file']) ? $options['entry_file'] : null;
-        if (!$fileType) {
-            return $this->implicitFileType();
-        }
+        $method = (new CamelCaseToSnakeCaseNameConverter())->normalize($method);
 
-        return $this->configuration[(new CamelCaseToSnakeCaseNameConverter())->normalize($method)];
+        return $this->configuration[$this->fileType($options)][$method];
     }
 
-    private function implicitFileType()
+    private function fileType(array $options)
     {
+        if (isset($options['entry_file']) && isset($this->configuration[$options['entry_file']])) {
+            return $options['entry_file'];
+        }
+
         if (!isset($this->configuration[$this->implicitFileType])) {
             throw new LogicException(
                 'All the fallback are invalid. You can pass "entry_file" as option form, ' .
@@ -135,6 +141,27 @@ class FileType extends AbstractType
             );
         }
 
-        return $this->configuration[$this->implicitFileType];
+        return $this->implicitFileType;
+    }
+
+    private function queryHandler($fileType)
+    {
+        if (!isset($this->queryHandlers[$fileType])) {
+            throw new InvalidArgumentException(
+                sprintf(
+                    'Does not exist any registered query handler with "%" file type',
+                    $fileType
+                )
+            );
+        }
+
+        return $this->queryHandlers[$fileType];
+    }
+
+    private function setQueryHandlers(array $queryHandlers)
+    {
+        $this->queryHandlers = array_map(function (FileOfIdHandler $fileOfIdHandler) {
+            return $fileOfIdHandler;
+        }, $queryHandlers);
     }
 }

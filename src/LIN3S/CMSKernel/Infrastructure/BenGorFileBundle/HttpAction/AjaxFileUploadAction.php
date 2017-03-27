@@ -17,7 +17,6 @@ use BenGorFile\File\Domain\Model\FileMimeTypeDoesNotSupportException;
 use BenGorFile\File\Domain\Model\FileNameInvalidException;
 use BenGorFile\File\Infrastructure\Application\FileCommandBus;
 use BenGorFile\FileBundle\Controller\SuffixNumberUploadAction;
-use LIN3S\SharedKernel\Exception\InvalidArgumentException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -29,27 +28,16 @@ class AjaxFileUploadAction
     use SuffixNumberUploadAction;
 
     private $commandBus;
-    private $fileType;
 
-    public function __construct(FileCommandBus $commandBus, $fileType = 'file')
+    public function __construct(FileCommandBus $commandBus)
     {
         $this->commandBus = $commandBus;
-        $this->fileType = $fileType;
     }
 
     public function __invoke(Request $request)
     {
-        if (false === $request->files->has($this->fileType)) {
-            throw new InvalidArgumentException(
-                sprintf(
-                    'Given %s property is not in the request',
-                    $this->fileType
-                )
-            );
-        }
-
         try {
-            $fileData = $this->upload($request, $this->commandBus, $this->fileType);
+            $fileData = $this->upload($request, $this->commandBus, 'file');
         } catch (FileDoesNotExistException $exception) {
             return new JsonResponse($exception->getMessage(), 404);
         } catch (FileAlreadyExistsException $exception) {

@@ -32,7 +32,6 @@ class DeclareHttpActionsPass implements CompilerPassInterface
                 (new Definition(
                     AjaxFileUploadAction::class, [
                         $container->getDefinition('bengor_file.' . $fileType . '.command_bus'),
-                        $fileType,
                     ]
                 ))
             );
