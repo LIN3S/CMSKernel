@@ -1,5 +1,4 @@
-import React from 'react';
-import Modal from 'react-modal';
+import {React, Modal} from './../../bundle.dependencies';
 
 const styles = {
   reactModalOverlay: {

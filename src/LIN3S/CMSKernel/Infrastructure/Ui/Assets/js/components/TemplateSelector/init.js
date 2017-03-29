@@ -9,7 +9,8 @@
  * @author Beñat Espiña <benatespina@gmail.com>
  */
 
-import {lin3sEventBus, TemplateSelector} from './../../bundle.modules';
+import {lin3sEventBus} from './../../bundle.dependencies';
+import {TemplateSelector} from './../../bundle.components';
 
 const init = () => {
   const templateSelectors = document.querySelectorAll('.template-selector');

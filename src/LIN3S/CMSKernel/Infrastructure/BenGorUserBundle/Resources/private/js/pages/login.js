@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 
-import {$, lin3sEventBus} from './../../../../../Ui/Assets/js/bundle.modules';
+import {$, lin3sEventBus} from './../../../../../Ui/Assets/js/bundle.dependencies';
 
 const focusIn = (event) => {
   $(event.currentTarget).prev().addClass('bengor-user-login__form-label--focused');

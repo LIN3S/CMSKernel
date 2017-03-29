@@ -1,0 +1,23 @@
+# This file is part of the CMS Kernel package.
+#
+# Copyright (c) 2016-present LIN3S <info@lin3s.com>
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
+
+services:
+    cms_kernel_bengor_file.routing.upload_route_loader:
+        class: LIN3S\CMSKernel\Infrastructure\BenGorFileBundle\Routing\UploadRouteLoader
+        arguments:
+            - []
+        public: false
+        tags:
+            - { name: routing.loader }
+
+    cms_kernel_bengor_file.routing.gallery_route_loader:
+        class: LIN3S\CMSKernel\Infrastructure\BenGorFileBundle\Routing\GalleryRouteLoader
+        arguments:
+            - []
+        public: false
+        tags:
+            - { name: routing.loader }

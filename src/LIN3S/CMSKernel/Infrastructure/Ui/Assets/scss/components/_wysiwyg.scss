@@ -7,8 +7,13 @@
 //
 // @author Mikel Tuesta <mikeltuesta@gmail.com>
 
-$border-color: #ddd;
-$tab-button-background-color--inactive: #f1f1f1;
+@import './../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+@import './../variables/colors';
+
+$border-color--bottom: $color-white;
+$border-color: $color-border-main;
+$tab-button-background-color--inactive: $color-seashell;
+
 $wysiwyg-padding-vertical: 10px;
 $wysiwyg-padding-horizontal: 15px;
 
@@ -23,6 +28,12 @@ $wysiwyg-padding-horizontal: 15px;
   width: 100%;
 }
 
+///////////////////////// Editor styles override
+.rdw-editor-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
 .rdw-editor-toolbar {
   border: 1px solid $border-color;
   margin-bottom: 0;
@@ -33,27 +44,13 @@ $wysiwyg-padding-horizontal: 15px;
   border-bottom: 1px solid $border-color;
   border-left: 1px solid $border-color;
   border-right: 1px solid $border-color;
+  flex: 1;
+  min-height: 240px;
+  height: auto;
   padding: $wysiwyg-padding-vertical $wysiwyg-padding-horizontal;
 }
 
-
-.tab__button-group {
-  clear: both;
-  float: right;
+.rdw-dropdown-optionwrapper {
+  overflow: auto;
 }
-
-.tab__button {
-  cursor: pointer;
-  display: inline-block;
-  border-left: 1px solid $border-color;
-  border-top: 1px solid $border-color;
-  padding: 8px 15px;
-
-  &:last-child {
-    border-right: 1px solid $border-color;
-  }
-}
-
-.tab__button--inactive {
-  background-color: $tab-button-background-color--inactive;
-}
+///////////////////////// Editor styles override

@@ -5,9 +5,10 @@
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
 
-lin3s.cms_kernel.template:
-    path: /templates/{template}
-    defaults:
-        _controller: "lin3s.cms_kernel.action.template_form_type:action"
-    methods:
-        - "GET"
+cms_kernel_bengor_file_bridge_upload_route:
+    resource: .
+    type: cms_kernel_bengor_file_bridge_upload
+
+cms_kernel_bengor_file_bridge_gallery_route:
+    resource: .
+    type: cms_kernel_bengor_file_bridge_gallery

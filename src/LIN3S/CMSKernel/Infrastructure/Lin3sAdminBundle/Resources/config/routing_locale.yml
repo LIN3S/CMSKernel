@@ -8,6 +8,6 @@
 cms_kernel_admin_bridge_switch_locale:
     path: /locale/{_locale}
     defaults:
-        _controller: CmsKernelAdminBridgeBundle:Locale:switchLocale
+        _controller: "CmsKernelAdminBridgeBundle:Locale:switchLocale"
     methods:
         - GET

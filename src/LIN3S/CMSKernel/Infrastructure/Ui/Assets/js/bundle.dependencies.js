@@ -17,10 +17,7 @@ import * as reactDraftWysiwyg from 'react-draft-wysiwyg';
 import draftToHtml from 'draftjs-to-html';
 import * as draftJs from 'draft-js';
 import $ from 'jquery';
-
-import ConfirmationModal from './components/ConfirmationModal/App';
-import TemplateSelector from './components/TemplateSelector/TemplateSelector';
-import Wysiwyg from './components/Wysiwyg/Wysiwyg';
+import * as uppy from 'uppy';
 
 export {
   lin3sEventBus,
@@ -31,7 +28,5 @@ export {
   draftToHtml,
   draftJs,
   $,
-  ConfirmationModal,
-  TemplateSelector,
-  Wysiwyg
+  uppy
 }

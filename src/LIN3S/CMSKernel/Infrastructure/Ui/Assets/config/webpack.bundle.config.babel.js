@@ -21,7 +21,10 @@ const
   outputPath = join(__dirname, getOutputPath());
 
 export default {
-  entry: `${include}/bundle.js`,
+  entry: [
+    `${include}/polyfill/polyfill.js`,
+    `${include}/bundle.js`
+  ],
   output: {
     path: `${outputPath}/js`,
     publicPath: '/',

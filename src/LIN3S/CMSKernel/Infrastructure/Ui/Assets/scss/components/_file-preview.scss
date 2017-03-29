@@ -1,0 +1,98 @@
+// This file is part of the CMS Kernel package.
+//
+// Copyright (c) 2016-present LIN3S <info@lin3s.com>
+//
+// For the full copyright and license information, please view the LICENSE
+// file that was distributed with this source code.
+//
+// @author Mikel Tuesta <mikeltuesta@gmail.com>
+
+@import './../variables/colors';
+@import './../variables/transitions';
+@import './../variables/typography';
+
+$file-current-width: 150px;
+$file-current-height: 200px;
+
+$file-border-color: $color-border-main;
+$file-background-color: $color-white;
+$file-background-color--selected: $color-seashell;
+$file-transition-ease: $transition-ease-main;
+$file-transition-duration: $transition-duration-200;
+
+$file-name-font-size: $font-size-11;
+$file-name-font-weight: $font-weight-500;
+$file-name-line-height: $line-height-15;
+
+$file-delete-side: 20px;
+$file-delete-button-color: $color-white;
+$file-delete-button-background-color: $color-mine-shaft;
+$file-delete-button-background-color--active: $color-black;
+
+.file-preview {
+  background-color: $file-background-color;
+  border: 1px solid $file-border-color;
+  cursor: pointer;
+  position: relative;
+  transition: background-color $file-transition-duration $file-transition-ease;
+  width: 100%;
+
+  &::after {
+    content: '';
+    display: block;
+    height: 0;
+    padding-bottom: 130%;
+    width: 100%;
+  }
+}
+
+.file-preview--current {
+  width: $file-current-width;
+}
+
+.file-preview--selected {
+  background-color: $file-background-color--selected;
+}
+
+.file-preview__name {
+  bottom: 0;
+  display: block;
+  font-size: $file-name-font-size;
+  font-weight: $file-name-font-weight;
+  left: 0;
+  line-height: $file-name-line-height;
+  margin-bottom: 5px;
+  max-height: 28px;
+  overflow: hidden;
+  padding: 10px;
+  position: absolute;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
+}
+
+.file-preview__delete {
+  align-items: center;
+  background-color: $file-delete-button-background-color;
+  border: 0;
+  border-radius: 50%;
+  color: $file-delete-button-color;
+  cursor: pointer;
+  display: flex;
+  height: $file-delete-side;
+  justify-content: center;
+  outline: 0;
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: $file-delete-side;
+
+  &:hover {
+    background-color: $file-delete-button-background-color--active;
+  }
+
+  &:active {
+    background-color: $file-delete-button-background-color--active;
+    outline: 0;
+  }
+}

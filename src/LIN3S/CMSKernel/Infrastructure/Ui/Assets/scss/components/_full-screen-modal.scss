@@ -1,0 +1,96 @@
+// This file is part of the CMS Kernel package.
+//
+// Copyright (c) 2016-present LIN3S <info@lin3s.com>
+//
+// For the full copyright and license information, please view the LICENSE
+// file that was distributed with this source code.
+//
+// @author Mikel Tuesta <mikeltuesta@gmail.com>
+
+@import './../variables/colors';
+@import './../variables/transitions';
+@import './../base/row';
+
+$modal-background-color: $color-modal-background;
+$modal-transition-ease: $transition-ease-modal;
+$modal-transition-duration: $transition-duration-modal;
+$modal-transition-delay: 400ms;
+
+.full-screen-modal__wrapper {
+  height: 100%;
+  left: 0;
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+}
+
+.full-screen-modal {
+  height: 100%;
+  position: relative;
+  width: 100%;
+}
+
+.full-screen-modal--opened {
+  .full-screen-modal__background {
+    opacity: 1;
+    transition: opacity $modal-transition-duration $modal-transition-ease;
+  }
+
+  .full-screen-modal__contents-wrapper {
+    opacity: 1;
+    transform: translateY(0);
+    transition: transform $modal-transition-duration $modal-transition-ease $modal-transition-delay, opacity $modal-transition-duration $modal-transition-ease $modal-transition-delay;
+  }
+}
+
+.full-screen-modal__background {
+  background-color: $modal-background-color;
+  height: 100%;
+  left: 0;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  transition: opacity $modal-transition-duration $modal-transition-ease $modal-transition-delay;
+  width: 100%;
+  z-index: 0;
+}
+
+.full-screen-modal__contents-wrapper {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  opacity: 0;
+  overflow-y: auto;
+  padding: 0 20px;
+  position: absolute;
+  transform: translateY(-100px);
+  transition: transform $modal-transition-duration $modal-transition-ease, opacity $modal-transition-duration $modal-transition-ease;
+  width: 100%;
+  z-index: 10;
+}
+
+.full-screen-modal__contents {
+  max-height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  width: 100%;
+}
+
+@media #{$large-up} {
+  .full-screen-modal__contents-wrapper {
+    padding: 0;
+  }
+
+  .full-screen-modal__contents {
+    width: 960px;
+  }
+}
+
+@media #{$xlarge-up} {
+  .full-screen-modal__contents {
+    width: 1200px;
+  }
+}
