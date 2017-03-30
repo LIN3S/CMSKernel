@@ -1,5 +1,5 @@
 <div class="translate-list-field-head">
-    {% for locale in locales %}
+    {% for locale in cms_kernel_admin_bridge.locales %}
         {% set locale = locale|split('_')[0] %}
 
         {% if locale == 'en' %}

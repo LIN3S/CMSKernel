@@ -4,7 +4,7 @@
 {% endfor %}
 
 <div class="translate-list-field-content">
-    {% for locale in locales %}
+    {% for locale in cms_kernel_admin_bridge.locales %}
         {% set actionIcon = locale in translations ? 'edit' : 'add' %}
         <a href="{{ url('lin3s_admin_custom', {
             entity: entityConfig.name,
