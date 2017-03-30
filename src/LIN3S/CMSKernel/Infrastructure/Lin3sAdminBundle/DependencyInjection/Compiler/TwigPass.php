@@ -34,6 +34,15 @@ class TwigPass implements CompilerPassInterface
             }
         }
 
-        $container->getDefinition('twig')->addMethodCall('addGlobal', ['locales', $resultLocales]);
+        $cmsKernelAdminBridge = [
+            'user_type' => 'user',
+            'locales'   => $resultLocales,
+        ];
+
+        $container->getDefinition('twig')->addMethodCall(
+            'addGlobal', [
+                'cms_kernel_admin_bridge', $cmsKernelAdminBridge,
+            ]
+        );
     }
 }

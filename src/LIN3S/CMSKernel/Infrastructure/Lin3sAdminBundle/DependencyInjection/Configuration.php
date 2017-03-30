@@ -24,6 +24,7 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $treeBuilder->root('cms_kernel_admin_bridge')
             ->children()
+                ->scalarNode('user_type')->defaultValue('user')->end()
                 ->arrayNode('locales')
                     ->children()
                         ->scalarNode('default')

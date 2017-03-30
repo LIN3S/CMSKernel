@@ -1,7 +1,7 @@
 {% trans_default_domain 'CmsKernelAdminBridge' %}
 
 <div class="language-switcher">
-    {% for locale in locales %}
+    {% for locale in cms_kernel_admin_bridge.locales %}
         {% set localeTrans = 'cms_kernel_admin_bridge.locale.' ~ locale %}
 
         <a class="language-switcher__language{% if app.request.locale == locale %} language-switcher__language--current{% endif %}"
