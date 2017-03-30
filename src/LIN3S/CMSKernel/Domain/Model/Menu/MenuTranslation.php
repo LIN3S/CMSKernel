@@ -31,9 +31,11 @@ class MenuTranslation extends Translation
         $this->tree = new MenuItemCollection();
     }
 
-    public function addItem(MenuItemLink $link, MenuItemId $parentId = null)
+    public function addItem(MenuItemLink $link, MenuItemId $parentId = null, MenuItemId $menuItemId = null)
     {
-        $menuItem = new MenuItem(MenuItemId::generate(), $link, $parentId);
+        $menuItemId = null === $menuItemId ? MenuItemId::generate() : $menuItemId;
+
+        $menuItem = new MenuItem($menuItemId, $link, $parentId);
         $menuItemReflection = new \ReflectionClass($menuItem);
         $menuTranslation = $menuItemReflection->getProperty('menuTranslation');
         $menuTranslation->setAccessible(true);

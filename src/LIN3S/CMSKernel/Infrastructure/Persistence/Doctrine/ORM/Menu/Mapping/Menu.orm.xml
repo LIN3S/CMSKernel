@@ -13,7 +13,7 @@ http://doctrine-project.org/schemas/orm/doctrine-mapping ">
         <field name="updatedOn" type="datetime" column="updated_on" nullable="false"/>
 
         <one-to-many field="translations" mapped-by="origin"
-                     target-entity="LIN3S\CMSKernel\Domain\Model\Menu\MenuTranslation">
+                     target-entity="LIN3S\CMSKernel\Domain\Model\Menu\MenuTranslation" orphan-removal="true">
             <cascade>
                 <cascade-persist/>
                 <cascade-remove/>

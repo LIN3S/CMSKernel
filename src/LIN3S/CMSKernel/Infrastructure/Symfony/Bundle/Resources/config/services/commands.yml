@@ -6,6 +6,24 @@
 # file that was distributed with this source code.
 
 services:
+    lin3s.cms_kernel.application.command.menu.manage_menu:
+        class: LIN3S\CMSKernel\Application\Command\Menu\ManageMenuHandler
+        arguments:
+            - "@lin3s.cms_kernel.infrastructure.persistence.doctrine.orm.repository.menu"
+        tags:
+            -
+                name: command_handler
+                handles: LIN3S\CMSKernel\Application\Command\Menu\ManageMenuCommand
+
+    lin3s.cms_kernel.application.command.menu.manage_menu_translation:
+        class: LIN3S\CMSKernel\Application\Command\Menu\ManageMenuTranslationHandler
+        arguments:
+            - "@lin3s.cms_kernel.infrastructure.persistence.doctrine.orm.repository.menu"
+        tags:
+            -
+                name: command_handler
+                handles: LIN3S\CMSKernel\Application\Command\Menu\ManageMenuTranslationCommand
+
     lin3s.cms_kernel.application.command.menu.add_menu:
         class: LIN3S\CMSKernel\Application\Command\Menu\AddMenuHandler
         arguments:
