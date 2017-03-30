@@ -6,10 +6,16 @@
 {% set url = url('lin3s_admin_custom_global', {'entity': entityName, 'action': globalAction.name}) %}
 {% set options = globalAction.options | action_translation %}
 
-<div id="react-confirm-global-action"
-     data-url="{{ url }}"
-     data-message-button="{{ options.confirm.button }}"
-     data-message-title="{{ options.confirm.title }}"
-     data-message-content="{{ options.confirm.content | json_encode }}"
-     data-button-title="{{ globalAction.options.name | trans }}"
-     data-button-style="button button--secondary"></div>
+{% if options.confirm is defined %}
+    <div id="react-confirm-global-action"
+         data-url="{{ url }}"
+         data-message-button="{{ options.confirm.button }}"
+         data-message-title="{{ options.confirm.title }}"
+         data-message-content="{{ options.confirm.content | json_encode }}"
+         data-button-title="{{ globalAction.options.name | trans }}"
+         data-button-style="button button--secondary"></div>
+{% else %}
+    <a href="{{ url }}" class="button button--secondary">
+        {{ globalAction.options.name | trans }}
+    </a>
+{% endif %}
