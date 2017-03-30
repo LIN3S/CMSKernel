@@ -35,7 +35,7 @@ class TwigPass implements CompilerPassInterface
         }
 
         $cmsKernelAdminBridge = [
-            'user_type' => 'user',
+            'user_type' => $config['user_type'],
             'locales'   => $resultLocales,
         ];
 
