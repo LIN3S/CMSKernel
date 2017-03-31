@@ -17,3 +17,5 @@ lin3s_cms_kernel:
                 robots_yes: Oui
             template_selector:
                 name: Nom
+            menu:
+                menu: Menu
