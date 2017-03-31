@@ -21,6 +21,7 @@ use LIN3S\CMSKernel\Domain\Model\Menu\MenuRepository;
 use LIN3S\CMSKernel\Domain\Model\Menu\MenuTranslation;
 use LIN3S\CMSKernel\Domain\Model\Menu\MenuTranslationId;
 use LIN3S\CMSKernel\Domain\Model\Translation\Locale;
+use LIN3S\CMSKernel\Domain\Model\Translation\TranslationDoesNotExistException;
 
 /**
  * @author Beñat Espiña <benatespina@gmail.com>
@@ -48,7 +49,10 @@ class ManageMenuTranslationHandler
         $menuTranslation = new MenuTranslation($menuTranslationId, $locale, $menuName);
         $this->buildTree($menuTranslation, $tree);
 
-        $menu->removeTranslation($locale);
+        try {
+            $menu->removeTranslation($locale);
+        } catch (TranslationDoesNotExistException $exception) {
+        }
         $menu->addTranslation($menuTranslation);
         $this->repository->persist($menu);
     }

@@ -36,7 +36,7 @@ class ManageMenuHandler
 
     public function __invoke(ManageMenuCommand $command)
     {
-        $menuId = MenuId::generate($command->menuId());
+        $menuId = MenuId::generate($command->id());
         $menuName = new MenuName($command->name());
         $locale = new Locale($command->locale());
         $menuTranslationId = MenuTranslationId::generate();

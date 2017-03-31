@@ -35,7 +35,7 @@ class ManageMenuCommand
         $this->items = $items;
     }
 
-    public function menuId()
+    public function id()
     {
         return $this->menuId;
     }

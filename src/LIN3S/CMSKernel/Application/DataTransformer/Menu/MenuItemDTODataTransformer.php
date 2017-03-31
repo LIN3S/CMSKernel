@@ -32,8 +32,6 @@ class MenuItemDTODataTransformer implements MenuItemDataTransformer
             'label'      => $this->menuItem->link()->label(),
             'url'        => $this->menuItem->link()->url(),
             'parent_id'  => $this->menuItem->parentId()->id(),
-            'created_on' => $this->menuItem->createdOn(),
-            'updated_on' => $this->menuItem->updatedOn(),
         ];
     }
 }
