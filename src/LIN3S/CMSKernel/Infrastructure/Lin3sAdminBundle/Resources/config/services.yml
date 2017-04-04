@@ -32,7 +32,7 @@ services:
     cms_kernel_admin_bridge.action.type.new_translatable:
         class: LIN3S\CMSKernel\Infrastructure\Lin3sAdminBundle\Action\Type\NewTranslatableActionType
         arguments:
-            - "@lin3s_admin.form.handler"
+            - "@form.factory"
             - "@lin3s.cms_kernel.application.command_bus"
             - "@twig"
             - "@session.flash_bag"
@@ -43,7 +43,7 @@ services:
     cms_kernel_admin_bridge.action.type.translate:
         class: LIN3S\CMSKernel\Infrastructure\Lin3sAdminBundle\Action\Type\TranslateActionType
         arguments:
-            - "@lin3s_admin.form.handler"
+            - "@form.factory"
             - "@lin3s.cms_kernel.application.command_bus"
             - "@twig"
             - "@session.flash_bag"

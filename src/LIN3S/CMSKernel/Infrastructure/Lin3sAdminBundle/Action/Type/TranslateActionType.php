@@ -13,9 +13,9 @@ namespace LIN3S\CMSKernel\Infrastructure\Lin3sAdminBundle\Action\Type;
 
 use LIN3S\AdminBundle\Configuration\Model\Entity;
 use LIN3S\AdminBundle\Configuration\Type\ActionType;
-use LIN3S\AdminBundle\Form\FormHandler;
 use LIN3S\CMSKernel\Domain\Model\Translation\TranslationDoesNotExistException;
 use LIN3S\SharedKernel\Application\CommandBus;
+use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
@@ -28,18 +28,18 @@ class TranslateActionType implements ActionType
 {
     private $flashBag;
     private $twig;
-    private $formHandler;
+    private $formFactory;
     private $commandBus;
 
     public function __construct(
-        FormHandler $formHandler,
+        FormFactoryInterface $formFactory,
         CommandBus $commandBus,
         \Twig_Environment $twig,
         FlashBagInterface $flashBag
     ) {
         $this->twig = $twig;
         $this->flashBag = $flashBag;
-        $this->formHandler = $formHandler;
+        $this->formFactory = $formFactory;
         $this->commandBus = $commandBus;
     }
 
@@ -67,7 +67,7 @@ class TranslateActionType implements ActionType
             $translation = null;
         }
 
-        $form = $this->formHandler->createForm($options['form'], $translation, [
+        $form = $this->formFactory->create($options['form'], $translation, [
             'locale'          => $locale,
             'translatable_id' => $id,
         ]);

@@ -13,8 +13,8 @@ namespace LIN3S\CMSKernel\Infrastructure\Lin3sAdminBundle\Action\Type;
 
 use LIN3S\AdminBundle\Configuration\Model\Entity;
 use LIN3S\AdminBundle\Configuration\Type\ActionType;
-use LIN3S\AdminBundle\Form\FormHandler;
 use LIN3S\SharedKernel\Application\CommandBus;
+use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,12 +28,12 @@ class NewTranslatableActionType implements ActionType
 {
     private $flashBag;
     private $twig;
-    private $formHandler;
+    private $formFactory;
     private $commandBus;
     private $urlGenerator;
 
     public function __construct(
-        FormHandler $formHandler,
+        FormFactoryInterface $formFactory,
         CommandBus $commandBus,
         \Twig_Environment $twig,
         FlashBagInterface $flashBag,
@@ -41,7 +41,7 @@ class NewTranslatableActionType implements ActionType
     ) {
         $this->twig = $twig;
         $this->flashBag = $flashBag;
-        $this->formHandler = $formHandler;
+        $this->formFactory = $formFactory;
         $this->commandBus = $commandBus;
         $this->urlGenerator = $urlGenerator;
     }
@@ -59,7 +59,7 @@ class NewTranslatableActionType implements ActionType
 //            );
 //        }
 
-        $form = $this->formHandler->createForm($options['form'], null, ['locale' => $locale]);
+        $form = $this->formFactory->create($options['form'], null, ['locale' => $locale]);
         if ($request->isMethod('POST') || $request->isMethod('PUT') || $request->isMethod('PATCH')) {
             $form->handleRequest($request);
             if ($form->isValid() && $form->isSubmitted()) {
