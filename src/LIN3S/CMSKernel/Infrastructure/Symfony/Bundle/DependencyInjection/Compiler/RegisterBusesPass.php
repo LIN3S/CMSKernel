@@ -37,6 +37,14 @@ class RegisterBusesPass implements CompilerPassInterface
             'lin3s.cms_kernel.application.query_bus',
             new Definition(SimpleBusQueryBus::class)
         );
+        $container->setDefinition(
+            'lin3s.cms_kernel.application.query_bus',
+            new Definition(
+                SimpleBusQueryBus::class, [
+                    $container->getDefinition('simple_bus.query_bus'),
+                ]
+            )
+        );
     }
 
     private function addCommandBusToServices(ContainerBuilder $container)
@@ -47,6 +55,11 @@ class RegisterBusesPass implements CompilerPassInterface
 
         $container
             ->findDefinition('lin3s_admin_ddd_extension.action.type.handle_command')
-            ->replaceArgument(1, 'lin3s.cms_kernel.application.command_bus');
+            ->replaceArgument(
+                1,
+                $container->getDefinition(
+                    'lin3s.cms_kernel.application.command_bus'
+                )
+            );
     }
 }
