@@ -13,8 +13,10 @@ namespace LIN3S\CMSKernel\Infrastructure\Symfony\Bundle;
 
 use LIN3S\CMSKernel\Infrastructure\Symfony\Bundle\DependencyInjection\Compiler\ClassMapTemplateFactoryPass;
 use LIN3S\CMSKernel\Infrastructure\Symfony\Bundle\DependencyInjection\Compiler\DoctrineORMCustomTypesPass;
+use LIN3S\CMSKernel\Infrastructure\Symfony\Bundle\DependencyInjection\Compiler\RegisterBusesPass;
 use Symfony\Component\DependencyInjection\Compiler\PassConfig;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Exception\RuntimeException;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
@@ -22,10 +24,17 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
  */
 class Lin3sCmsKernelBundle extends Bundle
 {
+    const DEPENDENT_BUNDLES = [
+        'SimpleBusCommandBusBundle',
+    ];
+
     public function build(ContainerBuilder $container)
     {
+        $this->checkDependentBundlesAreEnable($container);
+
         $container->addCompilerPass(new ClassMapTemplateFactoryPass(), PassConfig::TYPE_OPTIMIZE);
         $container->addCompilerPass(new DoctrineORMCustomTypesPass(), PassConfig::TYPE_OPTIMIZE);
+        $container->addCompilerPass(new RegisterBusesPass(), PassConfig::TYPE_OPTIMIZE);
 
         $container->loadFromExtension('doctrine', [
             'orm' => [
@@ -69,6 +78,22 @@ class Lin3sCmsKernelBundle extends Bundle
                 'Form/menu_tree.html.twig',
             ],
         ]);
+    }
+
+    private function checkDependentBundlesAreEnable(ContainerBuilder $container)
+    {
+        $enabledBundles = $container->getParameter('kernel.bundles');
+        foreach (self::DEPENDENT_BUNDLES as $requiredBundle) {
+            if (!isset($enabledBundles[$requiredBundle])) {
+                throw new RuntimeException(
+                    sprintf(
+                        'In order to use "%s" you also need to enable and configure the "%s"',
+                        $this->getName(),
+                        $requiredBundle
+                    )
+                );
+            }
+        }
     }
 
     private function doctrineORMBasePath()
