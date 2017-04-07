@@ -7,6 +7,7 @@
 
 cms_kernel_admin_bridge:
     locale:
+        en_GB: Inglés
         en_US: Inglés
         es_ES: Español
         eu_ES: Euskera

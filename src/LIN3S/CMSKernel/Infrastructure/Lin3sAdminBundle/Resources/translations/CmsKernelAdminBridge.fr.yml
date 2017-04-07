@@ -7,14 +7,17 @@
 
 cms_kernel_admin_bridge:
     locale:
-        en_US: English
-        es_ES: Spanish
+        en_GB: Anglais
+        en_US: Anglais
+        es_ES: Espagnol
         eu_ES: Basque
-        fr_FR: French
-        en: English
-        es: Spanish
+        fr_FR: Français
+        pt_PT: Portugais
+        en: Anglais
+        es: Espagnol
         eu: Basque
-        fr: French
+        fr: Français
+        pt: Portugais
     new:
         confirm:
             button: Accéder au formulaire de création

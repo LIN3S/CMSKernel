@@ -7,14 +7,17 @@
 
 cms_kernel_admin_bridge:
     locale:
+        en_GB: English
         en_US: English
         es_ES: Spanish
         eu_ES: Basque
         fr_FR: French
+        pt_PT: Portuguese
         en: English
         es: Spanish
         eu: Basque
         fr: French
+        pt: Portuguese
     new:
         confirm:
             button: Go to the create form

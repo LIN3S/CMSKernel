@@ -7,14 +7,16 @@
 
 cms_kernel_admin_bridge:
     locale:
+        en_GB: Ingelese
         en_US: Ingelesa
         es_ES: Gaztelania
         eu_ES: Euskara
         fr_FR: Frantsesa
+        pt_PT: Portugesa
         en: Ingelesa
         es: Gaztelania
         eu: Euskara
-        fr: Frantsesa
+        pt: Portugesa
     new:
         confirm:
             button: Sorrera formulariora joan
@@ -31,7 +33,7 @@ cms_kernel_admin_bridge:
         locale_not_defined: "\"%locale%\" itzulpena ez dago ezarritakoen artean"
     header:
         me: "Kaixo, %email%"
-        logout: Itxi
+        logout: Irten
     menu:
         dashboard: Hasiera
         menus: Menuak
