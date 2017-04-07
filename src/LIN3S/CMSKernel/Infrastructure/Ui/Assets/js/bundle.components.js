@@ -19,10 +19,10 @@ import FullScreenModal from './components/FullScreenModal/FullScreenModal';
 import FileGallery from './components/FileGallery/FileGallery';
 import FileSelector from './components/FileSelector/FileSelector';
 import MenuTree from './components/MenuTree/MenuTree';
-import IconGallery from './components/Icon/IconGallery';
-import IconUpload from './components/Icon/IconUpload';
-import IconRawEditor from './components/Icon/IconRawEditor';
-import IconTextEditor from './components/Icon/IconTextEditor';
+// import IconGallery from './components/Icon/IconGallery';
+// import IconUpload from './components/Icon/IconUpload';
+// import IconRawEditor from './components/Icon/IconRawEditor';
+// import IconTextEditor from './components/Icon/IconTextEditor';
 
 export {
   Tabbed,
@@ -35,8 +35,8 @@ export {
   File,
   FilePreview,
   MenuTree,
-  IconUpload,
-  IconGallery,
-  IconTextEditor,
-  IconRawEditor
+//   IconUpload,
+//   IconGallery,
+//   IconTextEditor,
+//   IconRawEditor
 }

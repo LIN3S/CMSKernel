@@ -1,0 +1,12 @@
+{% trans_default_domain 'CmsKernelAdminBridge' %}
+
+<a class="table__action table__action--{{ action }}" href="{{ url }}">{{ name | capitalize }}</a>
+
+{% if action == 'remove' or action == 'delete' or action == 'crud_delete' %}
+    <div class="js-react-confirmation-modal-remove"
+         data-url="{{ url }}"
+         data-message-title="{{ 'cms_kernel_admin_bridge.remove_translation.confirmation_modal.title' | trans }}"
+         data-message-description="{{ 'cms_kernel_admin_bridge.remove_translation.confirmation_modal.description' | trans }}"
+         data-button-title="{{ 'cms_kernel_admin_bridge.remove_translation.button' | trans }}"
+         data-button-style="button"></div>
+{% endif %}

@@ -7,7 +7,6 @@
  * file that was distributed with this source code.
  */
 
-'use strict';
-
+import './Partials/index';
 import './Translatable/index';
 import './Translation/index';
