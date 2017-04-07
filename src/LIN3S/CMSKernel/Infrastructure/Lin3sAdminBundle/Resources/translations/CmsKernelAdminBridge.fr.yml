@@ -29,3 +29,9 @@ cms_kernel_admin_bridge:
             description: Êtes-vous sûr de vouloir supprimer la traduction? Cette opération ne peut pas être annulée.
     translation:
         locale_not_defined: "\"%locale%\" traduction non définie"
+    header:
+        me: "Bonjour, %email%"
+        logout: Déconnecter
+    menu:
+        dashboard: Accueil
+        menus: Menus

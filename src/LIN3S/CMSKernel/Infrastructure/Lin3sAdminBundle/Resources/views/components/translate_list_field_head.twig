@@ -1,19 +1,14 @@
 <div class="translate-list-field-head">
     {% for locale in cms_kernel_admin_bridge.locales %}
-        {% set locale = locale|split('_')[0] %}
+        {% set language = locale|split('_')[0] %}
+        {% set country = locale|split('_')[1] %}
 
-        {% if locale == 'en' %}
-            <img class="translate-list-field-head__flag"
-                 src="{{ asset('bundles/cmskerneladminbridge/images/GB.png') }}"/>
-        {% elseif locale == 'es' %}
-            <img class="translate-list-field-head__flag"
-                 src="{{ asset('bundles/cmskerneladminbridge/images/ES.png') }}"/>
-        {% elseif locale == 'fr' %}
-            <img class="translate-list-field-head__flag"
-                 src="{{ asset('bundles/cmskerneladminbridge/images/FR.png') }}"/>
-        {% elseif locale == 'eu' %}
+        {% if language == 'eu' %}
             <img class="translate-list-field-head__flag"
                  src="{{ asset('bundles/cmskerneladminbridge/images/_basque-country.png') }}"/>
+        {% else %}
+            <img class="translate-list-field-head__flag"
+                 src="{{ asset('bundles/cmskerneladminbridge/images/' ~ country | upper ~ '.png') }}"/>
         {% endif %}
     {% endfor %}
 </div>
