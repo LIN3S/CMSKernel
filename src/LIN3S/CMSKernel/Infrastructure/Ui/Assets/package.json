@@ -36,6 +36,7 @@
     "react-dom": "^15.4.2",
     "react-draft-wysiwyg": "^1.7.3",
     "react-modal": "^1.6.5",
+    "react-motion": "^0.4.7",
     "uppy": "^0.15.0",
     "whatwg-fetch": "^2.0.3"
   },

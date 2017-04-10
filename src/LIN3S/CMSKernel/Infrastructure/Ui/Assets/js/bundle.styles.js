@@ -9,6 +9,7 @@
  * @author Mikel Tuesta <mikeltuesta@gmail.com>
  */
 
+import './../scss/components/_with-outside-click.scss';
 import './../scss/components/_button.scss';
 import './../scss/components/_tabbed.scss';
 import './../scss/components/_full-screen-modal.scss';
@@ -20,3 +21,5 @@ import './../scss/components/_file-preview.scss';
 import './../scss/components/_file.scss';
 import './../scss/components/_icon.scss';
 import './../scss/components/_menu-tree.scss';
+import './../scss/components/_menu-tree-item.scss';
+import './../scss/components/_editable-label.scss';

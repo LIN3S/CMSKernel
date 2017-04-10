@@ -18,11 +18,15 @@ import FilePreview from './components/FilePreview/FilePreview';
 import FullScreenModal from './components/FullScreenModal/FullScreenModal';
 import FileGallery from './components/FileGallery/FileGallery';
 import FileSelector from './components/FileSelector/FileSelector';
+import WithOutsideClick from './components/WithOutsideClick/WithOutsideClick';
 import MenuTree from './components/MenuTree/MenuTree';
-// import IconGallery from './components/Icon/IconGallery';
-// import IconUpload from './components/Icon/IconUpload';
-// import IconRawEditor from './components/Icon/IconRawEditor';
-// import IconTextEditor from './components/Icon/IconTextEditor';
+import EditableLabel from './components/EditableLabel/EditableLabel';
+import IconAdd from './components/Icon/IconAdd';
+import IconRemove from './components/Icon/IconRemove';
+import IconGallery from './components/Icon/IconGallery';
+import IconUpload from './components/Icon/IconUpload';
+import IconRawEditor from './components/Icon/IconRawEditor';
+import IconTextEditor from './components/Icon/IconTextEditor';
 
 export {
   Tabbed,
@@ -34,9 +38,13 @@ export {
   FileGallery,
   File,
   FilePreview,
+  WithOutsideClick,
   MenuTree,
-//   IconUpload,
-//   IconGallery,
-//   IconTextEditor,
-//   IconRawEditor
+  EditableLabel,
+  IconAdd,
+  IconRemove,
+  IconUpload,
+  IconGallery,
+  IconTextEditor,
+  IconRawEditor
 }

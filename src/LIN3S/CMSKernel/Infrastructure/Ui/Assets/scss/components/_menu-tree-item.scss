@@ -1,0 +1,98 @@
+// This file is part of the CMS Kernel package.
+//
+// Copyright (c) 2016-present LIN3S <info@lin3s.com>
+//
+// For the full copyright and license information, please view the LICENSE
+// file that was distributed with this source code.
+//
+// @author Mikel Tuesta <mikeltuesta@gmail.com>
+
+@import './../variables/colors';
+@import './../variables/transitions';
+
+$menu-tree-item-height: 52px;
+$menu-tree-item-max-width: 340px;
+
+$menu-tree-item-background-color: $color-white;
+$menu-tree-item-border-color: $color-border-main;
+
+$menu-tree-item-add-icon-color: $color-mine-shaft;
+$menu-tree-item-add-icon-color--active: $color-white;
+$menu-tree-item-add-background-color: $color-seashell;
+$menu-tree-item-add-background-color--hover: $color-alto;
+$menu-tree-item-add-background-color--active: $color-mine-shaft;
+$menu-tree-item-add-border-color: $color-border-main;
+$menu-tree-item-add-transition-duration: $transition-duration-200;
+$menu-tree-item-add-transition-ease: $transition-ease-main;
+
+.menu-tree__item-wrapper {
+  align-items: stretch;
+  display: flex;
+  flex-direction: row;
+  margin-top: 10px;
+  max-width: $menu-tree-item-max-width;
+
+  &:hover {
+    .menu-tree__item-option--add,
+    .menu-tree__item-option--remove {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+}
+
+.menu-tree__item {
+  background-color: $menu-tree-item-background-color;
+  border: 1px solid $menu-tree-item-border-color;
+  flex: 1;
+}
+
+.menu-tree__item--opened {
+  .editable-label--link {
+    display: block;
+  }
+}
+
+.editable-label--link {
+  display: none;
+}
+
+.menu-tree__item-option {
+  cursor: pointer;
+  opacity: 0;
+  outline: none;
+  transition: opacity $menu-tree-item-add-transition-duration $menu-tree-item-add-transition-ease, visibility $menu-tree-item-add-transition-duration $menu-tree-item-add-transition-ease;
+  visibility: hidden;
+}
+
+.menu-tree__item-option--add {
+
+  border-bottom: 1px solid $menu-tree-item-add-border-color;
+  border-left: 0;
+  border-right: 1px solid $menu-tree-item-add-border-color;
+  border-top: 1px solid $menu-tree-item-add-border-color;
+  background-color: $menu-tree-item-add-background-color;
+  height: $menu-tree-item-height;
+  width: $menu-tree-item-height;
+
+  > .icon {
+    fill: $menu-tree-item-add-icon-color;
+  }
+
+  &:hover {
+    background-color: $menu-tree-item-add-background-color--hover;
+  }
+
+  &:active {
+    background-color: $menu-tree-item-add-background-color--active;
+    outline: none;
+
+    > .icon {
+      fill: $menu-tree-item-add-icon-color--active;
+    }
+  }
+}
+
+.menu-tree__item-option--remove {
+
+}

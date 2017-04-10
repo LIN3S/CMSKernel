@@ -1,0 +1,98 @@
+// This file is part of the CMS Kernel package.
+//
+// Copyright (c) 2016-present LIN3S <info@lin3s.com>
+//
+// For the full copyright and license information, please view the LICENSE
+// file that was distributed with this source code.
+//
+// @author Mikel Tuesta <mikeltuesta@gmail.com>
+
+@import './../variables/colors';
+@import './../variables/transitions';
+@import './../variables/typography';
+
+$editable-label-z-index: 0;
+$editable-label-z-index--editing: 10;
+$editable-label-content-z-index: 10;
+$editable-label-content-label-z-index: 20;
+
+$editable-label-height: 50px;
+
+$editable-label-input-background-color: transparent;
+$editable-label-input-background-color--editing: $color-white;
+$editable-label-input-border-color: transparent;
+$editable-label-input-border-color--editing: $color-border-main;
+
+$editable-label-transition-duration: $transition-duration-200;
+$editable-label-transition-ease: $transition-ease-main;
+
+$editable-label-input-text-color: $color-mine-shaft;
+$editable-label-input-text-color--primary: $color-bondi-blue;
+$editable-label-input-font-size: $font-size-14;
+$editable-label-input-font-weight: $font-weight-500;
+$editable-label-input-font-weight--strong: $font-weight-700;
+
+$editable-label-label-font-size: $font-size-12;
+$editable-label-label-text-color: $color-mine-shaft;
+
+.editable-label {
+  height: $editable-label-height;
+  padding: 5px;
+  position: relative;
+}
+
+.editable-label--editing {
+  z-index: $editable-label-z-index--editing;
+
+  .editable-label__input {
+    border-color: $editable-label-input-border-color--editing;
+    background-color: $editable-label-input-background-color--editing;
+  }
+
+  .editable-label__input-label {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.editable-label--label {
+  .editable-label__input {
+    font-weight: $editable-label-input-font-weight--strong;
+  }
+}
+
+.editable-label--link {
+  .editable-label__input {
+    color: $editable-label-input-text-color--primary;
+  }
+}
+
+.editable-label__input,
+.editable-label__input-label {
+  position: relative;
+  z-index: $editable-label-content-z-index;
+}
+
+.editable-label__input {
+  color: $editable-label-input-text-color;
+  background-color: transparent;
+  border: 1px solid transparent;
+  font-size: $editable-label-input-font-size;
+  outline: 0;
+  padding: 10px 15px;
+  text-overflow: ellipsis;
+  transition: border $editable-label-transition-duration $editable-label-transition-ease, background-color $editable-label-transition-duration $editable-label-transition-ease;
+  width: 100%;
+}
+
+.editable-label__input-label {
+  color: $editable-label-label-text-color;
+  font-size: $editable-label-label-font-size;
+  left: 0;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  transform: translateY(-10px) scale(.8);
+  transition: transform $editable-label-transition-duration $editable-label-transition-ease, opacity $editable-label-transition-duration $editable-label-transition-ease;
+  z-index: $editable-label-content-label-z-index;
+}
