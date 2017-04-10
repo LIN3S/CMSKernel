@@ -26,8 +26,9 @@ const init = () => {
   }
   removeActions.forEach((removeAction) => {
     const trigger = {
+      content: removeAction.getAttribute('data-button-title'),
       style: removeAction.getAttribute('data-button-style'),
-      content: removeAction.getAttribute('data-button-title')
+      type: 'link',
     };
 
     ReactDOM.render(
