@@ -1,4 +1,4 @@
-<div class="translate-list-field-head{% if '_' in cms_kernel_admin_bridge.locales[0] %} translate-list-field-head--flexible{% endif %}">
+<div class="translate-list-field-head{% if '_' not in cms_kernel_admin_bridge.locales[0] %} translate-list-field-head--flexible{% endif %}">
     {% for locale in cms_kernel_admin_bridge.locales %}
         {% if '_' in locale %}
             {% set language = locale|split('_')[0] %}
