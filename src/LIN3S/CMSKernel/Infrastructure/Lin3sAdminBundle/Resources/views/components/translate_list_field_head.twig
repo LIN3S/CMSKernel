@@ -1,14 +1,18 @@
-<div class="translate-list-field-head">
+<div class="translate-list-field-head{% if '_' in cms_kernel_admin_bridge.locales[0] %} translate-list-field-head--flexible{% endif %}">
     {% for locale in cms_kernel_admin_bridge.locales %}
-        {% set language = locale|split('_')[0] %}
-        {% set country = locale|split('_')[1] %}
+        {% if '_' in locale %}
+            {% set language = locale|split('_')[0] %}
+            {% set country = locale|split('_')[1] %}
 
-        {% if language == 'eu' %}
-            <img class="translate-list-field-head__flag"
-                 src="{{ asset('bundles/cmskerneladminbridge/images/_basque-country.png') }}"/>
+            {% if language == 'eu' %}
+                <img class="translate-list-field-head__flag"
+                     src="{{ asset('bundles/cmskerneladminbridge/images/_basque-country.png') }}"/>
+            {% else %}
+                <img class="translate-list-field-head__flag"
+                     src="{{ asset('bundles/cmskerneladminbridge/images/' ~ country | upper ~ '.png') }}"/>
+            {% endif %}
         {% else %}
-            <img class="translate-list-field-head__flag"
-                 src="{{ asset('bundles/cmskerneladminbridge/images/' ~ country | upper ~ '.png') }}"/>
+            <div class="translate-list-field-head__flag">{{ locale }}</div>
         {% endif %}
     {% endfor %}
 </div>

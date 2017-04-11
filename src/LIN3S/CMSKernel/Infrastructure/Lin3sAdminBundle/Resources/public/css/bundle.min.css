@@ -13,6 +13,13 @@
 .language-switcher__language--current {
   color: #00b9eb; }
 
+.translate-list-field-head--flexible {
+  display: -ms-flexbox;
+  display: flex; }
+  .translate-list-field-head--flexible .translate-list-field-head__flag {
+    margin-left: 11px;
+    margin-right: 11px; }
+
 .translate-list-field-head__flag {
   margin-left: 5px;
   margin-right: 5px;

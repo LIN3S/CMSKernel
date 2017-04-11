@@ -5,6 +5,15 @@
 // For the full copyright and license information, please view the LICENSE
 // file that was distributed with this source code.
 
+.translate-list-field-head--flexible {
+  display: flex;
+
+  .translate-list-field-head__flag {
+    margin-left: 11px;
+    margin-right: 11px;
+  }
+}
+
 .translate-list-field-head__flag {
   margin-left: 5px;
   margin-right: 5px;
