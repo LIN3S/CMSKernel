@@ -1,3 +1,20 @@
+.with-outside-click {
+  z-index: 0; }
+
+.with-outside-click--active {
+  z-index: 10; }
+
+.with-outside-click__item {
+  position: relative;
+  z-index: 10; }
+
+.with-outside-click__placeholder {
+  height: 100%;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 0; }
 .button--cms {
   background-color: #fff;
   border: 1px solid #ccc;
@@ -4425,6 +4442,112 @@ button.UppyDashboard-statusBarAction {
   fill: #000;
   height: 20px;
   width: 20px; }
+
+.icon--arrow-down {
+  transform: rotate(90deg); }
+
+.icon--arrow-left {
+  transform: rotate(180deg); }
+
+.icon--arrow-right {
+  transform: rotate(0); }
+
+.icon--arrow-up {
+  transform: rotate(270deg); }
 .menu-tree {
   -ms-flex-order: 2;
       order: 2; }
+.menu-tree__item-wrapper {
+  -ms-flex-align: stretch;
+      align-items: stretch;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: row;
+      flex-direction: row;
+  margin-top: 10px;
+  max-width: 340px; }
+  .menu-tree__item-wrapper:hover .menu-tree__item-option--add, .menu-tree__item-wrapper:hover .menu-tree__item-option--remove {
+    opacity: 1;
+    visibility: visible; }
+
+.menu-tree__item {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  -ms-flex: 1;
+      flex: 1; }
+
+.menu-tree__item--opened .editable-label--link {
+  display: block; }
+
+.editable-label--link {
+  display: none; }
+
+.menu-tree__item-option {
+  cursor: pointer;
+  opacity: 0;
+  outline: none;
+  transition: opacity 200ms ease-in-out, visibility 200ms ease-in-out;
+  visibility: hidden; }
+
+.menu-tree__item-option--add {
+  border-bottom: 1px solid #ccc;
+  border-left: 0;
+  border-right: 1px solid #ccc;
+  border-top: 1px solid #ccc;
+  background-color: #f1f1f1;
+  height: 52px;
+  width: 52px; }
+  .menu-tree__item-option--add > .icon {
+    fill: #3E3E3E; }
+  .menu-tree__item-option--add:hover {
+    background-color: #ccc; }
+  .menu-tree__item-option--add:active {
+    background-color: #3E3E3E;
+    outline: none; }
+    .menu-tree__item-option--add:active > .icon {
+      fill: #fff; }
+.editable-label {
+  height: 50px;
+  padding: 5px;
+  position: relative; }
+
+.editable-label--editing {
+  z-index: 10; }
+  .editable-label--editing .editable-label__input {
+    border-color: #ccc;
+    background-color: #fff; }
+  .editable-label--editing .editable-label__input-label {
+    opacity: 1;
+    transform: translateY(0) scale(1); }
+
+.editable-label--label .editable-label__input {
+  font-weight: 700; }
+
+.editable-label--link .editable-label__input {
+  color: #0085ba; }
+
+.editable-label__input, .editable-label__input-label {
+  position: relative;
+  z-index: 10; }
+
+.editable-label__input {
+  color: #3E3E3E;
+  background-color: transparent;
+  border: 1px solid transparent;
+  font-size: 14px;
+  outline: 0;
+  padding: 10px 15px;
+  text-overflow: ellipsis;
+  transition: border 200ms ease-in-out, background-color 200ms ease-in-out;
+  width: 100%; }
+
+.editable-label__input-label {
+  color: #3E3E3E;
+  font-size: 12px;
+  left: 0;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  transform: translateY(-10px) scale(0.8);
+  transition: transform 200ms ease-in-out, opacity 200ms ease-in-out;
+  z-index: 20; }

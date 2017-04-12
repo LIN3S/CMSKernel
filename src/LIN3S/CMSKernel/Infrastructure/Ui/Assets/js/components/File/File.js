@@ -102,7 +102,9 @@ class File extends React.Component {
         onSelected={this.boundOnFileSelectButtonClick}
         onRemove={this.boundOnFileRemoveButtonClick}/>}
 
-      <FullScreenModal isOpened={fileSelectorModalIsOpened} onClickOutside={this.boundOnModalClose}>
+      <FullScreenModal
+        isOpened={fileSelectorModalIsOpened}
+        onClickOutside={this.boundOnModalClose}>
         <FileSelector
           galleryEndpoint={getFormInputAttribute(formInput, 'data-gallery-endpoint')}
           id={formInput.id}

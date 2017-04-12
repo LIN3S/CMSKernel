@@ -19,6 +19,7 @@ const
 
       'react':                                            'React',
       'react-dom':                                        'ReactDOM',
+      'react-motion':                                     'ReactMotion',
       'react-modal':                                      'Modal',
       'lin3s-event-bus':                                  'lin3sEventBus',
       'jquery':                                           '$',
@@ -38,13 +39,18 @@ const
       './components/FileGallery/FileGallery':             'FileGallery',
       './components/File/File':                           'File',
       './components/FilePreview/FilePreview':             'FilePreview',
+      './components/WithOutsideClick/WithOutsideClick':   'WithOutsideClick',
       './components/MenuTree/MenuTree':                   'MenuTree',
+      './components/EditableLabel/EditableLabel':         'EditableLabel',
+      './components/Icon/IconAdd':                        'IconAdd',
+      './components/Icon/IconRemove':                     'IconRemove',
       './components/Icon/IconUpload':                     'IconUpload',
       './components/Icon/IconGallery':                    'IconGallery',
       './components/Icon/IconTextEditor':                 'IconTextEditor',
       './components/Icon/IconRawEditor':                  'IconRawEditor',
 
       './model/model/FileModel':                          'FileModel',
+      './model/model/MenuTreeItemModel':                  'MenuTreeItemModel',
 
       './util/Util':                                      'Util'
     }

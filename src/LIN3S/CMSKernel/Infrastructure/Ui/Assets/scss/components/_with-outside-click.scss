@@ -1,0 +1,36 @@
+// This file is part of the CMS Kernel package.
+//
+// Copyright (c) 2016-present LIN3S <info@lin3s.com>
+//
+// For the full copyright and license information, please view the LICENSE
+// file that was distributed with this source code.
+//
+// @author Mikel Tuesta <mikeltuesta@gmail.com>
+
+$with-outside-click-z-index: 0;
+$with-outside-click-z-index--active: 10;
+
+$with-outside-click-item-z-index: 10;
+$with-outside-click-placeholder-z-index: 0;
+
+.with-outside-click {
+  z-index: $with-outside-click-z-index;
+}
+
+.with-outside-click--active {
+  z-index: $with-outside-click-z-index--active;
+}
+
+.with-outside-click__item {
+  position: relative;
+  z-index: $with-outside-click-item-z-index;
+}
+
+.with-outside-click__placeholder {
+  height: 100%;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: $with-outside-click-placeholder-z-index;
+}

@@ -10,7 +10,9 @@
  */
 
 import FileModel from './model/FileModel';
+import MenuTreeItemModel from './model/MenuTreeItemModel.js';
 
 export {
-  FileModel
+  FileModel,
+  MenuTreeItemModel
 }

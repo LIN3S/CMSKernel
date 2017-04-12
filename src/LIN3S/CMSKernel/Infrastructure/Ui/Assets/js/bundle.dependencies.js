@@ -12,6 +12,7 @@
 import * as lin3sEventBus from 'lin3s-event-bus';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import * as ReactMotion from 'react-motion';
 import Modal from 'react-modal';
 import * as reactDraftWysiwyg from 'react-draft-wysiwyg';
 import draftToHtml from 'draftjs-to-html';
@@ -23,6 +24,7 @@ export {
   lin3sEventBus,
   React,
   ReactDOM,
+  ReactMotion,
   Modal,
   reactDraftWysiwyg,
   draftToHtml,
