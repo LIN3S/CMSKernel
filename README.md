@@ -1,4 +1,4 @@
-#LIN3S CMS Kernel
+# LIN3S CMS Kernel
 >Base package to make CMS in an easy way
 
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/66aaf1b9-c8bc-4d03-a831-3311630f5014/mini.png)](https://insight.sensiolabs.com/projects/66aaf1b9-c8bc-4d03-a831-3311630f5014)
@@ -9,19 +9,19 @@
 [![Latest Stable Version](https://poser.pugx.org/lin3s/cms-kernel/v/stable.svg)](https://packagist.org/packages/lin3s/cms-kernel)
 [![Latest Unstable Version](https://poser.pugx.org/lin3s/cms-kernel/v/unstable.svg)](https://packagist.org/packages/lin3s/cms-kernel)
 
-##Installation
+## Installation
 The easiest way to install this package is using **[Composer][1]**
 
 ```bash
 $ composer require lin3s/cms-kernel
 ```
 
-##Documentation
+## Documentation
 All the documentation is stored in the `docs` folder.
 
 [Show me the docs!](docs/index.md)
 
-##Licensing Options
+## Licensing Options
 [![License](https://poser.pugx.org/lin3s/cms-kernel/license.svg)](https://github.com/LIN3S/CMSKernel/blob/master/LICENSE)
 
 [1]: http://getcomposer.org

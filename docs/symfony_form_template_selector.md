@@ -1,4 +1,4 @@
-#Configure and usage the Template Selector Type
+# Configure and usage the Template Selector Type
 
 This chapter explains the configuration and usage process of this kind of form type:
 
