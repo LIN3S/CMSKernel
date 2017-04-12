@@ -16,6 +16,7 @@ use LIN3S\CMSKernel\Domain\Model\Menu\MenuDoesNotExistException;
 use LIN3S\CMSKernel\Domain\Model\Menu\MenuId;
 use LIN3S\CMSKernel\Domain\Model\Menu\MenuItemId;
 use LIN3S\CMSKernel\Domain\Model\Menu\MenuItemLink;
+use LIN3S\CMSKernel\Domain\Model\Menu\MenuItemOrder;
 use LIN3S\CMSKernel\Domain\Model\Menu\MenuRepository;
 use LIN3S\CMSKernel\Domain\Model\Translation\Locale;
 use LIN3S\CMSKernel\Domain\Model\Translation\TranslationDoesNotExistException;
@@ -51,6 +52,9 @@ class AddMenuItemHandler
             new MenuItemLink(
                 $command->menuItemLabel(),
                 $command->menuItemUrl()
+            ),
+            new MenuItemOrder(
+                $command->menuItemOrder()
             ),
             null !== $command->menuItemParentId()
                 ? MenuItemId::generate($command->menuItemParentId())

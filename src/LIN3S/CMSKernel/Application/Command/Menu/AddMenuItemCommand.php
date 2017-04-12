@@ -20,10 +20,17 @@ class AddMenuItemCommand
     private $locale;
     private $menuItemLabel;
     private $menuItemUrl;
+    private $menuItemOrder;
     private $menuItemParentId;
 
-    public function __construct($menuId, $locale, $menuItemLabel, $menuItemUrl, $menuItemParentId = null)
-    {
+    public function __construct(
+        $menuId,
+        $locale,
+        $menuItemLabel,
+        $menuItemUrl,
+        $menuItemOrder = 0,
+        $menuItemParentId = null
+    ) {
         if (null === $menuId) {
             throw new \InvalidArgumentException('The menu id cannot be null');
         }
@@ -40,6 +47,7 @@ class AddMenuItemCommand
         $this->locale = $locale;
         $this->menuItemLabel = $menuItemLabel;
         $this->menuItemUrl = $menuItemUrl;
+        $this->menuItemOrder = $menuItemOrder;
         $this->menuItemParentId = $menuItemParentId;
     }
 
@@ -61,6 +69,11 @@ class AddMenuItemCommand
     public function menuItemUrl()
     {
         return $this->menuItemUrl;
+    }
+
+    public function menuItemOrder()
+    {
+        return $this->menuItemOrder;
     }
 
     public function menuItemParentId()
