@@ -24,7 +24,7 @@ class MenuItemLink
         if (null === $label || '' === $label) {
             throw new EmptyMenuItemLabelException();
         }
-        if (false === filter_var($url, FILTER_VALIDATE_URL)) {
+        if (null === $url || '' === $url) {
             throw new InvalidMenuItemUrlException();
         }
         $this->label = $label;
