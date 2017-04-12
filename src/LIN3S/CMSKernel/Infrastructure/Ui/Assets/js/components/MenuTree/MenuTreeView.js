@@ -62,12 +62,12 @@ class MenuTreeView extends React.Component {
     });
   }
 
-  reduceMenuTreeHeight(rootMenuItem, accumulatedHeight = 0) {
+  getMenuTreeHeight(rootMenuItem, accumulatedHeight = 0) {
     const {selectedMenuItemId} = this.state;
 
     return rootMenuItem.children.reduce((accumulatedHeight, menuItem) => {
       if (menuItem.hasChildren()) {
-        accumulatedHeight = this.reduceMenuTreeHeight(menuItem, accumulatedHeight);
+        accumulatedHeight = this.getMenuTreeHeight(menuItem, accumulatedHeight);
       }
 
       accumulatedHeight += menuItem.id === selectedMenuItemId ? 110 : 60;
@@ -76,10 +76,10 @@ class MenuTreeView extends React.Component {
     }, accumulatedHeight);
   }
 
-  reduceMenuItemTranslationY(rootMenuItem, menuItemId) {
+  getMenuItemTranslationY(rootMenuItem, menuItemId) {
     let done = false;
 
-    const reduceItemTranslationY = (rootMenuItem, menuItemId, accumulatedTranslationY = 0) => {
+    const getItemTranslationY = (rootMenuItem, menuItemId, accumulatedTranslationY = 0) => {
       const {selectedMenuItemId} = this.state;
 
       return rootMenuItem.children.reduce((accumulatedHeight, menuItem) => {
@@ -91,7 +91,7 @@ class MenuTreeView extends React.Component {
             accumulatedTranslationY += menuItem.id === selectedMenuItemId ? 110 : 60;
 
             if (menuItem.hasChildren()) {
-              accumulatedTranslationY = reduceItemTranslationY(menuItem, menuItemId, accumulatedTranslationY);
+              accumulatedTranslationY = getItemTranslationY(menuItem, menuItemId, accumulatedTranslationY);
             }
           }
         }
@@ -100,7 +100,7 @@ class MenuTreeView extends React.Component {
       }, accumulatedTranslationY);
     };
 
-    return reduceItemTranslationY(rootMenuItem, menuItemId);
+    return getItemTranslationY(rootMenuItem, menuItemId);
   }
 
   renderMenuItems(rootMenuItem, nestLevel = 0, props) {
@@ -113,7 +113,7 @@ class MenuTreeView extends React.Component {
         outsideClickHandler = menuItem.id === selectedMenuItemId
           ? this.boundOnMenuItemOutsideClick
           : () => {},
-        menuItemTranslationY = this.reduceMenuItemTranslationY(menuTree, menuItem.id),
+        menuItemTranslationY = this.getMenuItemTranslationY(menuTree, menuItem.id),
         menuItemStyle = {
           translateY: spring(menuItemTranslationY)
         };
@@ -151,7 +151,7 @@ class MenuTreeView extends React.Component {
     const {menuTree, ...otherProps} = this.props;
     const
       renderedMenuTree = this.renderMenuItems(menuTree, 0, otherProps),
-      menuTreeHeight = this.reduceMenuTreeHeight(menuTree);
+      menuTreeHeight = this.getMenuTreeHeight(menuTree);
 
     return <div
       className="menu-tree__items"
