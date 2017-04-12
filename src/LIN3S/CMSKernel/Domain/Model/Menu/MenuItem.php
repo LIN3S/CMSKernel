@@ -18,6 +18,7 @@ class MenuItem
 {
     private $id;
     private $link;
+    private $order;
     private $createdOn;
     private $updatedOn;
     private $parentId;
@@ -28,10 +29,11 @@ class MenuItem
      */
     private $menuTranslation;
 
-    public function __construct(MenuItemId $id, MenuItemLink $link, MenuItemId $parentId = null)
+    public function __construct(MenuItemId $id, MenuItemLink $link, MenuItemOrder $order, MenuItemId $parentId = null)
     {
         $this->id = $id;
         $this->link = $link;
+        $this->order = $order;
         $this->parentId = $parentId;
         $this->createdOn = new \DateTimeImmutable();
         $this->updatedOn = new \DateTimeImmutable();
@@ -51,6 +53,11 @@ class MenuItem
     public function link()
     {
         return $this->link;
+    }
+
+    public function order()
+    {
+        return $this->order;
     }
 
     public function parentId()

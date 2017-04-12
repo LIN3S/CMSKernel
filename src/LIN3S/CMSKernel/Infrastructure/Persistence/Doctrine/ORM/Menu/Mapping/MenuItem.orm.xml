@@ -8,6 +8,7 @@
         <id name="id" type="menu_item_id" column="id"/>
 
         <embedded name="link" class="LIN3S\CMSKernel\Domain\Model\Menu\MenuItemLink" use-column-prefix="false"/>
+        <embedded name="order" class="LIN3S\CMSKernel\Domain\Model\Menu\MenuItemOrder" use-column-prefix="false"/>
 
         <field name="createdOn" type="datetime" column="created_on" nullable="false"/>
         <field name="updatedOn" type="datetime" column="updated_on" nullable="false"/>

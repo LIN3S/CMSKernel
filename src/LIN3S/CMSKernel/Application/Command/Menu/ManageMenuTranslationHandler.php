@@ -16,6 +16,7 @@ use LIN3S\CMSKernel\Domain\Model\Menu\MenuDoesNotExistException;
 use LIN3S\CMSKernel\Domain\Model\Menu\MenuId;
 use LIN3S\CMSKernel\Domain\Model\Menu\MenuItemId;
 use LIN3S\CMSKernel\Domain\Model\Menu\MenuItemLink;
+use LIN3S\CMSKernel\Domain\Model\Menu\MenuItemOrder;
 use LIN3S\CMSKernel\Domain\Model\Menu\MenuName;
 use LIN3S\CMSKernel\Domain\Model\Menu\MenuRepository;
 use LIN3S\CMSKernel\Domain\Model\Menu\MenuTranslation;
@@ -66,13 +67,17 @@ class ManageMenuTranslationHandler
 
     private function buildTree(MenuTranslation $menuTranslation, array $items, MenuItemId $parentId = null)
     {
-        foreach ($items as $item) {
+        foreach ($items as $order => $item) {
+            ++$order;
             $menuItemId = MenuItemId::generate();
 
             $menuTranslation->addItem(
                 new MenuItemLink(
                     $item['label'],
                     $item['url']
+                ),
+                new MenuItemOrder(
+                    $order
                 ),
                 $parentId,
                 $menuItemId
