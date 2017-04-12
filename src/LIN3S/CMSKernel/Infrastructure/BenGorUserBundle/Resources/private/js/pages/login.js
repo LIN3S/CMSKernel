@@ -26,11 +26,13 @@ const init = () => {
     return;
   }
 
-  $input.each(function () {
-    if ($(this).val()) {
-      $(this).prev().addClass('bengor-user-login__form-label--focused');
-    }
+  $input.each(function (index, element) {
+    $(element).focus((event) => {
+      $(event.currentTarget).prev().addClass('bengor-user-login__form-label--focused');
+    });
   });
+
+  $('input[autofocus]').trigger('focus');
 
   $input.focusin(focusIn);
   $input.focusout(focusOut);

@@ -14,7 +14,7 @@
     <form action="{{ path(login_check) }}" method="post" class="bengor-user-login__form">
         <div class="bengor-user-login-form__group">
             <div class="bengor-user-login__form-header">
-                Kaixo!
+                ¡Hola!
             </div>
         </div>
 
@@ -25,7 +25,7 @@
             <label class="bengor-user-login__form-label" for="email">
                 {{- 'security.view_email_label' | trans -}}
             </label>
-            <input class="bengor-user-login__form-input" type="text" id="email" name="_email" autofocus
+            <input class="bengor-user-login__form-input" type="email" id="email" name="_email" autofocus
                    value="{{ last_email }}"/>
         </div>
 
