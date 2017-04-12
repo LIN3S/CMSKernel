@@ -7,33 +7,33 @@
 
 cms_kernel_admin_bridge:
     locale:
-        en_US: Inglés
-        es_ES: Español
+        en_US: Inglês
+        es_ES: Espanhol
         eu_ES: Euskera
-        fr_FR: Francés
-        pt_PT: Portugués
-        en: Inglés
-        es: Español
+        fr_FR: Francês
+        pt_PT: Português
+        en: Inglês
+        es: Espanhol
         eu: Euskera
-        fr: Francés
-        pt: Portugués
+        fr: Francês
+        pt: Português
     new:
         confirm:
-            button: Ir al formulario de creación
-            title: Selecciona un idioma
-            content: Todo contenido traducible requiere de al menos una traducción
+            button: Ir para o formulário de criação
+            title: Escolha um idioma
+            content: Todo o conteúdo traduzível requer pelo menos uma tradução
     edit:
-        title: "Traducción de %language% del/a %entity%"
+        title: "Tradução de %language% de/do %entity%"
     remove_translation:
-        button: Eliminar traducción
+        button: Remover tradução
         confirmation_modal:
-            title: Eliminar traducción
-            description: ¿Seguro que deseas eliminar esta traducción? esta operación no se puede deshacer.
+            title: Remover tradução
+            description: Tem certeza de que deseja excluir esta tradução? Esta operação não pode ser desfeita.
     translation:
-        locale_not_defined: "Traducción de \"%locale%\" no disponible"
+        locale_not_defined: "Tradução de \"%locale%\" não disponível"
     header:
-        me: "Hola, %email%"
-        logout: Salir
+        me: "Olá, %email%"
+        logout: Sair
     menu:
-        dashboard: Dashboard
-        menus: Menús
+        dashboard: Painel de controle
+        menus: Menus
