@@ -21,8 +21,6 @@ const removeCallBack = (element) => {
 const init = () => {
   const removeActions = document.querySelectorAll('.js-react-confirmation-modal-remove');
 
-  console.log(removeActions);
-
   if (removeActions.length === 0) {
     return;
   }
