@@ -15,9 +15,13 @@ import {MenuTreeItemModel} from './../../bundle.model';
 import MenuTreeItemView from './MenuTreeItemView';
 
 const
+  Motion = ReactMotion.Motion,
+  spring = ReactMotion.spring,
   TransitionMotion = ReactMotion.TransitionMotion;
 
 class MenuTreeView extends React.Component {
+
+  static MENU_ITEM_SELECTED_NONE = -1;
 
   static propTypes = {
     menuTree: React.PropTypes.instanceOf(MenuTreeItemModel).isRequired,
@@ -32,20 +36,111 @@ class MenuTreeView extends React.Component {
     onUpdateMenuItem: () => {}
   };
 
-  renderMenuItems(menuItems, nestLevel = 0, props) {
-    return menuItems.map((menuItem) => {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      selectedMenuItemId: MenuTreeView.MENU_ITEM_SELECTED_NONE,
+      draggingMenuItemId: MenuTreeView.MENU_ITEM_SELECTED_NONE,
+      droppingMenuItemId: MenuTreeView.MENU_ITEM_SELECTED_NONE
+    };
+
+    // Pre-bind methods' context
+    this.boundOnMenuItemClick = this.onMenuItemClick.bind(this);
+    this.boundOnMenuItemOutsideClick = this.onMenuItemOutsideClick.bind(this);
+  }
+
+  onMenuItemClick(menuItemId) {
+    this.setState({
+      selectedMenuItemId: menuItemId
+    });
+  }
+
+  onMenuItemOutsideClick() {
+    this.setState({
+      selectedMenuItemId: MenuTreeView.MENU_ITEM_SELECTED_NONE
+    });
+  }
+
+  reduceMenuTreeHeight(rootMenuItem, accumulatedHeight = 0) {
+    const {selectedMenuItemId} = this.state;
+
+    return rootMenuItem.children.reduce((accumulatedHeight, menuItem) => {
+      if (menuItem.hasChildren()) {
+        accumulatedHeight = this.reduceMenuTreeHeight(menuItem, accumulatedHeight);
+      }
+
+      accumulatedHeight += menuItem.id === selectedMenuItemId ? 110 : 60;
+
+      return accumulatedHeight;
+    }, accumulatedHeight);
+  }
+
+  reduceMenuItemTranslationY(rootMenuItem, menuItemId) {
+    let done = false;
+
+    const reduceItemTranslationY = (rootMenuItem, menuItemId, accumulatedTranslationY = 0) => {
+      const {selectedMenuItemId} = this.state;
+
+      return rootMenuItem.children.reduce((accumulatedHeight, menuItem) => {
+
+        if (!done) {
+          if (menuItem.id === menuItemId) {
+            done = true;
+          } else {
+            accumulatedTranslationY += menuItem.id === selectedMenuItemId ? 110 : 60;
+
+            if (menuItem.hasChildren()) {
+              accumulatedTranslationY = reduceItemTranslationY(menuItem, menuItemId, accumulatedTranslationY);
+            }
+          }
+        }
+
+        return accumulatedTranslationY;
+      }, accumulatedTranslationY);
+    };
+
+    return reduceItemTranslationY(rootMenuItem, menuItemId);
+  }
+
+  renderMenuItems(rootMenuItem, nestLevel = 0, props) {
+    const {selectedMenuItemId} = this.state;
+    const {menuTree} = this.props;
+
+    return rootMenuItem.children.map((menuItem) => {
       let renderedItems = [];
+      const
+        outsideClickHandler = menuItem.id === selectedMenuItemId
+          ? this.boundOnMenuItemOutsideClick
+          : () => {},
+        menuItemTranslationY = this.reduceMenuItemTranslationY(menuTree, menuItem.id),
+        menuItemStyle = {
+          translateY: spring(menuItemTranslationY)
+        };
+
       renderedItems.push(
-        <MenuTreeItemView
-          menuItemModel={menuItem}
-          nestLevel={nestLevel}
-          onAddMenuItem={props.onAddMenuItem}
-          onRemoveMenuItem={props.onRemoveMenuItem}
-          onUpdateMenuItem={props.onUpdateMenuItem}/>
+        <Motion style={menuItemStyle}>
+          {({translateY}) =>
+            <div style={{
+              left: 0,
+              position: 'absolute',
+              top: 0,
+              transform: `translateX(${nestLevel * 20}px) translateY(${translateY}px)`
+            }}>
+              <MenuTreeItemView
+                isSelected={menuItem.id === selectedMenuItemId}
+                menuItemModel={menuItem}
+                onAddMenuItem={props.onAddMenuItem}
+                onClick={this.boundOnMenuItemClick}
+                onOutsideClick={outsideClickHandler}
+                onRemoveMenuItem={props.onRemoveMenuItem}
+                onUpdateMenuItem={props.onUpdateMenuItem}/>
+            </div>}
+        </Motion>
       );
 
       if (menuItem.hasChildren()) {
-        renderedItems.push(this.renderMenuItems(menuItem.children, nestLevel + 1, props));
+        renderedItems.push(this.renderMenuItems(menuItem, nestLevel + 1, props));
       }
 
       return renderedItems;
@@ -54,9 +149,15 @@ class MenuTreeView extends React.Component {
 
   render() {
     const {menuTree, ...otherProps} = this.props;
-    const renderedMenuTree = this.renderMenuItems(menuTree.children, 0, otherProps);
+    const
+      renderedMenuTree = this.renderMenuItems(menuTree, 0, otherProps),
+      menuTreeHeight = this.reduceMenuTreeHeight(menuTree);
 
-    return <div className="menu-tree__items">
+    return <div
+      className="menu-tree__items"
+      style={{
+        height: `${menuTreeHeight}px`
+      }}>
       {renderedMenuTree}
     </div>;
   }

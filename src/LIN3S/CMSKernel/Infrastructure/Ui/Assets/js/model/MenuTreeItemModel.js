@@ -41,12 +41,29 @@ class MenuTreeItemModel {
     );
   }
 
-  static addChild(rootMenuItem, parentId) {
+  static addChild(rootMenuItem, parentId, menuItem) {
+    MenuTreeItemModel.validate(rootMenuItem);
+    MenuTreeItemModel.validate(menuItem);
+
     const children = rootMenuItem.id === parentId
-      ? rootMenuItem.children.concat(new MenuTreeItemModel())
-      : rootMenuItem.children.map((item) => {
-        return MenuTreeItemModel.addChild(item, parentId);
-      });
+      ? rootMenuItem.children.concat(menuItem)
+      : rootMenuItem.children.map(item => MenuTreeItemModel.addChild(item, parentId, menuItem));
+
+    return new MenuTreeItemModel(
+      children,
+      rootMenuItem.label,
+      rootMenuItem.link,
+      rootMenuItem.id
+    );
+  }
+
+  static addChildAt(rootMenuItem, parentId, index, menuItem) {
+    MenuTreeItemModel.validate(rootMenuItem);
+    MenuTreeItemModel.validate(menuItem);
+
+    const children = rootMenuItem.id === parentId
+      ? [...rootMenuItem.children.slice(0, index), menuItem, ...rootMenuItem.children.slice(index)]
+      : rootMenuItem.children.map(item => MenuTreeItemModel.addChildAt(item, parentId, index, menuItem));
 
     return new MenuTreeItemModel(
       children,
@@ -57,11 +74,11 @@ class MenuTreeItemModel {
   }
 
   static removeChild(rootMenuItem, itemId) {
+    MenuTreeItemModel.validate(rootMenuItem);
+
     const children = rootMenuItem.children
       .filter(child => child.id !== itemId)
-      .map((item) => {
-        return MenuTreeItemModel.removeChild(item, itemId);
-      });
+      .map(item => MenuTreeItemModel.removeChild(item, itemId));
 
     return new MenuTreeItemModel(
       children,
@@ -72,10 +89,10 @@ class MenuTreeItemModel {
   }
 
   static updateChild(rootMenuItem, itemId, newLabel, newLink) {
+    MenuTreeItemModel.validate(rootMenuItem);
+
     const
-      children = rootMenuItem.children.map((item) => {
-        return MenuTreeItemModel.updateChild(item, itemId, newLabel, newLink);
-      }),
+      children = rootMenuItem.children.map(item => MenuTreeItemModel.updateChild(item, itemId, newLabel, newLink)),
       label = rootMenuItem.id === itemId ? newLabel : rootMenuItem.label,
       link = rootMenuItem.id === itemId ? newLink : rootMenuItem.link;
 
@@ -87,9 +104,9 @@ class MenuTreeItemModel {
     );
   }
 
-  validateChild(child) {
-    if (!child instanceof MenuTreeItemModel) {
-      throw new Error('Provided child must be an instance of MenuTreeItemModel.');
+  static validate(object) {
+    if (!object instanceof MenuTreeItemModel) {
+      throw new Error('Provided object must be an instance of MenuTreeItemModel.');
     }
   }
 

@@ -17,6 +17,8 @@ import MenuTreeView from './MenuTreeView';
 
 class MenuTree extends React.Component {
 
+  static MENU_TREE_ROOT_ID = 'MENU_TREE_ROOT_ID';
+
   static propTypes = {
     formInput: React.PropTypes.object.isRequired
   };
@@ -57,7 +59,7 @@ class MenuTree extends React.Component {
       new MenuTreeItemModel(),
       new MenuTreeItemModel(),
       new MenuTreeItemModel()
-    ], 'TOP LEVEL MENU TREE ITEM', '', -1);
+    ], 'TOP LEVEL MENU TREE ITEM', '', MenuTree.MENU_TREE_ROOT_ID);
   }
 
   persistChanges(menuTree) {
@@ -73,13 +75,13 @@ class MenuTree extends React.Component {
     event.preventDefault();
 
     const {menuTree} = this.state;
-    const newMenuTree = MenuTreeItemModel.addChild(menuTree, -1);
+    const newMenuTree = MenuTreeItemModel.addChild(menuTree, MenuTree.MENU_TREE_ROOT_ID, new MenuTreeItemModel());
     this.persistChanges(newMenuTree);
   }
 
   addMenuItem(menuItemId) {
     const {menuTree} = this.state;
-    const newMenuTree = MenuTreeItemModel.addChild(menuTree, menuItemId);
+    const newMenuTree = MenuTreeItemModel.addChild(menuTree, menuItemId, new MenuTreeItemModel());
     this.persistChanges(newMenuTree);
   }
 

@@ -4457,55 +4457,78 @@ button.UppyDashboard-statusBarAction {
 .menu-tree {
   -ms-flex-order: 2;
       order: 2; }
+
+.menu-tree__items {
+  margin-top: 20px;
+  position: relative; }
 .menu-tree__item-wrapper {
-  -ms-flex-align: stretch;
-      align-items: stretch;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-direction: row;
-      flex-direction: row;
-  margin-top: 10px;
-  max-width: 340px; }
-  .menu-tree__item-wrapper:hover .menu-tree__item-option--add, .menu-tree__item-wrapper:hover .menu-tree__item-option--remove {
+  max-width: 400px;
+  padding-left: 48px;
+  padding-right: 84px; }
+  .menu-tree__item-wrapper:hover .menu-tree__item-option {
     opacity: 1;
+    transform: translateX(0);
     visibility: visible; }
 
-.menu-tree__item {
+.menu-tree__item .editable-label {
   background-color: #fff;
   border: 1px solid #ccc;
-  -ms-flex: 1;
-      flex: 1; }
+  width: 100%; }
 
-.menu-tree__item--opened .editable-label--link {
-  display: block; }
+.menu-tree__item .editable-label--label {
+  border-bottom: 0;
+  position: relative;
+  z-index: 10; }
 
-.editable-label--link {
-  display: none; }
+.menu-tree__item .editable-label--link {
+  border-top: 0;
+  left: 0;
+  position: absolute;
+  top: calc(100% + 1px);
+  z-index: 0; }
 
 .menu-tree__item-option {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 50%;
   cursor: pointer;
+  height: 24px;
+  margin: 0;
   opacity: 0;
   outline: none;
-  transition: opacity 200ms ease-in-out, visibility 200ms ease-in-out;
-  visibility: hidden; }
+  padding: 6px;
+  position: absolute;
+  top: 12px;
+  transition: background-color 200ms ease-in-out, border-color 200ms ease-in-out, opacity 200ms ease-in-out, transform 200ms ease-in-out, visibility 200ms ease-in-out;
+  visibility: hidden;
+  width: 24px; }
+  .menu-tree__item-option > .icon {
+    fill: #ccc;
+    height: 100%;
+    transition: fill 200ms ease-in-out;
+    width: 100%; }
+  .menu-tree__item-option:hover {
+    background-color: #3E3E3E;
+    border-color: #000; }
+
+.menu-tree__item-option--drag {
+  cursor: move;
+  left: 12px;
+  transform: translateX(-12px); }
 
 .menu-tree__item-option--add {
-  border-bottom: 1px solid #ccc;
-  border-left: 0;
-  border-right: 1px solid #ccc;
-  border-top: 1px solid #ccc;
-  background-color: #f1f1f1;
-  height: 52px;
-  width: 52px; }
-  .menu-tree__item-option--add > .icon {
-    fill: #3E3E3E; }
+  right: 48px;
+  transform: translateX(12px); }
   .menu-tree__item-option--add:hover {
-    background-color: #ccc; }
-  .menu-tree__item-option--add:active {
-    background-color: #3E3E3E;
-    outline: none; }
-    .menu-tree__item-option--add:active > .icon {
-      fill: #fff; }
+    background-color: #0085ba;
+    border-color: #006187; }
+
+.menu-tree__item-option--remove {
+  right: 12px;
+  transform: translateX(24px); }
+  .menu-tree__item-option--remove:hover {
+    background-color: #ba1e0d;
+    border-color: #8a160a; }
 .editable-label {
   height: 50px;
   padding: 5px;
@@ -4535,8 +4558,9 @@ button.UppyDashboard-statusBarAction {
   background-color: transparent;
   border: 1px solid transparent;
   font-size: 14px;
+  height: 100%;
   outline: 0;
-  padding: 10px 15px;
+  padding: 10px 35px 10px 10px;
   text-overflow: ellipsis;
   transition: border 200ms ease-in-out, background-color 200ms ease-in-out;
   width: 100%; }
@@ -4544,10 +4568,10 @@ button.UppyDashboard-statusBarAction {
 .editable-label__input-label {
   color: #3E3E3E;
   font-size: 12px;
-  left: 0;
+  right: 10px;
   opacity: 0;
   position: absolute;
-  top: 0;
+  top: 5px;
   transform: translateY(-10px) scale(0.8);
   transition: transform 200ms ease-in-out, opacity 200ms ease-in-out;
   z-index: 20; }
