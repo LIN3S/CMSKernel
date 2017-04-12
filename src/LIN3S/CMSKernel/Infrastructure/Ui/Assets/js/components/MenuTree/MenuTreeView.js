@@ -86,7 +86,8 @@ class MenuTreeView extends React.Component {
     };
   }
 
-  getMenuItemTranslationY(rootMenuItem, menuItemId) {
+  getMenuItemTranslationY(menuItemId) {
+    const {menuTree} = this.props;
     let done = false;
 
     const getItemTranslationY = (rootMenuItem, menuItemId, accumulatedTranslationY = 0) => {
@@ -110,7 +111,7 @@ class MenuTreeView extends React.Component {
       }, accumulatedTranslationY);
     };
 
-    return getItemTranslationY(rootMenuItem, menuItemId);
+    return getItemTranslationY(menuTree, menuItemId);
   }
 
   getTransitionMotionMenuStyles() {
@@ -121,7 +122,7 @@ class MenuTreeView extends React.Component {
       return rootMenuItem.children.map((menuItem) => {
         const
           menuItemTranslationX = nestLevel * MenuTreeView.MENU_ITEM_NEST_DELTA_X,
-          menuItemTranslationY = this.getMenuItemTranslationY(menuTree, menuItem.id);
+          menuItemTranslationY = this.getMenuItemTranslationY(menuItem.id);
 
         flattenItems.push({
           key: `menuItem-${menuItem.id}`,
