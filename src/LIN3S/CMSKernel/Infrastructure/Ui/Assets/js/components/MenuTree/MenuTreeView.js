@@ -22,6 +22,7 @@ const
 class MenuTreeView extends React.Component {
 
   static MENU_ITEM_SELECTED_NONE = -1;
+  static MENU_ITEM_NEST_DELTA_X = 20;
 
   static propTypes = {
     menuTree: React.PropTypes.instanceOf(MenuTreeItemModel).isRequired,
@@ -46,6 +47,8 @@ class MenuTreeView extends React.Component {
     };
 
     // Pre-bind methods' context
+    this.boundMenuItemWillEnter = this.menuItemWillEnter.bind(this);
+    this.boundMenuItemWillLeave = this.menuItemWillLeave.bind(this);
     this.boundOnMenuItemClick = this.onMenuItemClick.bind(this);
     this.boundOnMenuItemOutsideClick = this.onMenuItemOutsideClick.bind(this);
   }
@@ -62,18 +65,25 @@ class MenuTreeView extends React.Component {
     });
   }
 
-  getMenuTreeHeight(rootMenuItem, accumulatedHeight = 0) {
+  getMenuTreeHeight() {
     const {selectedMenuItemId} = this.state;
+    const {menuTree} = this.props;
 
-    return rootMenuItem.children.reduce((accumulatedHeight, menuItem) => {
-      if (menuItem.hasChildren()) {
-        accumulatedHeight = this.getMenuTreeHeight(menuItem, accumulatedHeight);
-      }
+    const getTreeHeight = (rootMenuItem, accumulatedHeight = 0) => {
+      return rootMenuItem.children.reduce((accumulatedHeight, menuItem) => {
+        if (menuItem.hasChildren()) {
+          accumulatedHeight = getTreeHeight(menuItem, accumulatedHeight);
+        }
 
-      accumulatedHeight += menuItem.id === selectedMenuItemId ? 110 : 60;
+        accumulatedHeight += menuItem.id === selectedMenuItemId ? 110 : 60;
 
-      return accumulatedHeight;
-    }, accumulatedHeight);
+        return accumulatedHeight;
+      }, accumulatedHeight);
+    };
+
+    return {
+      treeHeight: spring(getTreeHeight(menuTree))
+    };
   }
 
   getMenuItemTranslationY(rootMenuItem, menuItemId) {
@@ -103,63 +113,109 @@ class MenuTreeView extends React.Component {
     return getItemTranslationY(rootMenuItem, menuItemId);
   }
 
-  renderMenuItems(rootMenuItem, nestLevel = 0, props) {
-    const {selectedMenuItemId} = this.state;
+  getTransitionMotionMenuStyles() {
     const {menuTree} = this.props;
+    let flattenItems = [];
 
-    return rootMenuItem.children.map((menuItem) => {
-      let renderedItems = [];
-      const
-        outsideClickHandler = menuItem.id === selectedMenuItemId
-          ? this.boundOnMenuItemOutsideClick
-          : () => {},
-        menuItemTranslationY = this.getMenuItemTranslationY(menuTree, menuItem.id),
-        menuItemStyle = {
-          translateY: spring(menuItemTranslationY)
-        };
+    const flattenMenuStyles = (rootMenuItem, nestLevel = 0) => {
+      return rootMenuItem.children.map((menuItem) => {
+        const
+          menuItemTranslationX = nestLevel * MenuTreeView.MENU_ITEM_NEST_DELTA_X,
+          menuItemTranslationY = this.getMenuItemTranslationY(menuTree, menuItem.id);
 
-      renderedItems.push(
-        <Motion style={menuItemStyle}>
-          {({translateY}) =>
-            <div style={{
-              left: 0,
-              position: 'absolute',
-              top: 0,
-              transform: `translateX(${nestLevel * 20}px) translateY(${translateY}px)`
-            }}>
-              <MenuTreeItemView
-                isSelected={menuItem.id === selectedMenuItemId}
-                menuItemModel={menuItem}
-                onAddMenuItem={props.onAddMenuItem}
-                onClick={this.boundOnMenuItemClick}
-                onOutsideClick={outsideClickHandler}
-                onRemoveMenuItem={props.onRemoveMenuItem}
-                onUpdateMenuItem={props.onUpdateMenuItem}/>
-            </div>}
-        </Motion>
-      );
+        flattenItems.push({
+          key: `menuItem-${menuItem.id}`,
+          data: {
+            menuItem: menuItem,
+            finalStyle: {
+              translateX: menuItemTranslationX,
+              translateY: menuItemTranslationY
+            }
+          },
+          style: {
+            opacity: spring(1),
+            translateX: spring(menuItemTranslationX),
+            translateY: spring(menuItemTranslationY)
+          }
+        });
 
-      if (menuItem.hasChildren()) {
-        renderedItems.push(this.renderMenuItems(menuItem, nestLevel + 1, props));
-      }
+        if (menuItem.hasChildren()) {
+          flattenMenuStyles(menuItem, nestLevel + 1);
+        }
 
-      return renderedItems;
-    });
+        return flattenItems;
+      });
+    };
+
+    flattenMenuStyles(menuTree);
+    return flattenItems;
+  }
+
+  menuItemWillEnter({data}) {
+    return {
+      opacity: 0,
+      translateX: data.finalStyle.translateX,
+      translateY: data.finalStyle.translateY -20
+    };
+  }
+
+  menuItemWillLeave({data}) {
+    return {
+      opacity: spring(0),
+      translateX: data.finalStyle.translateX,
+      translateY: spring(data.finalStyle.translateY -20)
+    };
   }
 
   render() {
-    const {menuTree, ...otherProps} = this.props;
+    const {onAddMenuItem, onRemoveMenuItem, onUpdateMenuItem} = this.props;
+    const {selectedMenuItemId} = this.state;
     const
-      renderedMenuTree = this.renderMenuItems(menuTree, 0, otherProps),
-      menuTreeHeight = this.getMenuTreeHeight(menuTree);
+      menuTreeHeight = this.getMenuTreeHeight(),
+      menuTreeStyles = this.getTransitionMotionMenuStyles();
 
-    return <div
-      className="menu-tree__items"
-      style={{
-        height: `${menuTreeHeight}px`
-      }}>
-      {renderedMenuTree}
-    </div>;
+    return <TransitionMotion
+      styles={menuTreeStyles}
+      willEnter={this.boundMenuItemWillEnter}
+      willLeave={this.boundMenuItemWillLeave}>
+        {(interpolatedStyles) =>
+          <Motion style={menuTreeHeight}>
+            {({treeHeight}) =>
+              <div
+                className="menu-tree__items"
+                style={{
+                  height: `${treeHeight}px`
+                }}>
+                {interpolatedStyles.map(({key, data, style}) => {
+                  const {opacity, translateX, translateY} = style;
+                  const {menuItem} = data;
+                  const outsideClickHandler = menuItem.id === selectedMenuItemId
+                      ? this.boundOnMenuItemOutsideClick
+                      : () => {};
+
+                  return <div
+                    key={key}
+                    style={{
+                      left: 0,
+                      opacity: opacity,
+                      position: 'absolute',
+                      top: 0,
+                      transform: `translateX(${translateX}px) translateY(${translateY}px)`
+                    }}>
+                      <MenuTreeItemView
+                        isSelected={menuItem.id === selectedMenuItemId}
+                        menuItemModel={menuItem}
+                        onAddMenuItem={onAddMenuItem}
+                        onClick={this.boundOnMenuItemClick}
+                        onOutsideClick={outsideClickHandler}
+                        onRemoveMenuItem={onRemoveMenuItem}
+                        onUpdateMenuItem={onUpdateMenuItem}/>
+                    </div>;
+                })}
+              </div>}
+          </Motion>
+        }
+    </TransitionMotion>;
   }
 }
 

@@ -170,7 +170,7 @@ class MenuTreeItemView extends React.Component {
           <Motion style={this.getMenuItemLinkStyle()}>
             {({translateY}) =>
               <div style={{
-                transform: `translateY(${Math.floor(translateY)}px)`
+                transform: `translateY(${translateY}px)`
               }}>
                 <EditableLabel
                   cssClass="editable-label--link"
