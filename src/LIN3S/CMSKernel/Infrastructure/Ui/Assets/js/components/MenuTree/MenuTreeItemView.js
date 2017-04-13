@@ -24,6 +24,8 @@ class MenuTreeItemView extends React.Component {
     menuItemModel: React.PropTypes.instanceOf(MenuTreeItemModel).isRequired,
     onAddMenuItem: React.PropTypes.func,
     onClick: React.PropTypes.func,
+    onDrag: React.PropTypes.func,
+    onDrop: React.PropTypes.func,
     onOutsideClick: React.PropTypes.func,
     onRemoveMenuItem: React.PropTypes.func,
     onUpdateMenuItem: React.PropTypes.func
@@ -33,10 +35,14 @@ class MenuTreeItemView extends React.Component {
     isSelected: false,
     onAddMenuItem: () => {},
     onClick: () => {},
+    onDrag: () => {},
+    onDrop: () => {},
     onOutsideClick: () => {},
     onRemoveMenuItem: () => {},
     onUpdateMenuItem: () => {}
   };
+
+  dragOriginalPosition = {x: 0, y: 0};
 
   constructor(props) {
     super(props);
@@ -63,7 +69,8 @@ class MenuTreeItemView extends React.Component {
     // Drag/Drop
     this.boundOnDragHandleButtonClick = this.onDragHandleButtonClick.bind(this);
     this.boundOnDragHandleButtonMouseDown = this.onDragHandleButtonMouseDown.bind(this);
-    this.boundOnDragHandleButtonMouseUp = this.onDragHandleButtonMouseUp.bind(this);
+    this.boundOnMouseMove = this.onMouseMove.bind(this);
+    this.boundOnMouseUp = this.onMouseUp.bind(this);
   }
 
   onAddMenuItemButtonClick(event) {
@@ -87,15 +94,39 @@ class MenuTreeItemView extends React.Component {
     event.stopPropagation();
   }
 
-  onDragHandleButtonMouseDown() {
-    const {onOutsideClick} = this.props;
+  onDragHandleButtonMouseDown(event) {
+    const {menuItemModel, onOutsideClick, onDrag} = this.props;
+    this.dragOriginalPosition = {
+      x: event.pageX,
+      y: event.pageY
+    };
+    this.toggleMouseMoveEventListener();
     onOutsideClick();
-
-    // TODO
+    onDrag(menuItemModel.id);
   }
 
-  onDragHandleButtonMouseUp() {
-    // TODO
+  onMouseUp() {
+    const {onDrop} = this.props;
+    this.toggleMouseMoveEventListener(false);
+    onDrop();
+  }
+
+  onMouseMove({pageX, pageY}) {
+    const {menuItemModel, onDrag} = this.props;
+    onDrag(menuItemModel.id, {
+      x: pageX - this.dragOriginalPosition.x,
+      y: pageY - this.dragOriginalPosition.y
+    });
+  }
+
+  toggleMouseMoveEventListener(bind = true) {
+    if (bind) {
+      window.addEventListener('mousemove', this.boundOnMouseMove);
+      window.addEventListener('mouseup', this.boundOnMouseUp);
+    } else {
+      window.removeEventListener('mousemove', this.boundOnMouseMove);
+      window.removeEventListener('mouseup', this.boundOnMouseUp);
+    }
   }
 
   onEditableLabelChange(newLabelValue) {

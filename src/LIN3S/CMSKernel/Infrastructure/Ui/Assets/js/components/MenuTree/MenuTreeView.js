@@ -43,7 +43,7 @@ class MenuTreeView extends React.Component {
     this.state = {
       selectedMenuItemId: MenuTreeView.MENU_ITEM_SELECTED_NONE,
       draggingMenuItemId: MenuTreeView.MENU_ITEM_SELECTED_NONE,
-      droppingMenuItemId: MenuTreeView.MENU_ITEM_SELECTED_NONE
+      draggingMenuItemDelta: {x: 0, y: 0}
     };
 
     // Pre-bind methods' context
@@ -51,6 +51,9 @@ class MenuTreeView extends React.Component {
     this.boundMenuItemWillLeave = this.menuItemWillLeave.bind(this);
     this.boundOnMenuItemClick = this.onMenuItemClick.bind(this);
     this.boundOnMenuItemOutsideClick = this.onMenuItemOutsideClick.bind(this);
+
+    this.boundOnMenuItemDrag = this.onMenuItemDrag.bind(this);
+    this.boundOnMenuItemDrop = this.onMenuItemDrop.bind(this);
   }
 
   onMenuItemClick(menuItemId) {
@@ -63,6 +66,25 @@ class MenuTreeView extends React.Component {
     this.setState({
       selectedMenuItemId: MenuTreeView.MENU_ITEM_SELECTED_NONE
     });
+  }
+
+  onMenuItemDrag(menuItemId, delta = {x: 0, y: 0}) {
+    // Clone element
+    // Remove from menuTree
+    this.setState({
+      draggingMenuItemId: menuItemId,
+      draggingMenuItemDelta: delta
+    });
+  }
+
+  onMenuItemDrop() {
+    // Just animate to final position??
+    // Animate deltas?
+
+    this.setState({
+      draggingMenuItemId: MenuTreeView.MENU_ITEM_SELECTED_NONE,
+      draggingMenuItemDelta: {x: 0, y: 0}
+    })
   }
 
   getMenuTreeHeight() {
@@ -116,13 +138,16 @@ class MenuTreeView extends React.Component {
 
   getTransitionMotionMenuStyles() {
     const {menuTree} = this.props;
+    const {draggingMenuItemId, draggingMenuItemDelta} = this.state;
     let flattenItems = [];
 
     const flattenMenuStyles = (rootMenuItem, nestLevel = 0) => {
       return rootMenuItem.children.map((menuItem) => {
         const
+          draggingDelta = draggingMenuItemId === menuItem.id ? draggingMenuItemDelta : {x: 0, y: 0},
           menuItemTranslationX = nestLevel * MenuTreeView.MENU_ITEM_NEST_DELTA_X,
-          menuItemTranslationY = this.getMenuItemTranslationY(menuItem.id);
+          menuItemTranslationY = this.getMenuItemTranslationY(menuItem.id) + draggingDelta.y,
+          menuItemZIndex = draggingMenuItemId === menuItem.id ? 10 : 0;
 
         flattenItems.push({
           key: `menuItem-${menuItem.id}`,
@@ -136,7 +161,8 @@ class MenuTreeView extends React.Component {
           style: {
             opacity: spring(1),
             translateX: spring(menuItemTranslationX),
-            translateY: spring(menuItemTranslationY)
+            translateY: spring(menuItemTranslationY),
+            zIndex: menuItemZIndex
           }
         });
 
@@ -156,7 +182,8 @@ class MenuTreeView extends React.Component {
     return {
       opacity: 0,
       translateX: data.finalStyle.translateX,
-      translateY: data.finalStyle.translateY -20
+      translateY: data.finalStyle.translateY -20,
+      zIndex: 0
     };
   }
 
@@ -164,7 +191,8 @@ class MenuTreeView extends React.Component {
     return {
       opacity: spring(0),
       translateX: data.finalStyle.translateX,
-      translateY: spring(data.finalStyle.translateY -20)
+      translateY: spring(data.finalStyle.translateY -20),
+      zIndex: 0
     };
   }
 
@@ -188,7 +216,7 @@ class MenuTreeView extends React.Component {
                   height: `${treeHeight}px`
                 }}>
                 {interpolatedStyles.map(({key, data, style}) => {
-                  const {opacity, translateX, translateY} = style;
+                  const {opacity, translateX, translateY, zIndex} = style;
                   const {menuItem} = data;
                   const outsideClickHandler = menuItem.id === selectedMenuItemId
                       ? this.boundOnMenuItemOutsideClick
@@ -201,13 +229,16 @@ class MenuTreeView extends React.Component {
                       opacity: opacity,
                       position: 'absolute',
                       top: 0,
-                      transform: `translateX(${translateX}px) translateY(${translateY}px)`
+                      transform: `translate3d(${translateX}px, ${translateY}px, 0)`,
+                      zIndex: zIndex
                     }}>
                       <MenuTreeItemView
                         isSelected={menuItem.id === selectedMenuItemId}
                         menuItemModel={menuItem}
                         onAddMenuItem={onAddMenuItem}
                         onClick={this.boundOnMenuItemClick}
+                        onDrag={this.boundOnMenuItemDrag}
+                        onDrop={this.boundOnMenuItemDrop}
                         onOutsideClick={outsideClickHandler}
                         onRemoveMenuItem={onRemoveMenuItem}
                         onUpdateMenuItem={onUpdateMenuItem}/>
