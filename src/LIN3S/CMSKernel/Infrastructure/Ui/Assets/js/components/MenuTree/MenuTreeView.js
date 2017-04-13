@@ -37,6 +37,8 @@ class MenuTreeView extends React.Component {
     onUpdateMenuItem: () => {}
   };
 
+  draggingMenuItem;
+
   constructor(props) {
     super(props);
 
@@ -69,6 +71,11 @@ class MenuTreeView extends React.Component {
   }
 
   onMenuItemDrag(menuItemId, delta = {x: 0, y: 0}) {
+    const {menuTree} = this.props;
+    if (this.draggingMenuItem === undefined || this.state.draggingMenuItemId !== menuItemId) {
+      this.draggingMenuItem = this.findMenuItem(menuTree, menuItemId);
+    }
+
     // Clone element
     // Remove from menuTree
     this.setState({
@@ -78,8 +85,7 @@ class MenuTreeView extends React.Component {
   }
 
   onMenuItemDrop() {
-    // Just animate to final position??
-    // Animate deltas?
+    // this.draggingMenuItem = undefined;
 
     this.setState({
       draggingMenuItemId: MenuTreeView.MENU_ITEM_SELECTED_NONE,
@@ -136,18 +142,50 @@ class MenuTreeView extends React.Component {
     return getItemTranslationY(menuTree, menuItemId);
   }
 
+  findMenuItem(rootMenuItem, menuItemId) {
+    let
+      found = false,
+      menuItem = null;
+
+    const findItem = (rootMenuItem, menuItemId) => {
+      if (!found) {
+        if (rootMenuItem.id === menuItemId) {
+          found = true;
+          menuItem = rootMenuItem;
+        } else {
+          rootMenuItem.children.forEach((menuItem) => {
+            findItem(menuItem, menuItemId);
+          });
+        }
+      }
+    };
+
+    findItem(rootMenuItem, menuItemId);
+    return menuItem;
+  }
+
+  getMenuItemDraggingData(menuItemId) {
+    const {draggingMenuItemDelta} = this.state;
+    const isDragging =
+      this.draggingMenuItem !== undefined &&
+      this.findMenuItem(this.draggingMenuItem, menuItemId) !== null;
+    return {
+      delta: isDragging ? draggingMenuItemDelta : {x: 0, y: 0},
+      zIndex: isDragging ? 10 : 0
+    }
+  }
+
   getTransitionMotionMenuStyles() {
     const {menuTree} = this.props;
-    const {draggingMenuItemId, draggingMenuItemDelta} = this.state;
     let flattenItems = [];
 
     const flattenMenuStyles = (rootMenuItem, nestLevel = 0) => {
       return rootMenuItem.children.map((menuItem) => {
         const
-          draggingDelta = draggingMenuItemId === menuItem.id ? draggingMenuItemDelta : {x: 0, y: 0},
-          menuItemTranslationX = nestLevel * MenuTreeView.MENU_ITEM_NEST_DELTA_X,
-          menuItemTranslationY = this.getMenuItemTranslationY(menuItem.id) + draggingDelta.y,
-          menuItemZIndex = draggingMenuItemId === menuItem.id ? 10 : 0;
+          draggingData = this.getMenuItemDraggingData(menuItem.id),
+          menuItemTranslationX = nestLevel * MenuTreeView.MENU_ITEM_NEST_DELTA_X + draggingData.delta.x,
+          menuItemTranslationY = this.getMenuItemTranslationY(menuItem.id) + draggingData.delta.y,
+          menuItemZIndex = draggingData.zIndex;
 
         flattenItems.push({
           key: `menuItem-${menuItem.id}`,
