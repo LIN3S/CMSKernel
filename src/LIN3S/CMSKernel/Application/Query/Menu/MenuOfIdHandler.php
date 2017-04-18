@@ -82,6 +82,8 @@ class MenuOfIdHandler
             $result[] = &$item['children'][0];
         }
 
+        usort($result, [$this, 'sortByOrder']);
+
         return $result;
     }
 
