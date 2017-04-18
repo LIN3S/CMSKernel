@@ -10,15 +10,12 @@
 #}
 
 {% block menu_tree_widget %}
-    {% set menu_tree = form.vars.data.tree is not empty ? form.vars.data.tree | json_encode | raw : '' %}
-
     <div class="form__group">
         {{ form_label(form) }}
         <div class="menu-tree">
             {{- form_row(form.tree, {
                 attr: {
-                    'class': 'menu-tree__form-input',
-                    'data-menu-tree': menu_tree
+                    'class': 'menu-tree__form-input'
                 }
             }) -}}
             <div class="menu-tree__react-wrapper"></div>

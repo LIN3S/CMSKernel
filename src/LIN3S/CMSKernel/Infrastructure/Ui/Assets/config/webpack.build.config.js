@@ -48,6 +48,7 @@ const
       './components/Icon/IconGallery':                    'IconGallery',
       './components/Icon/IconTextEditor':                 'IconTextEditor',
       './components/Icon/IconRawEditor':                  'IconRawEditor',
+      './components/Icon/IconMove':                       'IconMove',
 
       './model/model/FileModel':                          'FileModel',
       './model/model/MenuTreeItemModel':                  'MenuTreeItemModel',

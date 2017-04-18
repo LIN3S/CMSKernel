@@ -9,34 +9,47 @@
  * @author Mikel Tuesta <mikeltuesta@gmail.com>
  */
 
-import {React} from './../../bundle.dependencies';
-import {EditableLabel, WithOutsideClick, IconAdd, IconRemove} from './../../bundle.components';
+import {React, ReactMotion} from './../../bundle.dependencies';
+import {EditableLabel, WithOutsideClick, IconAdd, IconRemove, IconMove} from './../../bundle.components';
 import {MenuTreeItemModel} from './../../bundle.model';
+
+const
+  Motion = ReactMotion.Motion,
+  spring = ReactMotion.spring;
 
 class MenuTreeItemView extends React.Component {
 
   static propTypes = {
+    isSelected: React.PropTypes.bool,
     menuItemModel: React.PropTypes.instanceOf(MenuTreeItemModel).isRequired,
-    nestLevel: React.PropTypes.number.isRequired,
     onAddMenuItem: React.PropTypes.func,
+    onClick: React.PropTypes.func,
+    onDrag: React.PropTypes.func,
+    onDrop: React.PropTypes.func,
+    onOutsideClick: React.PropTypes.func,
     onRemoveMenuItem: React.PropTypes.func,
     onUpdateMenuItem: React.PropTypes.func
   };
 
   static defaultProps = {
-    nestLevel: 0,
+    isSelected: false,
     onAddMenuItem: () => {},
+    onClick: () => {},
+    onDrag: () => {},
+    onDrop: () => {},
+    onOutsideClick: () => {},
     onRemoveMenuItem: () => {},
     onUpdateMenuItem: () => {}
   };
+
+  dragOriginalPosition = {x: 0, y: 0};
 
   constructor(props) {
     super(props);
 
     this.state = {
-      isOpened: false,
       isLabelEditing: false,
-      isLinkEditing: false
+      isUrlEditing: false
     };
 
     // Pre bind methods' context
@@ -48,10 +61,16 @@ class MenuTreeItemView extends React.Component {
 
     this.boundOnEditableLabelClick = this.onEditableLabelClick.bind(this);
     this.boundOnEditableLabelOutsideClick = this.onEditableLabelOutsideClick.bind(this);
-    this.boundOnEditableLinkClick = this.onEditableLinkClick.bind(this);
-    this.boundOnEditableLinkOutsideClick = this.onEditableLinkOutsideClick.bind(this);
+    this.boundOnEditableUrlClick = this.onEditableUrlClick.bind(this);
+    this.boundOnEditableUrlOutsideClick = this.onEditableUrlOutsideClick.bind(this);
     this.boundOnEditableLabelChange = this.onEditableLabelChange.bind(this);
-    this.boundOnEditableLinkChange = this.onEditableLinkChange.bind(this);
+    this.boundOnEditableUrlChange = this.onEditableUrlChange.bind(this);
+
+    // Drag/Drop
+    this.boundOnDragHandleButtonClick = this.onDragHandleButtonClick.bind(this);
+    this.boundOnDragHandleButtonMouseDown = this.onDragHandleButtonMouseDown.bind(this);
+    this.boundOnMouseMove = this.onMouseMove.bind(this);
+    this.boundOnMouseUp = this.onMouseUp.bind(this);
   }
 
   onAddMenuItemButtonClick(event) {
@@ -70,26 +89,64 @@ class MenuTreeItemView extends React.Component {
     onRemoveMenuItem(menuItemModel.id);
   }
 
-  onEditableLabelChange(newLabelValue) {
-    const {onUpdateMenuItem, menuItemModel} = this.props;
-    onUpdateMenuItem(menuItemModel.id, newLabelValue, menuItemModel.link);
+  onDragHandleButtonClick(event) {
+    event.preventDefault();
+    event.stopPropagation();
   }
 
-  onEditableLinkChange(newLinkValue) {
+  onDragHandleButtonMouseDown(event) {
+    const {menuItemModel, onOutsideClick, onDrag} = this.props;
+    this.dragOriginalPosition = {
+      x: event.pageX,
+      y: event.pageY
+    };
+    this.toggleMouseMoveEventListener();
+    onOutsideClick();
+    onDrag(menuItemModel.id);
+  }
+
+  onMouseUp() {
+    const {onDrop} = this.props;
+    this.toggleMouseMoveEventListener(false);
+    onDrop();
+  }
+
+  onMouseMove({pageX, pageY}) {
+    const {menuItemModel, onDrag} = this.props;
+    onDrag(menuItemModel.id, {
+      x: pageX - this.dragOriginalPosition.x,
+      y: pageY - this.dragOriginalPosition.y
+    });
+  }
+
+  toggleMouseMoveEventListener(bind = true) {
+    if (bind) {
+      window.addEventListener('mousemove', this.boundOnMouseMove);
+      window.addEventListener('mouseup', this.boundOnMouseUp);
+    } else {
+      window.removeEventListener('mousemove', this.boundOnMouseMove);
+      window.removeEventListener('mouseup', this.boundOnMouseUp);
+    }
+  }
+
+  onEditableLabelChange(newLabelValue) {
     const {onUpdateMenuItem, menuItemModel} = this.props;
-    onUpdateMenuItem(menuItemModel.id, menuItemModel.label, newLinkValue);
+    onUpdateMenuItem(menuItemModel.id, newLabelValue, menuItemModel.url);
+  }
+
+  onEditableUrlChange(newUrlValue) {
+    const {onUpdateMenuItem, menuItemModel} = this.props;
+    onUpdateMenuItem(menuItemModel.id, menuItemModel.label, newUrlValue);
   }
 
   onMenuItemClick() {
-    this.setState({
-      isOpened: true
-    });
+    const {onClick, menuItemModel} = this.props;
+    onClick(menuItemModel.id);
   }
 
   onMenuItemOutsideClick() {
-    this.setState({
-      isOpened: false
-    });
+    const {onOutsideClick} = this.props;
+    onOutsideClick();
   }
 
   onEditableLabelClick() {
@@ -104,32 +161,35 @@ class MenuTreeItemView extends React.Component {
     });
   }
 
-  onEditableLinkClick() {
+  onEditableUrlClick() {
     this.setState({
-      isLinkEditing: true
+      isUrlEditing: true
     });
   }
 
-  onEditableLinkOutsideClick() {
+  onEditableUrlOutsideClick() {
     this.setState({
-      isLinkEditing: false
+      isUrlEditing: false
     });
+  }
+
+  getMenuItemUrlStyle() {
+    const {isSelected} = this.props;
+    const translateY = isSelected ? -5 : -49;
+    return {
+      translateY: spring(translateY)
+    };
   }
 
   render() {
-    const {menuItemModel, nestLevel} = this.props;
-    const {isOpened, isLabelEditing, isLinkEditing} = this.state;
-    const menuItemCssClass = 'menu-tree__item' + (isOpened ? ' menu-tree__item--opened' : '');
+    const {menuItemModel} = this.props;
+    const {isLabelEditing, isUrlEditing} = this.state;
 
     return <WithOutsideClick
       onItemClick={this.boundOnMenuItemClick}
       onOutsideClick={this.boundOnMenuItemOutsideClick}>
-      <div
-        className="menu-tree__item-wrapper"
-        style={{
-          transform: `translateX(${nestLevel * 20}px)`
-        }}>
-        <div className={menuItemCssClass}>
+      <div className="menu-tree__item-wrapper">
+        <div className="menu-tree__item">
           <EditableLabel
             cssClass="editable-label--label"
             isEditing={isLabelEditing}
@@ -138,21 +198,33 @@ class MenuTreeItemView extends React.Component {
             onClick={this.boundOnEditableLabelClick}
             onOutsideClick={this.boundOnEditableLabelOutsideClick}
             value={menuItemModel.label}/>
-          <EditableLabel
-            cssClass="editable-label--link"
-            isEditing={isLinkEditing}
-            label="link"
-            onChange={this.boundOnEditableLinkChange}
-            onClick={this.boundOnEditableLinkClick}
-            onOutsideClick={this.boundOnEditableLinkOutsideClick}
-            value={menuItemModel.link}/>
+          <Motion style={this.getMenuItemUrlStyle()}>
+            {({translateY}) =>
+              <div style={{
+                transform: `translateY(${translateY}px)`
+              }}>
+                <EditableLabel
+                  cssClass="editable-label--url"
+                  isEditing={isUrlEditing}
+                  label="url"
+                  onChange={this.boundOnEditableUrlChange}
+                  onClick={this.boundOnEditableUrlClick}
+                  onOutsideClick={this.boundOnEditableUrlOutsideClick}
+                  value={menuItemModel.url}/>
+              </div>}
+          </Motion>
         </div>
+        <button
+          className="menu-tree__item-option menu-tree__item-option--drag"
+          onClick={this.boundOnDragHandleButtonClick}
+          onMouseDown={this.boundOnDragHandleButtonMouseDown}>
+          <IconMove/>
+        </button>
         <button
           className="menu-tree__item-option menu-tree__item-option--add"
           onClick={this.boundOnAddMenuItemButtonClick}>
           <IconAdd/>
         </button>
-
         <button
           className="menu-tree__item-option menu-tree__item-option--remove"
           onClick={this.boundOnRemoveMenuItemButtonClick}>

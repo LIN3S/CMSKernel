@@ -33,7 +33,7 @@ $editable-label-input-font-weight: $font-weight-500;
 $editable-label-input-font-weight--strong: $font-weight-700;
 
 $editable-label-label-font-size: $font-size-12;
-$editable-label-label-text-color: $color-mine-shaft;
+$editable-label-label-text-color: $color-silver-chalice;
 
 .editable-label {
   height: $editable-label-height;
@@ -61,7 +61,7 @@ $editable-label-label-text-color: $color-mine-shaft;
   }
 }
 
-.editable-label--link {
+.editable-label--url {
   .editable-label__input {
     color: $editable-label-input-text-color--primary;
   }
@@ -78,8 +78,9 @@ $editable-label-label-text-color: $color-mine-shaft;
   background-color: transparent;
   border: 1px solid transparent;
   font-size: $editable-label-input-font-size;
+  height: 100%;
   outline: 0;
-  padding: 10px 15px;
+  padding: 10px 35px 10px 10px;
   text-overflow: ellipsis;
   transition: border $editable-label-transition-duration $editable-label-transition-ease, background-color $editable-label-transition-duration $editable-label-transition-ease;
   width: 100%;
@@ -88,10 +89,10 @@ $editable-label-label-text-color: $color-mine-shaft;
 .editable-label__input-label {
   color: $editable-label-label-text-color;
   font-size: $editable-label-label-font-size;
-  left: 0;
+  right: 10px;
   opacity: 0;
   position: absolute;
-  top: 0;
+  top: 5px;
   transform: translateY(-10px) scale(.8);
   transition: transform $editable-label-transition-duration $editable-label-transition-ease, opacity $editable-label-transition-duration $editable-label-transition-ease;
   z-index: $editable-label-content-label-z-index;

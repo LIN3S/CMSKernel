@@ -11,88 +11,123 @@
 @import './../variables/transitions';
 
 $menu-tree-item-height: 52px;
-$menu-tree-item-max-width: 340px;
+$menu-tree-item-max-width: 400px;
 
 $menu-tree-item-background-color: $color-white;
 $menu-tree-item-border-color: $color-border-main;
 
-$menu-tree-item-add-icon-color: $color-mine-shaft;
-$menu-tree-item-add-icon-color--active: $color-white;
-$menu-tree-item-add-background-color: $color-seashell;
-$menu-tree-item-add-background-color--hover: $color-alto;
-$menu-tree-item-add-background-color--active: $color-mine-shaft;
-$menu-tree-item-add-border-color: $color-border-main;
-$menu-tree-item-add-transition-duration: $transition-duration-200;
-$menu-tree-item-add-transition-ease: $transition-ease-main;
+// Item option icon
+$menu-tree-item-option-side: 24px;
+$menu-tree-item-option-gutter: 12px;
+
+$color-option--add: $color-bondi-blue;
+$color-option--remove: $color-milano-red;
+
+$menu-tree-item-option-background-color: $color-white;
+$menu-tree-item-option-background-color--hover: $color-mine-shaft;
+$menu-tree-item-option-background-color--hover--add: $color-option--add;
+$menu-tree-item-option-background-color--hover--remove: $color-option--remove;
+$menu-tree-item-option-border-color: $color-alto;
+$menu-tree-item-option-border-color--hover: $color-black;
+$menu-tree-item-option-border-color--hover--add: darken($color-option--add, 10%);
+$menu-tree-item-option-border-color--hover--remove: darken($color-option--remove, 10%);
+$menu-tree-item-option-fill-color: $color-alto;
+$menu-tree-item-option-fill-color--hover: $color-white;
+
+$menu-tree-item-option-transition-duration: $transition-duration-200;
+$menu-tree-item-option-transition-ease: $transition-ease-main;
 
 .menu-tree__item-wrapper {
-  align-items: stretch;
-  display: flex;
-  flex-direction: row;
-  margin-top: 10px;
   max-width: $menu-tree-item-max-width;
+  padding-left: $menu-tree-item-option-gutter * 2 + $menu-tree-item-option-side;
+  padding-right: $menu-tree-item-option-gutter * 3 + $menu-tree-item-option-side * 2;
 
   &:hover {
-    .menu-tree__item-option--add,
-    .menu-tree__item-option--remove {
+    .menu-tree__item-option {
       opacity: 1;
+      transform: translateX(0);
       visibility: visible;
     }
   }
 }
 
 .menu-tree__item {
-  background-color: $menu-tree-item-background-color;
-  border: 1px solid $menu-tree-item-border-color;
-  flex: 1;
-}
-
-.menu-tree__item--opened {
-  .editable-label--link {
-    display: block;
+  .editable-label {
+    background-color: $menu-tree-item-background-color;
+    border: 1px solid $menu-tree-item-border-color;
+    width: 100%;
   }
-}
 
-.editable-label--link {
-  display: none;
+  .editable-label--label {
+    border-bottom: 0;
+    position: relative;
+    z-index: 10;
+  }
+
+  .editable-label--link {
+    border-top: 0;
+    left: 0;
+    position: absolute;
+    top: calc(100% + 1px); // bottom border 1 px
+    z-index: 0;
+  }
 }
 
 .menu-tree__item-option {
+  background-color: $menu-tree-item-option-background-color;
+  border: 1px solid $menu-tree-item-option-border-color;
+  border-radius: 50%;
   cursor: pointer;
+  height: $menu-tree-item-option-side;
+  margin: 0;
   opacity: 0;
   outline: none;
-  transition: opacity $menu-tree-item-add-transition-duration $menu-tree-item-add-transition-ease, visibility $menu-tree-item-add-transition-duration $menu-tree-item-add-transition-ease;
+  padding: 6px;
+  position: absolute;
+  top: $menu-tree-item-option-gutter;
+  transition: background-color $menu-tree-item-option-transition-duration $menu-tree-item-option-transition-ease,
+              border-color $menu-tree-item-option-transition-duration $menu-tree-item-option-transition-ease,
+              opacity $menu-tree-item-option-transition-duration $menu-tree-item-option-transition-ease,
+              transform $menu-tree-item-option-transition-duration $menu-tree-item-option-transition-ease,
+              visibility $menu-tree-item-option-transition-duration $menu-tree-item-option-transition-ease;
   visibility: hidden;
-}
-
-.menu-tree__item-option--add {
-
-  border-bottom: 1px solid $menu-tree-item-add-border-color;
-  border-left: 0;
-  border-right: 1px solid $menu-tree-item-add-border-color;
-  border-top: 1px solid $menu-tree-item-add-border-color;
-  background-color: $menu-tree-item-add-background-color;
-  height: $menu-tree-item-height;
-  width: $menu-tree-item-height;
+  width: $menu-tree-item-option-side;
 
   > .icon {
-    fill: $menu-tree-item-add-icon-color;
+    fill: $menu-tree-item-option-fill-color;
+    height: 100%;
+    transition: fill $menu-tree-item-option-transition-duration $menu-tree-item-option-transition-ease;
+    width: 100%;
   }
 
   &:hover {
-    background-color: $menu-tree-item-add-background-color--hover;
+    background-color: $menu-tree-item-option-background-color--hover;
+    border-color: $menu-tree-item-option-border-color--hover;
   }
+}
 
-  &:active {
-    background-color: $menu-tree-item-add-background-color--active;
-    outline: none;
+.menu-tree__item-option--drag {
+  cursor: move;
+  left: $menu-tree-item-option-gutter;
+  transform: translateX(-$menu-tree-item-option-gutter);
+}
 
-    > .icon {
-      fill: $menu-tree-item-add-icon-color--active;
-    }
+.menu-tree__item-option--add {
+  right: $menu-tree-item-option-gutter * 2 + $menu-tree-item-option-side;
+  transform: translateX($menu-tree-item-option-gutter);
+
+  &:hover {
+    background-color: $menu-tree-item-option-background-color--hover--add;
+    border-color: $menu-tree-item-option-border-color--hover--add;
   }
 }
 
 .menu-tree__item-option--remove {
+  right: $menu-tree-item-option-gutter;
+  transform: translateX($menu-tree-item-option-gutter * 2);
 
+  &:hover {
+    background-color: $menu-tree-item-option-background-color--hover--remove;
+    border-color: $menu-tree-item-option-border-color--hover--remove;
+  }
 }

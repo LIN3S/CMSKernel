@@ -11,7 +11,7 @@
 
 import {React} from './../../bundle.dependencies';
 import {MenuTreeItemModel} from './../../bundle.model';
-import {setFormInputValue, getFormInputAttribute} from './../../bundle.util';
+import {setFormInputValue, getFormInputValue} from './../../bundle.util';
 
 import MenuTreeView from './MenuTreeView';
 
@@ -37,32 +37,19 @@ class MenuTree extends React.Component {
   }
 
   getInitialMenuTree() {
-//     const {formInput} = this.props;
-//     const menuTreeJson = getFormInputAttribute(formInput, 'data-menu-tree');
-//     if (menuTreeJson === '') {
-//       return undefined;
-//     }
-//
-//     return MenuTreeModel.fromJsonString(menuTreeJson);
+    const {formInput} = this.props;
+    const menuTreeJson = getFormInputValue(formInput);
 
-    return new MenuTreeItemModel([
-      new MenuTreeItemModel([
-        new MenuTreeItemModel([
-          new MenuTreeItemModel(),
-          new MenuTreeItemModel()
-        ], 'label A.1', 'http://google.com'),
-        new MenuTreeItemModel()
-      ], 'label A', 'http://google.com'),
-      new MenuTreeItemModel(),
-      new MenuTreeItemModel(),
-      new MenuTreeItemModel(),
-      new MenuTreeItemModel()
-    ], 'TOP LEVEL MENU TREE ITEM', '', -1);
+    if (menuTreeJson === '') {
+      return undefined;
+    }
+
+    return MenuTreeItemModel.fromJson(menuTreeJson);
   }
 
   persistChanges(menuTree) {
     const {formInput} = this.props;
-    setFormInputValue(formInput, JSON.stringify(menuTree));
+    setFormInputValue(formInput, JSON.stringify(menuTree.children.map(menuItem => menuItem)));
 
     this.setState({
       menuTree: menuTree
@@ -73,13 +60,13 @@ class MenuTree extends React.Component {
     event.preventDefault();
 
     const {menuTree} = this.state;
-    const newMenuTree = MenuTreeItemModel.addChild(menuTree, -1);
+    const newMenuTree = MenuTreeItemModel.addChild(menuTree, MenuTreeItemModel.MENU_TREE_ROOT_ID, new MenuTreeItemModel());
     this.persistChanges(newMenuTree);
   }
 
   addMenuItem(menuItemId) {
     const {menuTree} = this.state;
-    const newMenuTree = MenuTreeItemModel.addChild(menuTree, menuItemId);
+    const newMenuTree = MenuTreeItemModel.addChild(menuTree, menuItemId, new MenuTreeItemModel());
     this.persistChanges(newMenuTree);
   }
 
@@ -89,9 +76,9 @@ class MenuTree extends React.Component {
     this.persistChanges(newMenuTree);
   }
 
-  updateMenuItem(menuItemId, label, link) {
+  updateMenuItem(menuItemId, label, url) {
     const {menuTree} = this.state;
-    const newMenuTree = MenuTreeItemModel.updateChild(menuTree, menuItemId, label, link);
+    const newMenuTree = MenuTreeItemModel.updateChild(menuTree, menuItemId, label, url);
     this.persistChanges(newMenuTree);
   }
 

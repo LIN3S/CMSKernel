@@ -27,6 +27,7 @@ import IconGallery from './components/Icon/IconGallery';
 import IconUpload from './components/Icon/IconUpload';
 import IconRawEditor from './components/Icon/IconRawEditor';
 import IconTextEditor from './components/Icon/IconTextEditor';
+import IconMove from './components/Icon/IconMove';
 
 export {
   Tabbed,
@@ -46,5 +47,6 @@ export {
   IconUpload,
   IconGallery,
   IconTextEditor,
-  IconRawEditor
+  IconRawEditor,
+  IconMove
 }

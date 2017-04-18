@@ -60,6 +60,9 @@ const
   setFormInputValue = (formInput, value) => {
     formInput.value = value;
   },
+  getFormInputValue = (formInput) => {
+    return formInput.value;
+  },
   getFormInputAttribute = (formInput, attributeName) => {
     return formInput.getAttribute(attributeName);
   };
@@ -70,5 +73,6 @@ export {
   reactPropTypeArrayOf,
   reactPropTypeInstanceOf,
   setFormInputValue,
+  getFormInputValue,
   getFormInputAttribute
 };
