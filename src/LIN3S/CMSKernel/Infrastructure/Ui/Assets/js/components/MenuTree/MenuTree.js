@@ -76,9 +76,9 @@ class MenuTree extends React.Component {
     this.persistChanges(newMenuTree);
   }
 
-  updateMenuItem(menuItemId, label, link) {
+  updateMenuItem(menuItemId, label, url) {
     const {menuTree} = this.state;
-    const newMenuTree = MenuTreeItemModel.updateChild(menuTree, menuItemId, label, link);
+    const newMenuTree = MenuTreeItemModel.updateChild(menuTree, menuItemId, label, url);
     this.persistChanges(newMenuTree);
   }
 

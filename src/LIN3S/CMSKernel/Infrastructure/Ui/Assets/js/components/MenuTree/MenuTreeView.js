@@ -85,7 +85,8 @@ class MenuTreeView extends React.Component {
   }
 
   onMenuItemDrop() {
-    // this.draggingMenuItem = undefined;
+    // TODO Find a way to maintain the zIndex until it is placed in it's final position.
+    this.draggingMenuItem = undefined;
 
     this.setState({
       draggingMenuItemId: MenuTreeView.MENU_ITEM_SELECTED_NONE,

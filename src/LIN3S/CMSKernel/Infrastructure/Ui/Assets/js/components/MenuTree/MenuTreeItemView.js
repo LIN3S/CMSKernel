@@ -49,7 +49,7 @@ class MenuTreeItemView extends React.Component {
 
     this.state = {
       isLabelEditing: false,
-      isLinkEditing: false
+      isUrlEditing: false
     };
 
     // Pre bind methods' context
@@ -61,10 +61,10 @@ class MenuTreeItemView extends React.Component {
 
     this.boundOnEditableLabelClick = this.onEditableLabelClick.bind(this);
     this.boundOnEditableLabelOutsideClick = this.onEditableLabelOutsideClick.bind(this);
-    this.boundOnEditableLinkClick = this.onEditableLinkClick.bind(this);
-    this.boundOnEditableLinkOutsideClick = this.onEditableLinkOutsideClick.bind(this);
+    this.boundOnEditableUrlClick = this.onEditableUrlClick.bind(this);
+    this.boundOnEditableUrlOutsideClick = this.onEditableUrlOutsideClick.bind(this);
     this.boundOnEditableLabelChange = this.onEditableLabelChange.bind(this);
-    this.boundOnEditableLinkChange = this.onEditableLinkChange.bind(this);
+    this.boundOnEditableUrlChange = this.onEditableUrlChange.bind(this);
 
     // Drag/Drop
     this.boundOnDragHandleButtonClick = this.onDragHandleButtonClick.bind(this);
@@ -131,12 +131,12 @@ class MenuTreeItemView extends React.Component {
 
   onEditableLabelChange(newLabelValue) {
     const {onUpdateMenuItem, menuItemModel} = this.props;
-    onUpdateMenuItem(menuItemModel.id, newLabelValue, menuItemModel.link);
+    onUpdateMenuItem(menuItemModel.id, newLabelValue, menuItemModel.url);
   }
 
-  onEditableLinkChange(newLinkValue) {
+  onEditableUrlChange(newUrlValue) {
     const {onUpdateMenuItem, menuItemModel} = this.props;
-    onUpdateMenuItem(menuItemModel.id, menuItemModel.label, newLinkValue);
+    onUpdateMenuItem(menuItemModel.id, menuItemModel.label, newUrlValue);
   }
 
   onMenuItemClick() {
@@ -161,21 +161,21 @@ class MenuTreeItemView extends React.Component {
     });
   }
 
-  onEditableLinkClick() {
+  onEditableUrlClick() {
     this.setState({
-      isLinkEditing: true
+      isUrlEditing: true
     });
   }
 
-  onEditableLinkOutsideClick() {
+  onEditableUrlOutsideClick() {
     this.setState({
-      isLinkEditing: false
+      isUrlEditing: false
     });
   }
 
-  getMenuItemLinkStyle() {
+  getMenuItemUrlStyle() {
     const {isSelected} = this.props;
-    const translateY = isSelected ? -6 : -50;
+    const translateY = isSelected ? -5 : -49;
     return {
       translateY: spring(translateY)
     };
@@ -183,7 +183,7 @@ class MenuTreeItemView extends React.Component {
 
   render() {
     const {menuItemModel} = this.props;
-    const {isLabelEditing, isLinkEditing} = this.state;
+    const {isLabelEditing, isUrlEditing} = this.state;
 
     return <WithOutsideClick
       onItemClick={this.boundOnMenuItemClick}
@@ -198,27 +198,26 @@ class MenuTreeItemView extends React.Component {
             onClick={this.boundOnEditableLabelClick}
             onOutsideClick={this.boundOnEditableLabelOutsideClick}
             value={menuItemModel.label}/>
-          <Motion style={this.getMenuItemLinkStyle()}>
+          <Motion style={this.getMenuItemUrlStyle()}>
             {({translateY}) =>
               <div style={{
                 transform: `translateY(${translateY}px)`
               }}>
                 <EditableLabel
-                  cssClass="editable-label--link"
-                  isEditing={isLinkEditing}
-                  label="link"
-                  onChange={this.boundOnEditableLinkChange}
-                  onClick={this.boundOnEditableLinkClick}
-                  onOutsideClick={this.boundOnEditableLinkOutsideClick}
-                  value={menuItemModel.link}/>
+                  cssClass="editable-label--url"
+                  isEditing={isUrlEditing}
+                  label="url"
+                  onChange={this.boundOnEditableUrlChange}
+                  onClick={this.boundOnEditableUrlClick}
+                  onOutsideClick={this.boundOnEditableUrlOutsideClick}
+                  value={menuItemModel.url}/>
               </div>}
           </Motion>
         </div>
         <button
           className="menu-tree__item-option menu-tree__item-option--drag"
           onClick={this.boundOnDragHandleButtonClick}
-          onMouseDown={this.boundOnDragHandleButtonMouseDown}
-          onMouseUp={this.boundOnDragHandleButtonMouseUp}>
+          onMouseDown={this.boundOnDragHandleButtonMouseDown}>
           <IconMove/>
         </button>
         <button
