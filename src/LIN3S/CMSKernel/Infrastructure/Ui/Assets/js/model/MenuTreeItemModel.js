@@ -16,6 +16,8 @@ const getNextUuid = () => {
 
 class MenuTreeItemModel {
 
+  static MENU_TREE_ROOT_ID = 'MENU_TREE_ROOT_ID';
+
   id;
   label;
   link;
@@ -28,17 +30,22 @@ class MenuTreeItemModel {
     this.children = children;
   }
 
-  static fromJsonString(jsonStringMenuTree) {
-    return MenuTreeItemModel.fromJson(JSON.parse(jsonStringMenuTree));
-  }
-
   static fromJson(jsonMenuTree) {
-    return new MenuTreeItemModel(
-      jsonMenuTree['children'],
-      jsonMenuTree['label'],
-      jsonMenuTree['link'],
-      jsonMenuTree['id']
-    );
+
+    const buildMenuItem = (jsonMenuTree, isRoot = false) => {
+      let
+        label = isRoot ? MenuTreeItemModel.MENU_TREE_ROOT_ID : jsonMenuTree['label'],
+        url = isRoot ? '' : jsonMenuTree['url'],
+        children = isRoot ? jsonMenuTree : jsonMenuTree.hasOwnProperty('children') ? jsonMenuTree['children'] : [];
+
+      return new MenuTreeItemModel(
+        children.map(jsonMenuItem => buildMenuItem(jsonMenuItem)),
+        label,
+        url
+      );
+    };
+
+    return buildMenuItem(JSON.parse(jsonMenuTree), true);
   }
 
   static addChild(rootMenuItem, parentId, menuItem) {
@@ -116,9 +123,8 @@ class MenuTreeItemModel {
 
   toJSON() {
     return {
-      id: this.id,
       label: this.label,
-      link: this.link,
+      url: this.link,
       children: this.children.map(menuItem => menuItem.toJSON())
     };
   }

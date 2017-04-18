@@ -11,13 +11,11 @@
 
 import {React} from './../../bundle.dependencies';
 import {MenuTreeItemModel} from './../../bundle.model';
-import {setFormInputValue, getFormInputAttribute} from './../../bundle.util';
+import {setFormInputValue, getFormInputValue} from './../../bundle.util';
 
 import MenuTreeView from './MenuTreeView';
 
 class MenuTree extends React.Component {
-
-  static MENU_TREE_ROOT_ID = 'MENU_TREE_ROOT_ID';
 
   static propTypes = {
     formInput: React.PropTypes.object.isRequired
@@ -39,32 +37,19 @@ class MenuTree extends React.Component {
   }
 
   getInitialMenuTree() {
-//     const {formInput} = this.props;
-//     const menuTreeJson = getFormInputAttribute(formInput, 'data-menu-tree');
-//     if (menuTreeJson === '') {
-//       return undefined;
-//     }
-//
-//     return MenuTreeModel.fromJsonString(menuTreeJson);
+    const {formInput} = this.props;
+    const menuTreeJson = getFormInputValue(formInput);
 
-    return new MenuTreeItemModel([
-      new MenuTreeItemModel([
-        new MenuTreeItemModel([
-          new MenuTreeItemModel(),
-          new MenuTreeItemModel()
-        ], 'label A.1', 'http://google.com'),
-        new MenuTreeItemModel()
-      ], 'label A', 'http://google.com'),
-      new MenuTreeItemModel(),
-      new MenuTreeItemModel(),
-      new MenuTreeItemModel(),
-      new MenuTreeItemModel()
-    ], 'TOP LEVEL MENU TREE ITEM', '', MenuTree.MENU_TREE_ROOT_ID);
+    if (menuTreeJson === '') {
+      return undefined;
+    }
+
+    return MenuTreeItemModel.fromJson(menuTreeJson);
   }
 
   persistChanges(menuTree) {
     const {formInput} = this.props;
-    setFormInputValue(formInput, JSON.stringify(menuTree));
+    setFormInputValue(formInput, JSON.stringify(menuTree.children.map(menuItem => menuItem)));
 
     this.setState({
       menuTree: menuTree
@@ -75,7 +60,7 @@ class MenuTree extends React.Component {
     event.preventDefault();
 
     const {menuTree} = this.state;
-    const newMenuTree = MenuTreeItemModel.addChild(menuTree, MenuTree.MENU_TREE_ROOT_ID, new MenuTreeItemModel());
+    const newMenuTree = MenuTreeItemModel.addChild(menuTree, MenuTreeItemModel.MENU_TREE_ROOT_ID, new MenuTreeItemModel());
     this.persistChanges(newMenuTree);
   }
 

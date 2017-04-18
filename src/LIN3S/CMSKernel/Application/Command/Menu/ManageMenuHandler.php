@@ -77,7 +77,7 @@ class ManageMenuHandler
                 $menuItemId
             );
 
-            if (isset($item['children'])) {
+            if (isset($item['children']) && count($item['children']) > 0) {
                 $this->buildTree($menuTranslation, $item['children'], $menuItemId);
             }
         }
