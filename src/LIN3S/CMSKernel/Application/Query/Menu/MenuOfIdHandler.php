@@ -65,6 +65,7 @@ class MenuOfIdHandler
                 continue;
             }
             $tree[$item['parent_id']]['children'][] = &$item;
+            usort($tree[$item['parent_id']]['children'], [$this, 'sortByOrder']);
         }
 
         // Loop over the array again and remove any items that don't have a parent of 0;
@@ -82,5 +83,14 @@ class MenuOfIdHandler
         }
 
         return $result;
+    }
+
+    private function sortByOrder($item1, $item2)
+    {
+        if ($item1['order'] === $item2['order']) {
+            return 0;
+        }
+
+        return ($item1['order'] > $item2['order']) ? 1 : -1;
     }
 }

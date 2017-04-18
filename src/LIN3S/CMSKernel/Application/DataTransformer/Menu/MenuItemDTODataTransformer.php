@@ -28,10 +28,11 @@ class MenuItemDTODataTransformer implements MenuItemDataTransformer
     public function read()
     {
         return [
-            'id'         => $this->menuItem->id()->id(),
-            'label'      => $this->menuItem->link()->label(),
-            'url'        => $this->menuItem->link()->url(),
-            'parent_id'  => $this->menuItem->parentId()->id(),
+            'id'        => $this->menuItem->id()->id(),
+            'label'     => $this->menuItem->link()->label(),
+            'url'       => $this->menuItem->link()->url(),
+            'parent_id' => $this->menuItem->parentId()->id(),
+            'order'     => $this->menuItem->order()->order(),
         ];
     }
 }
