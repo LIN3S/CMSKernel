@@ -135,27 +135,27 @@ class MenuTreeItemModel {
     return menuItem;
   }
 
-//   static findParent(rootMenuItem, menuItemId) {
-//     let
-//       found = false,
-//       parentMenuItem = undefined;
-//
-//     const findParentItem = (rootMenuItem, menuItemId) => {
-//       if (!found) {
-//         rootMenuItem.children.forEach((menuItem) => {
-//           if (menuItem.id === menuItemId) {
-//             found = true;
-//             parentMenuItem = rootMenuItem;
-//           } else {
-//             findParentItem(menuItem, menuItemId);
-//           }
-//         });
-//       }
-//     };
-//
-//     findParentItem(rootMenuItem, menuItemId);
-//     return parentMenuItem;
-//   }
+  static findParent(rootMenuItem, menuItemId) {
+    let
+      found = false,
+      parentMenuItem = undefined;
+
+    const findParentItem = (rootMenuItem, menuItemId) => {
+      if (!found) {
+        rootMenuItem.children.forEach((menuItem) => {
+          if (menuItem.id === menuItemId) {
+            found = true;
+            parentMenuItem = rootMenuItem;
+          } else {
+            findParentItem(menuItem, menuItemId);
+          }
+        });
+      }
+    };
+
+    findParentItem(rootMenuItem, menuItemId);
+    return parentMenuItem;
+  }
 
   static clone(rootMenuItem, menuItemId) {
     const menuItem = MenuTreeItemModel.find(rootMenuItem, menuItemId);
