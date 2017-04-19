@@ -15,6 +15,7 @@ use LIN3S\AdminBundle\Configuration\Model\Entity;
 use LIN3S\AdminBundle\Configuration\Type\ActionType;
 use LIN3S\CMSKernel\Domain\Model\Translation\TranslationDoesNotExistException;
 use LIN3S\SharedKernel\Application\CommandBus;
+use LIN3S\SharedKernel\Exception\Exception;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,12 +25,12 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 /**
  * @author Beñat Espiña <benatespina@gmail.com>
  */
-class TranslateActionType implements ActionType
+final class TranslateActionType implements ActionType
 {
-    private $flashBag;
-    private $twig;
-    private $formFactory;
     private $commandBus;
+    private $flashBag;
+    private $formFactory;
+    private $twig;
 
     public function __construct(
         FormFactoryInterface $formFactory,
@@ -37,54 +38,49 @@ class TranslateActionType implements ActionType
         \Twig_Environment $twig,
         FlashBagInterface $flashBag
     ) {
-        $this->twig = $twig;
+        $this->commandBus = $commandBus;
         $this->flashBag = $flashBag;
         $this->formFactory = $formFactory;
-        $this->commandBus = $commandBus;
+        $this->twig = $twig;
     }
 
     public function execute($entity, Entity $config, Request $request, $options = null)
     {
-        if (!$entity) {
-            throw new NotFoundHttpException('The translatable does not exist');
-        }
+        $this->checkTranslatableExists($entity);
 
         $entityName = $config->name();
-        $this->checkFormIsPassed($options);
-        $id = (string) $config->id($entity); // Ensure the id is scalar, not VO
         $locale = $request->query->get('locale');
 
-//        TODO: Check if locale is defined in the bundle configuration
-//        if (whatever) {
-//            throw new NotFoundHttpException(
-//                sprintf('%s locale is not supported from the admin', $locale)
-//            );
-//        }
+        $this->checkFormIsPassed($options);
+        $this->checkLocaleIsAvailable($locale);
 
-        try {
-            $translation = $entity->{$locale}();
-        } catch (TranslationDoesNotExistException $exception) {
-            $translation = null;
-        }
-
-        $form = $this->formFactory->create($options['form'], $translation, [
+        $form = $this->formFactory->create($options['form'], $this->getTranslation($entity, $locale), [
             'locale'          => $locale,
-            'translatable_id' => $id,
+            'translatable_id' => $this->translatableId($config, $entity),
         ]);
+
         if ($request->isMethod('POST') || $request->isMethod('PUT') || $request->isMethod('PATCH')) {
             $form->handleRequest($request);
             if ($form->isValid() && $form->isSubmitted()) {
-                $command = $form->getData();
+                try {
+                    $this->commandBus->handle(
+                        $form->getData()
+                    );
 
-                $this->commandBus->handle($command);
-                $this->flashBag->add(
-                    'lin3s_admin_success',
-                    sprintf('The %s translation is successfully saved', $entityName)
-                );
+                    $this->flashBag->add(
+                        'lin3s_admin_success',
+                        sprintf('The %s translation is successfully saved', $entityName)
+                    );
+                } catch (Exception $exception) {
+                    $this->addError($exception, $options);
+                }
             } else {
                 $this->flashBag->add(
                     'lin3s_admin_error',
-                    sprintf('Errors while saving %s translation. Please check all fields and try again', $entityName)
+                    sprintf(
+                        'Errors while saving %s translation. Please check all fields and try again',
+                        $entityName
+                    )
                 );
             }
         }
@@ -99,6 +95,13 @@ class TranslateActionType implements ActionType
         );
     }
 
+    private function checkTranslatableExists($entity)
+    {
+        if (!$entity) {
+            throw new NotFoundHttpException('The translatable does not exist');
+        }
+    }
+
     private function checkFormIsPassed($options)
     {
         if (!isset($options['form'])) {
@@ -106,5 +109,49 @@ class TranslateActionType implements ActionType
                 '"form" option is required so, you must declare inside action in the admin.yml'
             );
         }
+    }
+
+    private function checkLocaleIsAvailable($locale)
+    {
+        if (false) { // TODO: Check if locale is defined in the bundle configuration
+            throw new NotFoundHttpException(
+                sprintf('%s locale is not supported from the admin', $locale)
+            );
+        }
+    }
+
+    private function translatableId(Entity $config, $entity)
+    {
+        return (string) $config->id($entity); // Ensure the id is scalar, not VO
+    }
+
+    private function getTranslation($entity, $locale)
+    {
+        try {
+            $translation = $entity->{$locale}();
+        } catch (TranslationDoesNotExistException $exception) {
+            $translation = null;
+        }
+
+        return $translation;
+    }
+
+    private function addError(Exception $exception, array $options)
+    {
+        $exceptions = $this->catchableExceptions($options);
+        $exceptionClassName = get_class($exception);
+
+        if (array_key_exists($exceptionClassName, $exceptions)) {
+            $this->flashBag->add('lin3s_admin_error', $exceptions[$exceptionClassName]);
+        }
+    }
+
+    private function catchableExceptions(array $options)
+    {
+        if (!isset($options['catchable_exceptions'])) {
+            return [];
+        }
+
+        return json_decode($options['catchable_exceptions'], true);
     }
 }
