@@ -20,29 +20,27 @@ const
 class MenuTreeItemView extends React.Component {
 
   static propTypes = {
+    isBeingDragged: React.PropTypes.bool,
     isSelected: React.PropTypes.bool,
     menuItemModel: React.PropTypes.instanceOf(MenuTreeItemModel).isRequired,
     onAddMenuItem: React.PropTypes.func,
     onClick: React.PropTypes.func,
-    onDrag: React.PropTypes.func,
-    onDrop: React.PropTypes.func,
+    onDragStart: React.PropTypes.func,
     onOutsideClick: React.PropTypes.func,
     onRemoveMenuItem: React.PropTypes.func,
     onUpdateMenuItem: React.PropTypes.func
   };
 
   static defaultProps = {
+    isBeingDragged: false,
     isSelected: false,
     onAddMenuItem: () => {},
     onClick: () => {},
-    onDrag: () => {},
-    onDrop: () => {},
+    onDragStart: () => {},
     onOutsideClick: () => {},
     onRemoveMenuItem: () => {},
     onUpdateMenuItem: () => {}
   };
-
-  dragOriginalPosition = {x: 0, y: 0};
 
   constructor(props) {
     super(props);
@@ -69,8 +67,6 @@ class MenuTreeItemView extends React.Component {
     // Drag/Drop
     this.boundOnDragHandleButtonClick = this.onDragHandleButtonClick.bind(this);
     this.boundOnDragHandleButtonMouseDown = this.onDragHandleButtonMouseDown.bind(this);
-    this.boundOnMouseMove = this.onMouseMove.bind(this);
-    this.boundOnMouseUp = this.onMouseUp.bind(this);
   }
 
   onAddMenuItemButtonClick(event) {
@@ -95,38 +91,9 @@ class MenuTreeItemView extends React.Component {
   }
 
   onDragHandleButtonMouseDown(event) {
-    const {menuItemModel, onOutsideClick, onDrag} = this.props;
-    this.dragOriginalPosition = {
-      x: event.pageX,
-      y: event.pageY
-    };
-    this.toggleMouseMoveEventListener();
+    const {menuItemModel, onOutsideClick, onDragStart} = this.props;
     onOutsideClick();
-    onDrag(menuItemModel.id);
-  }
-
-  onMouseUp() {
-    const {onDrop} = this.props;
-    this.toggleMouseMoveEventListener(false);
-    onDrop();
-  }
-
-  onMouseMove({pageX, pageY}) {
-    const {menuItemModel, onDrag} = this.props;
-    onDrag(menuItemModel.id, {
-      x: pageX - this.dragOriginalPosition.x,
-      y: pageY - this.dragOriginalPosition.y
-    });
-  }
-
-  toggleMouseMoveEventListener(bind = true) {
-    if (bind) {
-      window.addEventListener('mousemove', this.boundOnMouseMove);
-      window.addEventListener('mouseup', this.boundOnMouseUp);
-    } else {
-      window.removeEventListener('mousemove', this.boundOnMouseMove);
-      window.removeEventListener('mouseup', this.boundOnMouseUp);
-    }
+    onDragStart(menuItemModel.id, event);
   }
 
   onEditableLabelChange(newLabelValue) {
@@ -182,14 +149,15 @@ class MenuTreeItemView extends React.Component {
   }
 
   render() {
-    const {menuItemModel} = this.props;
+    const {menuItemModel, isBeingDragged} = this.props;
     const {isLabelEditing, isUrlEditing} = this.state;
+    const menuTreeItemCssClass = 'menu-tree__item' + (isBeingDragged ? ' menu-tree__item--dragging' : '');
 
     return <WithOutsideClick
       onItemClick={this.boundOnMenuItemClick}
       onOutsideClick={this.boundOnMenuItemOutsideClick}>
       <div className="menu-tree__item-wrapper">
-        <div className="menu-tree__item">
+        <div className={menuTreeItemCssClass}>
           <EditableLabel
             cssClass="editable-label--label"
             isEditing={isLabelEditing}
@@ -197,7 +165,7 @@ class MenuTreeItemView extends React.Component {
             onChange={this.boundOnEditableLabelChange}
             onClick={this.boundOnEditableLabelClick}
             onOutsideClick={this.boundOnEditableLabelOutsideClick}
-            value={menuItemModel.label}/>
+            value={menuItemModel.id + ' - ' + menuItemModel.label}/>
           <Motion style={this.getMenuItemUrlStyle()}>
             {({translateY}) =>
               <div style={{

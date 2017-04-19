@@ -13,6 +13,7 @@ import {React, ReactMotion} from './../../bundle.dependencies';
 import {MenuTreeItemModel} from './../../bundle.model';
 
 import MenuTreeItemView from './MenuTreeItemView';
+import MenuTreePlaceholderView from './MenuTreePlaceholderView';
 
 const
   Motion = ReactMotion.Motion,
@@ -22,30 +23,45 @@ const
 class MenuTreeView extends React.Component {
 
   static MENU_ITEM_SELECTED_NONE = -1;
+  static MENU_ITEM_HEIGHT = 50;
+  static MENU_ITEM_MARGIN_Y = 10;
   static MENU_ITEM_NEST_DELTA_X = 20;
 
   static propTypes = {
     menuTree: React.PropTypes.instanceOf(MenuTreeItemModel).isRequired,
     onAddMenuItem: React.PropTypes.func,
+    onMoveMenuItem: React.PropTypes.func,
     onRemoveMenuItem: React.PropTypes.func,
     onUpdateMenuItem: React.PropTypes.func
   };
 
   static defaultProps = {
     onAddMenuItem: () => {},
+    onMoveMenuItem: () => {},
     onRemoveMenuItem: () => {},
     onUpdateMenuItem: () => {}
   };
 
-  draggingMenuItem;
+
+  needsCacheUpdate = true;
+  cachedFlattenedMenuStyles; // Cached for performance reasons
+  cachedMenuTreeHeight; // Cached for performance reasons
+
+  isDraggingAMenuItem = false;
+  draggingMenuItemData = {
+    x: undefined,
+    y: undefined,
+    pageX: undefined,
+    pageY: undefined
+  };
 
   constructor(props) {
     super(props);
 
     this.state = {
       selectedMenuItemId: MenuTreeView.MENU_ITEM_SELECTED_NONE,
-      draggingMenuItemId: MenuTreeView.MENU_ITEM_SELECTED_NONE,
-      draggingMenuItemDelta: {x: 0, y: 0}
+      draggingMenuItem: undefined,
+      draggingMenuItemPosition: {x: 0, y: 0}
     };
 
     // Pre-bind methods' context
@@ -54,8 +70,26 @@ class MenuTreeView extends React.Component {
     this.boundOnMenuItemClick = this.onMenuItemClick.bind(this);
     this.boundOnMenuItemOutsideClick = this.onMenuItemOutsideClick.bind(this);
 
-    this.boundOnMenuItemDrag = this.onMenuItemDrag.bind(this);
-    this.boundOnMenuItemDrop = this.onMenuItemDrop.bind(this);
+    // Drag/drop
+    this.boundOnMenuItemDragStart = this.onMenuItemDragStart.bind(this);
+    this.boundOnMouseMove = this.onMouseMove.bind(this);
+    this.boundOnMouseUp = this.onMouseUp.bind(this);
+    this.boundOnMenuItemDropMotionRest = this.onMenuItemDropMotionRest.bind(this);
+  }
+
+  componentWillUnmount() {
+    this.toggleMouseMoveEventListener(false);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.needsCacheUpdate = this.props.menuTree !== nextProps.menuTree;
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return nextProps.menuTree !== this.props.menuTree
+        || nextState.selectedMenuItemId !== this.state.selectedMenuItemId
+        || nextState.draggingMenuItem !== this.state.draggingMenuItem
+        || nextState.draggingMenuItemPosition !== this.state.draggingMenuItemPosition;
   }
 
   onMenuItemClick(menuItemId) {
@@ -70,48 +104,218 @@ class MenuTreeView extends React.Component {
     });
   }
 
-  onMenuItemDrag(menuItemId, delta = {x: 0, y: 0}) {
+  onMenuItemDragStart(menuItemId, {pageX, pageY}) {
     const {menuTree} = this.props;
-    if (this.draggingMenuItem === undefined || this.state.draggingMenuItemId !== menuItemId) {
-      this.draggingMenuItem = this.findMenuItem(menuTree, menuItemId);
-    }
 
-    // Clone element
-    // Remove from menuTree
+    this.isDraggingAMenuItem = true;
+    this.draggingMenuItemData.pageX = pageX;
+    this.draggingMenuItemData.pageY = pageY;
+
+    this.updateDraggingMenuItemDataPosition(menuItemId);
+    this.toggleMouseMoveEventListener();
+
     this.setState({
-      draggingMenuItemId: menuItemId,
-      draggingMenuItemDelta: delta
+      draggingMenuItem: MenuTreeItemModel.clone(menuTree, menuItemId),
+      draggingMenuItemPosition: {
+        x: this.draggingMenuItemData.x,
+        y: this.draggingMenuItemData.y
+      }
     });
   }
 
   onMenuItemDrop() {
-    // TODO Find a way to maintain the zIndex until it is placed in it's final position.
-    this.draggingMenuItem = undefined;
+    const {draggingMenuItem} = this.state;
+    this.isDraggingAMenuItem = false;
+    this.updateDraggingMenuItemDataPosition(draggingMenuItem.id);
+    this.setState({
+      draggingMenuItemPosition: {
+        x: this.draggingMenuItemData.x,
+        y: this.draggingMenuItemData.y
+      }
+    });
+  }
+
+  onMouseMove({pageX, pageY}) {
+    const {onMoveMenuItem} = this.props;
+    const {draggingMenuItem} = this.state;
+    const
+      x = this.draggingMenuItemData.x + (pageX - this.draggingMenuItemData.pageX),
+      y = this.draggingMenuItemData.y + (pageY - this.draggingMenuItemData.pageY),
+      {parentMenuItemId, index} = this.getParentIdAndChildIndexByDragPosition(x, y);
+
+    if (parentMenuItemId !== draggingMenuItem.id) {
+      onMoveMenuItem(draggingMenuItem.id, parentMenuItemId, index);
+    }
 
     this.setState({
-      draggingMenuItemId: MenuTreeView.MENU_ITEM_SELECTED_NONE,
-      draggingMenuItemDelta: {x: 0, y: 0}
-    })
+      draggingMenuItemPosition: {
+        x: x,
+        y: y
+      }
+    });
+  }
+
+  onMouseUp() {
+    this.toggleMouseMoveEventListener(false);
+    this.onMenuItemDrop();
+  }
+
+//   getParentIdAndChildIndexByDragPosition(x, y) {
+//     const {menuTree} = this.props;
+//     const {draggingMenuItem} = this.state;
+//     let
+//       done = false,
+//       parentId,
+//       index,
+//       i = 0,
+//       prevMenuItem = menuTree,
+//       isNested = false;
+//
+//     while (!done && i < this.cachedFlattenedMenuStyles.length) {
+//       const
+//         menuItemStyle = this.cachedFlattenedMenuStyles[i],
+//         menuItem = menuItemStyle.data.menuItem,
+//         menuItemTranslateY = menuItemStyle.data.finalStyle.translateY,
+//         menuItemTranslateX = menuItemStyle.data.finalStyle.translateX;
+//
+//       if (menuItemTranslateY >= (y + MenuTreeView.MENU_ITEM_HEIGHT / 2)) {
+//         isNested = x >= menuItemTranslateX + MenuTreeView.MENU_ITEM_NEST_DELTA_X;
+//         done = true;
+//       } else {
+//         prevMenuItem = menuItem;
+//         i++;
+//       }
+//     }
+//
+//     if (isNested) {
+//       parentId = prevMenuItem.id;
+//       index = 0;
+//     } else {
+//       const menuItemParent = MenuTreeItemModel.findParent(menuTree, prevMenuItem.id);
+//       parentId = menuItemParent.id;
+//       index = menuItemParent.children.findIndex(menuItem => menuItem.id === prevMenuItem.id);
+//     }
+//
+//     return {
+//       parentMenuItemId: parentId,
+//       index: index
+//     };
+//   }
+
+  getParentIdAndChildIndexByDragPosition(x, y) {
+    const {menuTree} = this.props;
+    const {draggingMenuItem} = this.state;
+    let
+      done = false,
+      parentId,
+      index,
+      draggingItemPassed = false;
+
+    const findParentIdAndChildIndex = (rootMenuItem, prevMenuItem = rootMenuItem, parentMenuItem = rootMenuItem, parentMenuItemIndex = 0, accumulatedY = 0) => {
+      return rootMenuItem.children.reduce((accumulatedY, menuItem, menuItemIndex) => {
+        if (!done) {
+          // Skip dragging item's children
+          const
+            isDraggingItem = draggingMenuItem.id === menuItem.id,
+            isDraggingItemsChild = MenuTreeItemModel.find(draggingMenuItem, menuItem.id) !== undefined && !isDraggingItem;
+
+          draggingItemPassed = draggingItemPassed || isDraggingItem;
+
+          if (!isDraggingItemsChild) {
+            accumulatedY += MenuTreeView.MENU_ITEM_HEIGHT + MenuTreeView.MENU_ITEM_MARGIN_Y;
+          }
+
+          if (accumulatedY >= (y + MenuTreeView.MENU_ITEM_HEIGHT / 2)) {
+            const
+              menuItemStyle = this.cachedFlattenedMenuStyles.find(menuItemStyle => menuItemStyle.key === `menuItem-${menuItem.id}`),
+              isPositiveNested = x >= menuItemStyle.data.finalStyle.translateX + MenuTreeView.MENU_ITEM_NEST_DELTA_X,
+              isNegativeNested = x <= menuItemStyle.data.finalStyle.translateX - MenuTreeView.MENU_ITEM_NEST_DELTA_X,
+              canBeChild = menuItem.hasChildren() && draggingItemPassed;
+
+            index = menuItemIndex;
+            parentId = rootMenuItem.id;
+
+            if (canBeChild) {
+              index = 0;
+              parentId = menuItem.id;
+            } else if (isPositiveNested && isDraggingItem) {
+              index = 0;
+              parentId = prevMenuItem.id;
+            } else if (isNegativeNested && isDraggingItem) {
+              index = parentMenuItemIndex;
+              parentId = parentMenuItem.id;
+            }
+
+            done = true;
+          } else {
+            if (!isDraggingItemsChild && menuItem.hasChildren()) {
+              accumulatedY = findParentIdAndChildIndex(menuItem, menuItem, rootMenuItem, menuItemIndex, accumulatedY);
+            }
+          }
+
+          prevMenuItem = menuItem;
+        }
+
+        return accumulatedY;
+      }, accumulatedY);
+    };
+
+    findParentIdAndChildIndex(menuTree);
+
+    return {
+      parentMenuItemId: parentId,
+      index: index
+    };
+  }
+
+  updateDraggingMenuItemDataPosition(draggingMenuItemId) {
+    const draggingMenuItemStyle = this.cachedFlattenedMenuStyles.find(style => style.key === `menuItem-${draggingMenuItemId}`);
+    this.draggingMenuItemData.x = draggingMenuItemStyle.data.finalStyle.translateX;
+    this.draggingMenuItemData.y = draggingMenuItemStyle.data.finalStyle.translateY;
+  }
+
+  onMenuItemDropMotionRest() {
+    if (this.isDraggingAMenuItem) {
+      return;
+    }
+
+    this.setState({
+      draggingMenuItem: undefined
+    });
+  }
+
+  toggleMouseMoveEventListener(bind = true) {
+    if (bind) {
+      window.addEventListener('mousemove', this.boundOnMouseMove);
+      window.addEventListener('mouseup', this.boundOnMouseUp);
+    } else {
+      window.removeEventListener('mousemove', this.boundOnMouseMove);
+      window.removeEventListener('mouseup', this.boundOnMouseUp);
+    }
   }
 
   getMenuTreeHeight() {
-    const {selectedMenuItemId} = this.state;
-    const {menuTree} = this.props;
+    if (this.needsCacheUpdate) {
+      const {selectedMenuItemId} = this.state;
+      const {menuTree} = this.props;
 
-    const getTreeHeight = (rootMenuItem, accumulatedHeight = 0) => {
-      return rootMenuItem.children.reduce((accumulatedHeight, menuItem) => {
-        if (menuItem.hasChildren()) {
-          accumulatedHeight = getTreeHeight(menuItem, accumulatedHeight);
-        }
+      const getTreeHeight = (rootMenuItem, accumulatedHeight = 0) => {
+        return rootMenuItem.children.reduce((accumulatedHeight, menuItem) => {
+          if (menuItem.hasChildren()) {
+            accumulatedHeight = getTreeHeight(menuItem, accumulatedHeight);
+          }
 
-        accumulatedHeight += menuItem.id === selectedMenuItemId ? 110 : 60;
+          accumulatedHeight += menuItem.id === selectedMenuItemId ? 110 : 60;
 
-        return accumulatedHeight;
-      }, accumulatedHeight);
-    };
+          return accumulatedHeight;
+        }, accumulatedHeight);
+      };
+
+      this.cachedMenuTreeHeight = getTreeHeight(menuTree);
+    }
 
     return {
-      treeHeight: spring(getTreeHeight(menuTree))
+      treeHeight: spring(this.cachedMenuTreeHeight)
     };
   }
 
@@ -122,7 +326,7 @@ class MenuTreeView extends React.Component {
     const getItemTranslationY = (rootMenuItem, menuItemId, accumulatedTranslationY = 0) => {
       const {selectedMenuItemId} = this.state;
 
-      return rootMenuItem.children.reduce((accumulatedHeight, menuItem) => {
+      return rootMenuItem.children.reduce((accumulatedTranslationY, menuItem) => {
 
         if (!done) {
           if (menuItem.id === menuItemId) {
@@ -143,86 +347,52 @@ class MenuTreeView extends React.Component {
     return getItemTranslationY(menuTree, menuItemId);
   }
 
-  findMenuItem(rootMenuItem, menuItemId) {
-    let
-      found = false,
-      menuItem = null;
-
-    const findItem = (rootMenuItem, menuItemId) => {
-      if (!found) {
-        if (rootMenuItem.id === menuItemId) {
-          found = true;
-          menuItem = rootMenuItem;
-        } else {
-          rootMenuItem.children.forEach((menuItem) => {
-            findItem(menuItem, menuItemId);
-          });
-        }
-      }
-    };
-
-    findItem(rootMenuItem, menuItemId);
-    return menuItem;
-  }
-
-  getMenuItemDraggingData(menuItemId) {
-    const {draggingMenuItemDelta} = this.state;
-    const isDragging =
-      this.draggingMenuItem !== undefined &&
-      this.findMenuItem(this.draggingMenuItem, menuItemId) !== null;
-    return {
-      delta: isDragging ? draggingMenuItemDelta : {x: 0, y: 0},
-      zIndex: isDragging ? 10 : 0
-    }
-  }
-
   getTransitionMotionMenuStyles() {
-    const {menuTree} = this.props;
-    let flattenItems = [];
+    if (this.needsCacheUpdate) {
+      const {menuTree} = this.props;
+      let flattenedItems = [];
 
-    const flattenMenuStyles = (rootMenuItem, nestLevel = 0) => {
-      return rootMenuItem.children.map((menuItem) => {
-        const
-          draggingData = this.getMenuItemDraggingData(menuItem.id),
-          menuItemTranslationX = nestLevel * MenuTreeView.MENU_ITEM_NEST_DELTA_X + draggingData.delta.x,
-          menuItemTranslationY = this.getMenuItemTranslationY(menuItem.id) + draggingData.delta.y,
-          menuItemZIndex = draggingData.zIndex;
+      const flattenMenuStyles = (rootMenuItem, nestLevel = 0) => {
+        return rootMenuItem.children.map((menuItem) => {
+          const
+            menuItemTranslationX = nestLevel * MenuTreeView.MENU_ITEM_NEST_DELTA_X,
+            menuItemTranslationY = this.getMenuItemTranslationY(menuItem.id);
 
-        flattenItems.push({
-          key: `menuItem-${menuItem.id}`,
-          data: {
-            menuItem: menuItem,
-            finalStyle: {
-              translateX: menuItemTranslationX,
-              translateY: menuItemTranslationY
+          flattenedItems.push({
+            key: `menuItem-${menuItem.id}`,
+            data: {
+              menuItem: menuItem,
+              finalStyle: {
+                translateX: menuItemTranslationX,
+                translateY: menuItemTranslationY
+              }
+            },
+            style: {
+              opacity: spring(1),
+              translateX: spring(menuItemTranslationX),
+              translateY: spring(menuItemTranslationY)
             }
-          },
-          style: {
-            opacity: spring(1),
-            translateX: spring(menuItemTranslationX),
-            translateY: spring(menuItemTranslationY),
-            zIndex: menuItemZIndex
+          });
+
+          if (menuItem.hasChildren()) {
+            flattenMenuStyles(menuItem, nestLevel + 1);
           }
         });
+      };
 
-        if (menuItem.hasChildren()) {
-          flattenMenuStyles(menuItem, nestLevel + 1);
-        }
+      flattenMenuStyles(menuTree);
 
-        return flattenItems;
-      });
-    };
+      this.cachedFlattenedMenuStyles = flattenedItems;
+    }
 
-    flattenMenuStyles(menuTree);
-    return flattenItems;
+    return this.cachedFlattenedMenuStyles;
   }
 
   menuItemWillEnter({data}) {
     return {
       opacity: 0,
       translateX: data.finalStyle.translateX,
-      translateY: data.finalStyle.translateY -20,
-      zIndex: 0
+      translateY: data.finalStyle.translateY -20
     };
   }
 
@@ -230,63 +400,87 @@ class MenuTreeView extends React.Component {
     return {
       opacity: spring(0),
       translateX: data.finalStyle.translateX,
-      translateY: spring(data.finalStyle.translateY -20),
-      zIndex: 0
+      translateY: spring(data.finalStyle.translateY -20)
+    };
+  }
+
+  getDraggingMenuItemStyle() {
+    const {draggingMenuItemPosition} = this.state;
+    const opacity = this.isDraggingAMenuItem ? 1 : 0;
+    return {
+      opacity: spring(opacity),
+      translateX: spring(draggingMenuItemPosition.x),
+      translateY: spring(draggingMenuItemPosition.y)
     };
   }
 
   render() {
     const {onAddMenuItem, onRemoveMenuItem, onUpdateMenuItem} = this.props;
-    const {selectedMenuItemId} = this.state;
+    const {selectedMenuItemId, draggingMenuItem} = this.state;
     const
       menuTreeHeight = this.getMenuTreeHeight(),
-      menuTreeStyles = this.getTransitionMotionMenuStyles();
+      menuTreeStyles = this.getTransitionMotionMenuStyles(),
+      draggingMenuItemStyle = this.getDraggingMenuItemStyle();
 
-    return <TransitionMotion
-      styles={menuTreeStyles}
-      willEnter={this.boundMenuItemWillEnter}
-      willLeave={this.boundMenuItemWillLeave}>
-        {(interpolatedStyles) =>
-          <Motion style={menuTreeHeight}>
-            {({treeHeight}) =>
-              <div
-                className="menu-tree__items"
-                style={{
-                  height: `${treeHeight}px`
-                }}>
-                {interpolatedStyles.map(({key, data, style}) => {
-                  const {opacity, translateX, translateY, zIndex} = style;
-                  const {menuItem} = data;
-                  const outsideClickHandler = menuItem.id === selectedMenuItemId
-                      ? this.boundOnMenuItemOutsideClick
-                      : () => {};
+    return <div className="menu-tree__wrapper">
+      {draggingMenuItem !== undefined &&
+        <Motion style={draggingMenuItemStyle} onRest={this.boundOnMenuItemDropMotionRest}>
+          {({opacity, translateX, translateY}) =>
+            <div
+              className="menu-tree__item-placeholder-wrapper"
+              style={{
+                opacity: opacity,
+                transform: `translate3d(${translateX}px, ${translateY}px, 0)`
+              }}>
+              <MenuTreePlaceholderView menuItemModel={draggingMenuItem}/>
+            </div>
+          }
+        </Motion>}
+      <TransitionMotion
+        styles={menuTreeStyles}
+        willEnter={this.boundMenuItemWillEnter}
+        willLeave={this.boundMenuItemWillLeave}>
+          {(interpolatedStyles) =>
+            <Motion style={menuTreeHeight}>
+              {({treeHeight}) =>
+                <div
+                  className="menu-tree__items"
+                  style={{
+                    height: `${treeHeight}px`
+                  }}>
+                  {interpolatedStyles.map(({key, data, style}) => {
+                    const {opacity, translateX, translateY} = style;
+                    const {menuItem} = data;
+                    const
+                      isBeingDragged = draggingMenuItem !== undefined && MenuTreeItemModel.find(draggingMenuItem, menuItem.id) !== undefined && this.isDraggingAMenuItem,
+                      isSelected = menuItem.id === selectedMenuItemId,
+                      outsideClickHandler = isSelected ? this.boundOnMenuItemOutsideClick : () => {};
 
-                  return <div
-                    key={key}
-                    style={{
-                      left: 0,
-                      opacity: opacity,
-                      position: 'absolute',
-                      top: 0,
-                      transform: `translate3d(${translateX}px, ${translateY}px, 0)`,
-                      zIndex: zIndex
-                    }}>
-                      <MenuTreeItemView
-                        isSelected={menuItem.id === selectedMenuItemId}
-                        menuItemModel={menuItem}
-                        onAddMenuItem={onAddMenuItem}
-                        onClick={this.boundOnMenuItemClick}
-                        onDrag={this.boundOnMenuItemDrag}
-                        onDrop={this.boundOnMenuItemDrop}
-                        onOutsideClick={outsideClickHandler}
-                        onRemoveMenuItem={onRemoveMenuItem}
-                        onUpdateMenuItem={onUpdateMenuItem}/>
-                    </div>;
-                })}
-              </div>}
-          </Motion>
-        }
-    </TransitionMotion>;
+                    return <div
+                      className="menu-tree__item-view-wrapper"
+                      key={key}
+                      style={{
+                        opacity: opacity,
+                        transform: `translate3d(${translateX}px, ${translateY}px, 0)`,
+                        zIndex: isBeingDragged ? 0 : 10
+                      }}>
+                        <MenuTreeItemView
+                          isBeingDragged={isBeingDragged}
+                          isSelected={isSelected}
+                          menuItemModel={menuItem}
+                          onAddMenuItem={onAddMenuItem}
+                          onClick={this.boundOnMenuItemClick}
+                          onDragStart={this.boundOnMenuItemDragStart}
+                          onOutsideClick={outsideClickHandler}
+                          onRemoveMenuItem={onRemoveMenuItem}
+                          onUpdateMenuItem={onUpdateMenuItem}/>
+                      </div>;
+                  })}
+                </div>}
+            </Motion>
+          }
+      </TransitionMotion>
+    </div>;
   }
 }
 

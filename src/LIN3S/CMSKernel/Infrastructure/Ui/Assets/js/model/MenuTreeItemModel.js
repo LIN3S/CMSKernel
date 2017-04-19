@@ -113,6 +113,71 @@ class MenuTreeItemModel {
     );
   }
 
+  static find(rootMenuItem, menuItemId) {
+    let
+      found = false,
+      menuItem = undefined;
+
+    const findItem = (rootMenuItem, menuItemId) => {
+      if (!found) {
+        if (rootMenuItem.id === menuItemId) {
+          found = true;
+          menuItem = rootMenuItem;
+        } else {
+          rootMenuItem.children.forEach((menuItem) => {
+            findItem(menuItem, menuItemId);
+          });
+        }
+      }
+    };
+
+    findItem(rootMenuItem, menuItemId);
+    return menuItem;
+  }
+
+  static findParent(rootMenuItem, menuItemId) {
+    let
+      found = false,
+      parentMenuItem = undefined;
+
+    const findParentItem = (rootMenuItem, menuItemId) => {
+      if (!found) {
+        rootMenuItem.children.forEach((menuItem) => {
+          if (menuItem.id === menuItemId) {
+            found = true;
+            parentMenuItem = rootMenuItem;
+          } else {
+            findParentItem(menuItem, menuItemId);
+          }
+        });
+      }
+    };
+
+    findParentItem(rootMenuItem, menuItemId);
+    return parentMenuItem;
+  }
+
+  static clone(rootMenuItem, menuItemId) {
+    const menuItem = MenuTreeItemModel.find(rootMenuItem, menuItemId);
+
+    const cloneItem = (rootMenuItem) => {
+      return new MenuTreeItemModel(
+        rootMenuItem.children.map(item => cloneItem(item)),
+        rootMenuItem.label,
+        rootMenuItem.url,
+        rootMenuItem.id
+      );
+    };
+
+    return cloneItem(menuItem);
+  }
+
+  static moveChild(rootMenuItem, menuItemId, toMenuItemId, index) {
+    const menuItem = MenuTreeItemModel.clone(rootMenuItem, menuItemId);
+    rootMenuItem = MenuTreeItemModel.removeChild(rootMenuItem, menuItemId);
+    return MenuTreeItemModel.addChildAt(rootMenuItem, toMenuItemId, index, menuItem);
+  }
+
   static validate(object) {
     if (!object instanceof MenuTreeItemModel) {
       throw new Error('Provided object must be an instance of MenuTreeItemModel.');

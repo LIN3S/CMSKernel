@@ -11,7 +11,11 @@
   order: 2;
 }
 
-.menu-tree__items {
+.menu-tree__wrapper {
   margin-top: 20px;
+  position: relative;
+}
+
+.menu-tree__items {
   position: relative;
 }

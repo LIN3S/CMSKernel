@@ -34,6 +34,8 @@ class MenuTree extends React.Component {
     this.boundAddMenuItem = this.addMenuItem.bind(this);
     this.boundRemoveMenuItem = this.removeMenuItem.bind(this);
     this.boundUpdateMenuItem = this.updateMenuItem.bind(this);
+
+    this.boundMoveMenuItem = this.moveMenuItem.bind(this);
   }
 
   getInitialMenuTree() {
@@ -82,6 +84,12 @@ class MenuTree extends React.Component {
     this.persistChanges(newMenuTree);
   }
 
+  moveMenuItem(menuItemId, toMenuItemId, index) {
+    const {menuTree} = this.state;
+    const newMenuTree = MenuTreeItemModel.moveChild(menuTree, menuItemId, toMenuItemId, index);
+    this.persistChanges(newMenuTree);
+  }
+
   render() {
     const {menuTree} = this.state;
 
@@ -95,6 +103,7 @@ class MenuTree extends React.Component {
       <MenuTreeView
         menuTree={menuTree}
         onAddMenuItem={this.boundAddMenuItem}
+        onMoveMenuItem={this.boundMoveMenuItem}
         onRemoveMenuItem={this.boundRemoveMenuItem}
         onUpdateMenuItem={this.boundUpdateMenuItem}/>
     </div>;
