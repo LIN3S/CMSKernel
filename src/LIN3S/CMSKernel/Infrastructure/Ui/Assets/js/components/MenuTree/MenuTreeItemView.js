@@ -165,7 +165,7 @@ class MenuTreeItemView extends React.Component {
             onChange={this.boundOnEditableLabelChange}
             onClick={this.boundOnEditableLabelClick}
             onOutsideClick={this.boundOnEditableLabelOutsideClick}
-            value={menuItemModel.id + ' - ' + menuItemModel.label}/>
+            value={menuItemModel.label}/>
           <Motion style={this.getMenuItemUrlStyle()}>
             {({translateY}) =>
               <div style={{

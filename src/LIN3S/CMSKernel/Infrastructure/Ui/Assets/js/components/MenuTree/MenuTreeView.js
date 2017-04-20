@@ -160,55 +160,13 @@ class MenuTreeView extends React.Component {
     this.onMenuItemDrop();
   }
 
-//   getParentIdAndChildIndexByDragPosition(x, y) {
-//     const {menuTree} = this.props;
-//     const {draggingMenuItem} = this.state;
-//     let
-//       done = false,
-//       parentId,
-//       index,
-//       i = 0,
-//       prevMenuItem = menuTree,
-//       isNested = false;
-//
-//     while (!done && i < this.cachedFlattenedMenuStyles.length) {
-//       const
-//         menuItemStyle = this.cachedFlattenedMenuStyles[i],
-//         menuItem = menuItemStyle.data.menuItem,
-//         menuItemTranslateY = menuItemStyle.data.finalStyle.translateY,
-//         menuItemTranslateX = menuItemStyle.data.finalStyle.translateX;
-//
-//       if (menuItemTranslateY >= (y + MenuTreeView.MENU_ITEM_HEIGHT / 2)) {
-//         isNested = x >= menuItemTranslateX + MenuTreeView.MENU_ITEM_NEST_DELTA_X;
-//         done = true;
-//       } else {
-//         prevMenuItem = menuItem;
-//         i++;
-//       }
-//     }
-//
-//     if (isNested) {
-//       parentId = prevMenuItem.id;
-//       index = 0;
-//     } else {
-//       const menuItemParent = MenuTreeItemModel.findParent(menuTree, prevMenuItem.id);
-//       parentId = menuItemParent.id;
-//       index = menuItemParent.children.findIndex(menuItem => menuItem.id === prevMenuItem.id);
-//     }
-//
-//     return {
-//       parentMenuItemId: parentId,
-//       index: index
-//     };
-//   }
-
   getParentIdAndChildIndexByDragPosition(x, y) {
     const {menuTree} = this.props;
     const {draggingMenuItem} = this.state;
     let
       done = false,
-      parentId,
-      index,
+      parentId = menuTree.id,
+      index = menuTree.children.length,
       draggingItemPassed = false;
 
     const findParentIdAndChildIndex = (rootMenuItem, prevMenuItem = rootMenuItem, parentMenuItem = rootMenuItem, parentMenuItemIndex = 0, accumulatedY = 0) => {

@@ -29,7 +29,7 @@ class MenuTreePlaceholderView extends React.Component {
               className="editable-label__input"
               readOnly={true}
               type="text"
-              value={menuItemModel.id + ' - ' + menuItemModel.label}/>
+              value={menuItemModel.label}/>
           </div>
         </div>
       </div>

@@ -43,7 +43,7 @@ class MenuTree extends React.Component {
     const menuTreeJson = getFormInputValue(formInput);
 
     if (menuTreeJson === '') {
-      return undefined;
+      return new MenuTreeItemModel([], '', '', MenuTreeItemModel.MENU_TREE_ROOT_ID);
     }
 
     return MenuTreeItemModel.fromJson(menuTreeJson);
@@ -94,18 +94,17 @@ class MenuTree extends React.Component {
     const {menuTree} = this.state;
 
     return <div className="menu-tree">
-      <button
-        className="button button--cms"
-        onClick={this.boundOnAddMenuItemButtonClick}>
-        Add menu item
-      </button>
-
       <MenuTreeView
         menuTree={menuTree}
         onAddMenuItem={this.boundAddMenuItem}
         onMoveMenuItem={this.boundMoveMenuItem}
         onRemoveMenuItem={this.boundRemoveMenuItem}
         onUpdateMenuItem={this.boundUpdateMenuItem}/>
+      <button
+        className="button button--cms"
+        onClick={this.boundOnAddMenuItemButtonClick}>
+        Add menu item
+      </button>
     </div>;
   }
 }
