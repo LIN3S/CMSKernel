@@ -10,8 +10,18 @@ services:
         class: LIN3S\CMSKernel\Application\Query\Menu\MenuOfIdHandler
         arguments:
             - "@lin3s.cms_kernel.infrastructure.persistence.doctrine.orm.repository.menu"
-            - "@lin3s.cms_kernel.application.data_transformer.menu.menu_item_dto"
+            - "@lin3s.cms_kernel.application.data_transformer.menu.menu_dto"
         tags:
             -
                 name: query_handler
                 handles: LIN3S\CMSKernel\Application\Query\Menu\MenuOfIdQuery
+
+    lin3s.cms_kernel.application.query.menu.menu_of_code:
+        class: LIN3S\CMSKernel\Application\Query\Menu\MenuOfCodeHandler
+        arguments:
+            - "@lin3s.cms_kernel.infrastructure.persistence.doctrine.orm.repository.menu"
+            - "@lin3s.cms_kernel.application.data_transformer.menu.menu_dto"
+        tags:
+            -
+                name: query_handler
+                handles: LIN3S\CMSKernel\Application\Query\Menu\MenuOfCodeQuery

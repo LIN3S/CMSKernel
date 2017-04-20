@@ -22,7 +22,7 @@ class MenuItemDTODataTransformer implements MenuItemDataTransformer
 
     public function write(MenuItem $menuItem)
     {
-        $this->menuItem = $menuItem;
+        return $this->menuItem = $menuItem;
     }
 
     public function read()

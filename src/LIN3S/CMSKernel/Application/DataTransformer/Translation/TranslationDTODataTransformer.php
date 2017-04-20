@@ -24,7 +24,7 @@ abstract class TranslationDTODataTransformer implements TranslationDataTransform
 
     abstract protected function serialize();
 
-    public function write(Translation $translation)
+    final public function write(Translation $translation)
     {
         $translationClass = $this->translationClass();
         if (!$translation instanceof $translationClass) {
@@ -35,7 +35,7 @@ abstract class TranslationDTODataTransformer implements TranslationDataTransform
         $this->translation = $translation;
     }
 
-    public function read()
+    final public function read()
     {
         if (null === $this->translation) {
             return [];

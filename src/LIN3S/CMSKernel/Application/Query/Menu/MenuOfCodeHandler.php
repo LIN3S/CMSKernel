@@ -13,15 +13,15 @@ namespace LIN3S\CMSKernel\Application\Query\Menu;
 
 use LIN3S\CMSKernel\Application\DataTransformer\Translation\TranslatableDataTransformer;
 use LIN3S\CMSKernel\Domain\Model\Menu\Menu;
+use LIN3S\CMSKernel\Domain\Model\Menu\MenuCode;
 use LIN3S\CMSKernel\Domain\Model\Menu\MenuDoesNotExistException;
-use LIN3S\CMSKernel\Domain\Model\Menu\MenuId;
 use LIN3S\CMSKernel\Domain\Model\Menu\MenuRepository;
 use LIN3S\CMSKernel\Domain\Model\Translation\Locale;
 
 /**
  * @author Beñat Espiña <benatespina@gmail.com>
  */
-class MenuOfIdHandler
+class MenuOfCodeHandler
 {
     private $repository;
     private $dataTransformer;
@@ -32,14 +32,12 @@ class MenuOfIdHandler
         $this->dataTransformer = $dataTransformer;
     }
 
-    public function __invoke(MenuOfIdQuery $query)
+    public function __invoke(MenuOfCodeQuery $query)
     {
+        $code = new MenuCode($query->code());
         $locale = new Locale($query->locale());
-        $menu = $this->repository->menuOfId(
-            MenuId::generate(
-                $query->menuId()
-            )
-        );
+
+        $menu = $this->repository->menuOfCode($code);
         if (!$menu instanceof Menu) {
             throw new MenuDoesNotExistException();
         }

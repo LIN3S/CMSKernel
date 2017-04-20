@@ -13,6 +13,7 @@ namespace LIN3S\CMSKernel\Infrastructure\Persistence\Doctrine\ORM\Menu;
 
 use Doctrine\ORM\EntityRepository;
 use LIN3S\CMSKernel\Domain\Model\Menu\Menu;
+use LIN3S\CMSKernel\Domain\Model\Menu\MenuCode;
 use LIN3S\CMSKernel\Domain\Model\Menu\MenuId;
 use LIN3S\CMSKernel\Domain\Model\Menu\MenuRepository;
 
@@ -24,6 +25,11 @@ class DoctrineORMMenuRepository extends EntityRepository implements MenuReposito
     public function menuOfId(MenuId $id)
     {
         return $this->find($id->id());
+    }
+
+    public function menuOfCode(MenuCode $code)
+    {
+        return $this->findOneBy(['code.code' => $code->code()]);
     }
 
     public function persist(Menu $menu)

@@ -33,7 +33,7 @@ abstract class TranslatableDTODataTransformer implements TranslatableDataTransfo
         $this->translationDTODataTransformer = $translationDTODataTransformer;
     }
 
-    public function write(Translatable $translatable, Locale $locale = null)
+    final public function write(Translatable $translatable, Locale $locale = null)
     {
         $translatableClass = $this->translatableClass();
         if (!$translatable instanceof $translatableClass) {
@@ -45,7 +45,7 @@ abstract class TranslatableDTODataTransformer implements TranslatableDataTransfo
         $this->locale = $locale;
     }
 
-    public function read()
+    final public function read()
     {
         if (null === $this->translatable) {
             return [];

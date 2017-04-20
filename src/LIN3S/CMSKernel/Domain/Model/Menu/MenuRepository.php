@@ -18,6 +18,8 @@ interface MenuRepository
 {
     public function menuOfId(MenuId $id);
 
+    public function menuOfCode(MenuCode $code);
+
     public function persist(Menu $page);
 
     public function remove(Menu $page);

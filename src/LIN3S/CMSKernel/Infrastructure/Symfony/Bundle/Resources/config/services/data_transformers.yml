@@ -6,9 +6,24 @@
 # file that was distributed with this source code.
 
 services:
+    lin3s.cms_kernel.application.data_transformer.menu.menu_translation_dto:
+        class: LIN3S\CMSKernel\Application\DataTransformer\Menu\MenuTranslationDTODataTransformer
+        public: false
+        arguments:
+            - "@lin3s_cms.menu_item_dto_data_transformer"
+    lin3s_cms.menu_translation_dto_data_transformer:
+        alias: lin3s.cms_kernel.application.data_transformer.menu.menu_translation_dto
+
+    lin3s.cms_kernel.application.data_transformer.menu.menu_dto:
+        class: LIN3S\CMSKernel\Application\DataTransformer\Menu\MenuDTODataTransformer
+        public: false
+        arguments:
+            - "@lin3s.cms_kernel.application.data_transformer.menu.menu_translation_dto"
+    lin3s_cms.menu_dto_data_transformer:
+        alias: lin3s.cms_kernel.application.data_transformer.menu.menu_dto
+
     lin3s.cms_kernel.application.data_transformer.menu.menu_item_dto:
         class: LIN3S\CMSKernel\Application\DataTransformer\Menu\MenuItemDTODataTransformer
         public: false
-
     lin3s_cms.menu_item_dto_data_transformer:
         alias: lin3s.cms_kernel.application.data_transformer.menu.menu_item_dto
