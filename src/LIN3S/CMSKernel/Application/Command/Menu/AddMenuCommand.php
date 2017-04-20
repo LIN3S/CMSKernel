@@ -17,18 +17,23 @@ namespace LIN3S\CMSKernel\Application\Command\Menu;
 class AddMenuCommand
 {
     private $menuId;
+    private $code;
     private $locale;
     private $name;
 
-    public function __construct($locale, $name, $menuId = null)
+    public function __construct($locale, $code, $name, $menuId = null)
     {
         if (null === $locale) {
             throw new \InvalidArgumentException('The locale cannot be null');
+        }
+        if (null === $code) {
+            throw new \InvalidArgumentException('The code cannot be null');
         }
         if (null === $name) {
             throw new \InvalidArgumentException('The name cannot be null');
         }
         $this->menuId = $menuId;
+        $this->code = $code;
         $this->locale = $locale;
         $this->name = $name;
     }
@@ -41,6 +46,11 @@ class AddMenuCommand
     public function locale()
     {
         return $this->locale;
+    }
+
+    public function code()
+    {
+        return $this->code;
     }
 
     public function name()

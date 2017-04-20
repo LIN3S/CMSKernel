@@ -12,6 +12,7 @@
 namespace LIN3S\CMSKernel\Application\Command\Menu;
 
 use LIN3S\CMSKernel\Domain\Model\Menu\Menu;
+use LIN3S\CMSKernel\Domain\Model\Menu\MenuCode;
 use LIN3S\CMSKernel\Domain\Model\Menu\MenuId;
 use LIN3S\CMSKernel\Domain\Model\Menu\MenuItemId;
 use LIN3S\CMSKernel\Domain\Model\Menu\MenuItemLink;
@@ -38,6 +39,7 @@ class ManageMenuHandler
     public function __invoke(ManageMenuCommand $command)
     {
         $menuId = MenuId::generate($command->id());
+        $menuCode = new MenuCode($command->code());
         $menuName = new MenuName($command->name());
         $locale = new Locale($command->locale());
         $menuTranslationId = MenuTranslationId::generate();
@@ -48,7 +50,7 @@ class ManageMenuHandler
 
         $menu = $this->repository->menuOfId($menuId);
         if (null === $menu) {
-            $menu = new Menu($menuId, $menuTranslation);
+            $menu = new Menu($menuId, $menuCode, $menuTranslation);
         } else {
             try {
                 $menu->removeTranslation($locale);

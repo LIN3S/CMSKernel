@@ -19,13 +19,15 @@ use LIN3S\CMSKernel\Domain\Model\Translation\Translatable;
 class Menu extends Translatable
 {
     private $id;
+    private $code;
     private $createdOn;
     private $updatedOn;
 
-    public function __construct(MenuId $id, MenuTranslation $translation)
+    public function __construct(MenuId $id, MenuCode $code, MenuTranslation $translation)
     {
         parent::__construct($translation);
         $this->id = $id;
+        $this->code = $code;
         $this->createdOn = new \DateTimeImmutable();
         $this->updatedOn = new \DateTimeImmutable();
     }
@@ -33,6 +35,11 @@ class Menu extends Translatable
     public function id()
     {
         return $this->id;
+    }
+
+    public function code()
+    {
+        return $this->code;
     }
 
     public function createdOn()

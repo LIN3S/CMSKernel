@@ -12,6 +12,7 @@
 namespace LIN3S\CMSKernel\Application\Command\Menu;
 
 use LIN3S\CMSKernel\Domain\Model\Menu\Menu;
+use LIN3S\CMSKernel\Domain\Model\Menu\MenuCode;
 use LIN3S\CMSKernel\Domain\Model\Menu\MenuId;
 use LIN3S\CMSKernel\Domain\Model\Menu\MenuIsAlreadyExistsException;
 use LIN3S\CMSKernel\Domain\Model\Menu\MenuName;
@@ -48,6 +49,9 @@ class AddMenuHandler
         $menu = new Menu(
             MenuId::generate(
                 $command->menuId()
+            ),
+            new MenuCode(
+                $command->code()
             ),
             new MenuTranslation(
                 MenuTranslationId::generate(),

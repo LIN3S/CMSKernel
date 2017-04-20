@@ -19,3 +19,6 @@ lin3s_cms_kernel:
                 name: Name
             menu:
                 menu: Menu
+                error:
+                    empty_menu_code: The code should not be blank
+                    empty_menu_name: The name should not be blank

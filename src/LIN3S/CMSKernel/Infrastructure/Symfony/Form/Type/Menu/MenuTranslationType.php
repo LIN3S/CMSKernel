@@ -33,8 +33,9 @@ class MenuTranslationType extends AbstractType
         $builder
             ->add('name', TextType::class)
             ->add('items', MenuTreeType::class, [
-                'locale'  => $this->locale,
-                'menu_id' => $this->menuId,
+                'required' => false,
+                'locale'   => $this->locale,
+                'menu_id'  => $this->menuId,
             ]);
     }
 

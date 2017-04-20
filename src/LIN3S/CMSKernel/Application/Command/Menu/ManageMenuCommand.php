@@ -11,26 +11,35 @@
 
 namespace LIN3S\CMSKernel\Application\Command\Menu;
 
+use LIN3S\CMSKernel\Domain\Model\Menu\EmptyMenuCodeException;
+use LIN3S\CMSKernel\Domain\Model\Menu\EmptyMenuNameException;
+use LIN3S\SharedKernel\Exception\InvalidArgumentException;
+
 /**
  * @author Beñat Espiña <benatespina@gmail.com>
  */
 class ManageMenuCommand
 {
     private $menuId;
+    private $code;
     private $locale;
     private $items;
     private $name;
 
-    public function __construct($locale, $name, array $items = [], $menuId = null)
+    public function __construct($locale, $name, $code, array $items = [], $menuId = null)
     {
         if (null === $locale) {
-            throw new \InvalidArgumentException('The locale cannot be null');
+            throw new InvalidArgumentException('The locale cannot be null');
         }
-        if (null === $name) {
-            throw new \InvalidArgumentException('The name cannot be null');
+        if (empty($name)) {
+            throw new EmptyMenuNameException();
+        }
+        if (empty($code)) {
+            throw new EmptyMenuCodeException();
         }
         $this->menuId = $menuId;
         $this->locale = $locale;
+        $this->code = $code;
         $this->name = $name;
         $this->items = $items;
     }
@@ -43,6 +52,11 @@ class ManageMenuCommand
     public function locale()
     {
         return $this->locale;
+    }
+
+    public function code()
+    {
+        return $this->code;
     }
 
     public function name()

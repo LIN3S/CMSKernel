@@ -12,3 +12,10 @@ services:
             - "@lin3s.cms_kernel.application.query.menu.menu_of_id"
         tags:
             - name: "form.type"
+
+    lin3s.cms_kernel.form_types.add_menu:
+        class: LIN3S\CMSKernel\Infrastructure\Symfony\Form\Type\Menu\AddMenuType
+        arguments:
+            - "@translator"
+        tags:
+            - name: "form.type"

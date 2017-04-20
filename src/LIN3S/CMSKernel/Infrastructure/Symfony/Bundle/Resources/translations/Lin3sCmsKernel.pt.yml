@@ -10,15 +10,15 @@ lin3s_cms_kernel:
         type:
             seo:
                 meta_title: Meta título
-                meta_description: Meta descripción
-                robots_index: Indexación
-                robots_follow: Seguimiento
-                robots_no: No
-                robots_yes: Sí
+                meta_description: Meta descrição
+                robots_index: Indexação
+                robots_follow: Segue
+                robots_no: Não
+                robots_yes: Sim
             template_selector:
-                name: Nombre
+                name: Nome
             menu:
-                menu: Menú
+                menu: Menu
                 error:
-                    empty_menu_code: El código no debería ser vacío
-                    empty_menu_name: El nombre no debería ser vacío
+                    empty_menu_code: O código não deve estar em branco
+                    empty_menu_name: O nome não deve estar em branco
