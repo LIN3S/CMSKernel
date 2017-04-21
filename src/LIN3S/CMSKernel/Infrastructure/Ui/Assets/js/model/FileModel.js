@@ -64,7 +64,7 @@ class FileModel {
       jsonFile['mime_type'],
       jsonFile['created_on'],
       jsonFile['updated_on'],
-      jsonFile['previewPath'],
+      jsonFile['preview_path'],
       jsonFile['size']
     );
   }
