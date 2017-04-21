@@ -12,6 +12,13 @@
 
 $file-gallery-control-button-background-color: $color-white;
 
+.file-gallery {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
 .file-gallery__files-wrapper {
   align-items: stretch;
   display: flex;

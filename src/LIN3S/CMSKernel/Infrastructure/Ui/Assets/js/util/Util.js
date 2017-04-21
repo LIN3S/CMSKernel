@@ -17,10 +17,19 @@
 import {React} from './../bundle.dependencies';
 
 const
-  reactPropType = type =>
+  reactPropType = (...type) =>
     React.PropTypes.shape({
-      type: React.PropTypes.oneOf([type])
+      type: React.PropTypes.oneOf([...type])
     }),
+  reactPropTypeOneOf = (propKey, validProps) => {
+    return (props, propName, componentName) => {
+      if (propName === propKey && validProps.find(prop => prop === props[propName]) === undefined) {
+        return new Error(
+          `Invalid prop '${propName}' supplied to '${componentName}'. Validation failed.`
+        );
+      }
+    }
+  },
   reactPropTypeInstanceOf = ComponentClass =>
     React.PropTypes.oneOfType([reactPropType(ComponentClass)]),
   reactPropTypeArrayOf = ComponentClass =>
@@ -70,6 +79,7 @@ const
 export {
   makeCancelable,
   reactPropType,
+  reactPropTypeOneOf,
   reactPropTypeArrayOf,
   reactPropTypeInstanceOf,
   setFormInputValue,

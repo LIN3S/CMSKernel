@@ -91,13 +91,19 @@ class FileGallery extends React.Component {
   }
 
   onFileSelected(file) {
-    this.setState({
-      selectedFile: file
-    });
+    if (this.state.selectedFile === file) {
+      this.onAccept();
+    } else {
+      this.setState({
+        selectedFile: file
+      });
+    }
   }
 
   onAccept(event) {
-    event.preventDefault();
+    if (event !== undefined) {
+      event.preventDefault();
+    }
     const {onAccept} = this.props;
     onAccept(this.state.selectedFile);
   }

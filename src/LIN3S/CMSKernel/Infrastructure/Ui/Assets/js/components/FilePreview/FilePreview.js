@@ -10,6 +10,7 @@
  */
 
 import {React} from './../../bundle.dependencies';
+import {IconFileType} from './../../bundle.components';
 import {FileModel} from './../../bundle.model';
 
 class FilePreview extends React.Component {
@@ -43,16 +44,29 @@ class FilePreview extends React.Component {
 
   render() {
     const {cssClass, file, isSelected, onRemove, onSelected} = this.props;
-    const filePreviewCssClass = `file-preview ${cssClass} ${isSelected ? 'file-preview--selected' : ''}`;
+    const
+      fileType = file.getType(),
+      isImageType = fileType === FileModel.TYPE.IMAGE_JPG
+                || fileType === FileModel.TYPE.IMAGE_PNG
+                || fileType === FileModel.TYPE.IMAGE_SVG
+                || fileType === FileModel.TYPE.IMAGE,
+      filePreviewCssClass = `file-preview ${cssClass} ${isSelected ? 'file-preview--selected' : ''} ${isImageType ? 'file-preview--alt' : ''}`;
 
     return <div
       className={filePreviewCssClass}
       onClick={onSelected}>
-      <label className="file-preview__name">{file.id}</label>
-      {onRemove !== undefined &&
-      <button
-        className="file-preview__delete"
-        onClick={this.boundOnRemove}>✕</button>}
+      {isImageType &&
+      <img
+        className="file-preview__preview"
+        src={file.previewPath}/>}
+      <div className="file-preview__options">
+        <IconFileType cssClass="icon--file" type={fileType}/>
+        {onRemove !== undefined &&
+        <button
+          className="file-preview__delete"
+          onClick={this.boundOnRemove}>✕</button>}
+      </div>
+      <label className="file-preview__name">{file.name}</label>
     </div>
   }
 }

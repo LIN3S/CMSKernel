@@ -21,6 +21,7 @@ import FileSelector from './components/FileSelector/FileSelector';
 import WithOutsideClick from './components/WithOutsideClick/WithOutsideClick';
 import MenuTree from './components/MenuTree/MenuTree';
 import EditableLabel from './components/EditableLabel/EditableLabel';
+import Alert from './components/Alert/Alert';
 import IconAdd from './components/Icon/IconAdd';
 import IconRemove from './components/Icon/IconRemove';
 import IconGallery from './components/Icon/IconGallery';
@@ -28,6 +29,18 @@ import IconUpload from './components/Icon/IconUpload';
 import IconRawEditor from './components/Icon/IconRawEditor';
 import IconTextEditor from './components/Icon/IconTextEditor';
 import IconMove from './components/Icon/IconMove';
+import IconFileType from './components/Icon/IconFileType';
+import IconFileTypeAudio from './components/Icon/FileType/IconFileTypeAudio';
+import IconFileTypeImage from './components/Icon/FileType/IconFileTypeImage';
+import IconFileTypeVideo from './components/Icon/FileType/IconFileTypeVideo';
+import IconFileTypePdf from './components/Icon/FileType/IconFileTypePdf';
+import IconFileTypeDoc from './components/Icon/FileType/IconFileTypeDoc';
+import IconFileTypeXls from './components/Icon/FileType/IconFileTypeXls';
+import IconFileTypePpt from './components/Icon/FileType/IconFileTypePpt';
+import IconFileTypeTxt from './components/Icon/FileType/IconFileTypeTxt';
+import IconFileTypeRtf from './components/Icon/FileType/IconFileTypeRtf';
+import IconFileTypeZip from './components/Icon/FileType/IconFileTypeZip';
+import IconFileTypeDefault from './components/Icon/FileType/IconFileTypeDefault';
 
 export {
   Tabbed,
@@ -42,11 +55,24 @@ export {
   WithOutsideClick,
   MenuTree,
   EditableLabel,
+  Alert,
   IconAdd,
   IconRemove,
   IconUpload,
   IconGallery,
   IconTextEditor,
   IconRawEditor,
-  IconMove
+  IconMove,
+  IconFileType,
+  IconFileTypeAudio,
+  IconFileTypeImage,
+  IconFileTypeVideo,
+  IconFileTypePdf,
+  IconFileTypeDoc,
+  IconFileTypeXls,
+  IconFileTypePpt,
+  IconFileTypeTxt,
+  IconFileTypeRtf,
+  IconFileTypeZip,
+  IconFileTypeDefault
 }

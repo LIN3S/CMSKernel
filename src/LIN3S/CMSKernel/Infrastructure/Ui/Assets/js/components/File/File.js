@@ -28,8 +28,6 @@ class File extends React.Component {
       selectedFile: this.getInitialFile()
     };
 
-    console.log('File', this.state.selectedFile);
-
     // Pre-bind method's context
     this.boundOnFileSelectButtonClick = this.onFileSelectButtonClick.bind(this);
     this.boundOnModalClose = this.onModalClose.bind(this);

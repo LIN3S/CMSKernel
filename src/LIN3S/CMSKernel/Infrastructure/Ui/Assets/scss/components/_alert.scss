@@ -1,0 +1,77 @@
+// This file is part of the CMS Kernel package.
+//
+// Copyright (c) 2016-present LIN3S <info@lin3s.com>
+//
+// For the full copyright and license information, please view the LICENSE
+// file that was distributed with this source code.
+//
+// @author Mikel Tuesta <mikeltuesta@gmail.com>
+
+@import './../variables/colors';
+
+$alert-color--success: $color-jade;
+$alert-color--warning: $color-flush-orange;
+$alert-color--error: $color-milano-red;
+$alert-color--info: $color-bondi-blue;
+
+$alert-remove-color: $color-white;
+$alert-remove-side: 20px;
+
+.alert {
+  border: 1px solid;
+  display: flex;
+  justify-content: space-between;
+  margin: 10px;
+  padding: 6px 10px;
+}
+
+@mixin alert($color) {
+  border-color: $color;
+  background-color: rgba($color, .2);
+
+  .alert__content {
+    color: darken($color, 10%);
+  }
+
+  .alert__remove {
+    background-color: $color;
+
+    &:hover,
+    &:active {
+      background-color: darken($color, 5%);
+    }
+  }
+}
+
+.alert--success {
+  @include alert($alert-color--success);
+}
+
+.alert--warning {
+  @include alert($alert-color--warning);
+}
+
+.alert--error {
+  @include alert($alert-color--error);
+}
+
+.alert--info {
+  @include alert($alert-color--info);
+}
+
+.alert__remove {
+  align-items: center;
+  border: 0;
+  border-radius: 50%;
+  color: $alert-remove-color;
+  cursor: pointer;
+  display: flex;
+  height: $alert-remove-side;
+  justify-content: center;
+  outline: 0;
+  width: $alert-remove-side;
+
+  &:active {
+    outline: 0;
+  }
+}
