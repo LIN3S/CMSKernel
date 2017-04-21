@@ -82,6 +82,11 @@ class FileType extends AbstractType
         $resolver->setDefined(['entry_file', 'upload_endpoint', 'gallery_endpoint', 'mime_types']);
     }
 
+    public function getBlockPrefix()
+    {
+        return 'lin3s_cms_file';
+    }
+
     private function uploadEndpoint(array $options)
     {
         if (!isset($options['upload_endpoint'])) {
