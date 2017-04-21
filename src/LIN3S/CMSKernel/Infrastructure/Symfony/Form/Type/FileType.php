@@ -22,6 +22,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Serializer\NameConverter\CamelCaseToSnakeCaseNameConverter;
 
 /**
@@ -32,11 +33,13 @@ class FileType extends AbstractType
     private $configuration;
     private $queryHandlers;
     private $implicitFileType;
+    private $urlGenerator;
 
-    public function __construct(array $queryHandlers, array $configuration = null)
+    public function __construct(UrlGeneratorInterface $urlGenerator, array $queryHandlers, array $configuration = null)
     {
         $this->setQueryHandlers($queryHandlers);
         $this->configuration = $configuration;
+        $this->urlGenerator = $urlGenerator;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -63,6 +66,8 @@ class FileType extends AbstractType
             $filePreview = $this->queryHandler($this->fileType($options))->__invoke(
                 new FileOfIdQuery($fileId)
             );
+
+            $filePreview = $this->appendFilePreviewPath($filePreview);
         }
 
         $view->vars = array_merge(
@@ -168,5 +173,17 @@ class FileType extends AbstractType
         $this->queryHandlers = array_map(function (FileOfIdHandler $fileOfIdHandler) {
             return $fileOfIdHandler;
         }, $queryHandlers);
+    }
+
+    private function appendFilePreviewPath($filePreview)
+    {
+        $filePreview['preview_path'] = $this->urlGenerator->generate(
+            'bengor_file_' . $this->implicitFileType . '_download',
+            [
+                'filename' => $filePreview['file_name'],
+            ]
+        );
+
+        return $filePreview;
     }
 }

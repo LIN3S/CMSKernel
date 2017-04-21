@@ -40,6 +40,7 @@ class DeclareFileFormTypesPass implements CompilerPassInterface
             'cms_kernel_bengor_file_bridge.form.type.file',
             (new Definition(
                 FileType::class, [
+                    $container->getDefinition('router.default'),
                     $queryHandlers,
                     $config['file_types'],
                 ]
