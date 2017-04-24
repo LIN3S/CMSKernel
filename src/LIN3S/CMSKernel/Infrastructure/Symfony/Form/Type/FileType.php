@@ -67,7 +67,7 @@ class FileType extends AbstractType
                 new FileOfIdQuery($fileId)
             );
 
-            $filePreview = $this->appendFilePreviewPath($filePreview);
+            $filePreview['preview_path'] = $this->getFilePreviewPath($filePreview['file_name'], $options);
         }
 
         $view->vars = array_merge(
@@ -175,15 +175,13 @@ class FileType extends AbstractType
         }, $queryHandlers);
     }
 
-    private function appendFilePreviewPath($filePreview)
+    private function getFilePreviewPath($filename, array $options)
     {
-        $filePreview['preview_path'] = $this->urlGenerator->generate(
-            'bengor_file_' . $this->implicitFileType . '_download',
+        return $this->urlGenerator->generate(
+            'bengor_file_' . $this->fileType($options) . '_download',
             [
-                'filename' => $filePreview['file_name'],
+                'filename' => $filename,
             ]
         );
-
-        return $filePreview;
     }
 }
