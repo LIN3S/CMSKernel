@@ -8,6 +8,7 @@ class App extends React.Component {
   static propTypes = {
     callback: React.PropTypes.func,
     description: React.PropTypes.string,
+    styles: React.PropTypes.object,
     title: React.PropTypes.string,
     trigger: React.PropTypes.object
   };
@@ -69,10 +70,10 @@ class App extends React.Component {
   }
 
   render() {
-    const {callback} = this.props;
+    const {callback, styles} = this.props;
 
     return (
-      <div>
+      <div style={styles}>
         {this.buildTrigger()}
         <ConfirmationModal
           callback={callback}

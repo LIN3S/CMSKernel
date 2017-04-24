@@ -35,6 +35,7 @@ const init = () => {
       <ConfirmationModal
         callback={removeCallBack.bind(this, removeAction)}
         description={removeAction.getAttribute('data-message-description')}
+        styles={JSON.parse(removeAction.getAttribute('data-style'))}
         title={removeAction.getAttribute('data-message-title')}
         trigger={trigger}
       />,
