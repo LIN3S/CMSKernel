@@ -1,0 +1,75 @@
+// This file is part of the CMS Kernel package.
+//
+// Copyright (c) 2016-present LIN3S <info@lin3s.com>
+//
+// For the full copyright and license information, please view the LICENSE
+// file that was distributed with this source code.
+//
+// @author Mikel Tuesta <mikeltuesta@gmail.com>
+
+@import './../../node_modules/react-dates/css/styles.scss';
+@import './../variables/colors';
+
+.datepicker {
+  order: 2;
+
+  tr {
+    background: none;
+  }
+}
+
+// Styles override
+.SingleDatePicker {
+  display: block;
+}
+
+.SingleDatePickerInput {
+  border: 1px solid $color-border-main;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.DateInput {
+  color: $color-black;
+  outline: 0;
+  padding: 8px 12px;
+}
+
+.DateInput__display-text--focused {
+  background: none;
+  border-color: transparent;
+  color: $color-black;
+}
+
+.DayPickerKeyboardShortcuts__show {
+  display: none;
+}
+
+.DateInput__display-text {
+  padding: 0;
+}
+
+.DateInput__display-text--has-input {
+  color: $color-black;
+}
+
+.SingleDatePickerInput__clear-date {
+  padding: 5px;
+  margin: 5px;
+  width: 25px;
+  height: 25px;
+}
+
+.SingleDatePickerInput__clear-date svg {
+  vertical-align: inherit;
+}
+
+.CalendarDay--selected-start, .CalendarDay--selected-end, .CalendarDay--selected {
+  background: $color-bondi-blue;
+  border: 1px double $color-bondi-blue;
+}
+
+.DayPicker__week-header {
+  top: 58px;
+}

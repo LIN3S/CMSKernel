@@ -16,7 +16,8 @@ const
       'templateSelector': `${rootPath}/TemplateSelector/init.js`,
       'wysiwyg': `${rootPath}/Wysiwyg/init.js`,
       'file': `${rootPath}/File/init.js`,
-      'menuTree': `${rootPath}/MenuTree/init.js`
+      'menuTree': `${rootPath}/MenuTree/init.js`,
+      'datePicker': `${rootPath}/DatePicker/init.js`
     };
   };
 

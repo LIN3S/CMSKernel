@@ -22,6 +22,7 @@ import WithOutsideClick from './components/WithOutsideClick/WithOutsideClick';
 import MenuTree from './components/MenuTree/MenuTree';
 import EditableLabel from './components/EditableLabel/EditableLabel';
 import Alert from './components/Alert/Alert';
+import DatePicker from './components/DatePicker/DatePicker';
 import IconAdd from './components/Icon/IconAdd';
 import IconRemove from './components/Icon/IconRemove';
 import IconGallery from './components/Icon/IconGallery';
@@ -56,6 +57,7 @@ export {
   MenuTree,
   EditableLabel,
   Alert,
+  DatePicker,
   IconAdd,
   IconRemove,
   IconUpload,

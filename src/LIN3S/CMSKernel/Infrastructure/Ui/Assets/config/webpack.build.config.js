@@ -27,6 +27,8 @@ const
       'draftjs-to-html':                                  'draftToHtml',
       'draft-js':                                         'draftJs',
       'uppy':                                             'uppy',
+      'react-dates':                                      'ReactDates',
+      'moment':                                           'moment',
 
       // relative to the webpack's build entry-point (js/bundle.js)
 
@@ -43,6 +45,7 @@ const
       './components/MenuTree/MenuTree':                   'MenuTree',
       './components/EditableLabel/EditableLabel':         'EditableLabel',
       './components/Alert/Alert':                         'Alert',
+      './components/DatePicker/DatePicker':               'DatePicker',
       './components/Icon/IconAdd':                        'IconAdd',
       './components/Icon/IconRemove':                     'IconRemove',
       './components/Icon/IconUpload':                     'IconUpload',
