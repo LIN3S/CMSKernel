@@ -19,6 +19,8 @@ import draftToHtml from 'draftjs-to-html';
 import * as draftJs from 'draft-js';
 import $ from 'jquery';
 import * as uppy from 'uppy';
+import * as ReactDates from 'react-dates';
+import moment from 'moment';
 
 export {
   lin3sEventBus,
@@ -30,5 +32,7 @@ export {
   draftToHtml,
   draftJs,
   $,
-  uppy
+  uppy,
+  ReactDates,
+  moment
 }

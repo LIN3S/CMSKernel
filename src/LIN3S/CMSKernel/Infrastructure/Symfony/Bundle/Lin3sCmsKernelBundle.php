@@ -76,6 +76,7 @@ class Lin3sCmsKernelBundle extends Bundle
                 'Form/template_selector.html.twig',
                 'Form/wysiwyg.html.twig',
                 'Form/menu_tree.html.twig',
+                'Form/date_picker.html.twig',
             ],
         ]);
     }
