@@ -32,7 +32,7 @@ class MenuRendererFunction extends \Twig_Extension
     public function getFunctions()
     {
         return [
-            new \Twig_SimpleFunction('lin3sCmsMenu', [$this, 'menu']),
+            new \Twig_SimpleFunction('lin3s_cms_menu', [$this, 'menu']),
         ];
     }
 
