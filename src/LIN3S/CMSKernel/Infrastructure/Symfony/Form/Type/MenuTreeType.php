@@ -20,6 +20,9 @@ use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * @author Beñat Espiña <benatespina@gmail.com>
+ */
 class MenuTreeType extends AbstractType
 {
     private $menuOfIdHandler;
@@ -43,17 +46,18 @@ class MenuTreeType extends AbstractType
                     }
 
                     try {
-                        $items = $this->menuOfIdHandler->__invoke(
+                        $menu = $this->menuOfIdHandler->__invoke(
                             new MenuOfIdQuery(
                                 $menuId,
                                 $locale
                             )
                         );
+
                     } catch (TranslationDoesNotExistException $exception) {
                         return ['tree' => []];
                     }
 
-                    return ['tree' => json_encode($items)];
+                    return ['tree' => json_encode($menu['tree'])];
                 },
                 function ($value) {
                     return $value['tree'] ? json_decode($value['tree'], true) : [];
