@@ -35,5 +35,6 @@ class Lin3sCmsKernelExtension extends Extension
         $loader->load('form_types.yml');
         $loader->load('queries.yml');
         $loader->load('repositories.yml');
+        $loader->load('twig.yml');
     }
 }
