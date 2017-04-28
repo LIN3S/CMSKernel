@@ -181,33 +181,36 @@ class MenuTreeView extends React.Component {
 
           if (!isDraggingItemsChild) {
             accumulatedY += MenuTreeView.MENU_ITEM_HEIGHT + MenuTreeView.MENU_ITEM_MARGIN_Y;
-          }
 
-          if (accumulatedY >= (y + MenuTreeView.MENU_ITEM_HEIGHT / 2)) {
-            const
-              menuItemStyle = this.cachedFlattenedMenuStyles.find(menuItemStyle => menuItemStyle.key === `menuItem-${menuItem.id}`),
-              isPositiveNested = x >= menuItemStyle.data.finalStyle.translateX + MenuTreeView.MENU_ITEM_NEST_DELTA_X,
-              isNegativeNested = x <= menuItemStyle.data.finalStyle.translateX - MenuTreeView.MENU_ITEM_NEST_DELTA_X,
-              canBeChild = menuItem.hasChildren() && draggingItemPassed;
+            if (accumulatedY >= (y + MenuTreeView.MENU_ITEM_HEIGHT / 2)) {
+              const
+                menuItemStyle = this.cachedFlattenedMenuStyles.find(menuItemStyle => menuItemStyle.key === `menuItem-${menuItem.id}`),
+                isPositiveNested = x >= menuItemStyle.data.finalStyle.translateX + MenuTreeView.MENU_ITEM_NEST_DELTA_X,
+                isNegativeNested = x <= menuItemStyle.data.finalStyle.translateX - MenuTreeView.MENU_ITEM_NEST_DELTA_X;
 
-            index = menuItemIndex;
-            parentId = rootMenuItem.id;
+              // Vertical dragging
+              if (draggingItemPassed) {
+                index = 0;
+                parentId = menuItem.id;
+              } else {
+                index = menuItemIndex;
+                parentId = rootMenuItem.id;
+              }
 
-            if (canBeChild) {
-              index = 0;
-              parentId = menuItem.id;
-            } else if (isPositiveNested && isDraggingItem) {
-              index = 0;
-              parentId = prevMenuItem.id;
-            } else if (isNegativeNested && isDraggingItem) {
-              index = parentMenuItemIndex;
-              parentId = parentMenuItem.id;
-            }
+              // Horizontal dragging
+              if (isPositiveNested) {
+                index = 0;
+                parentId = prevMenuItem.id;
+              } else if (isNegativeNested) {
+                index = parentMenuItemIndex + 1;
+                parentId = parentMenuItem.id;
+              }
 
-            done = true;
-          } else {
-            if (!isDraggingItemsChild && menuItem.hasChildren()) {
-              accumulatedY = findParentIdAndChildIndex(menuItem, menuItem, rootMenuItem, menuItemIndex, accumulatedY);
+              done = true;
+            } else {
+              if (menuItem.hasChildren()) {
+                accumulatedY = findParentIdAndChildIndex(menuItem, menuItem, rootMenuItem, menuItemIndex, accumulatedY);
+              }
             }
           }
 
