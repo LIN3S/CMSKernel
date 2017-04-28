@@ -27,6 +27,10 @@ class LocaleListener
 
     public function onKernelRequest(GetResponseEvent $event)
     {
+        if(!$event->isMasterRequest()) {
+            return;
+        }
+
         $request = $event->getRequest();
         if (!$request->hasPreviousSession()) {
             return;
