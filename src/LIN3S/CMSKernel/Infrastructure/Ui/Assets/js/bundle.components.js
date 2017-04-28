@@ -23,6 +23,7 @@ import MenuTree from './components/MenuTree/MenuTree';
 import EditableLabel from './components/EditableLabel/EditableLabel';
 import Alert from './components/Alert/Alert';
 import DatePicker from './components/DatePicker/DatePicker';
+import SearchBox from './components/SearchBox/SearchBox';
 import IconAdd from './components/Icon/IconAdd';
 import IconRemove from './components/Icon/IconRemove';
 import IconGallery from './components/Icon/IconGallery';
@@ -30,6 +31,7 @@ import IconUpload from './components/Icon/IconUpload';
 import IconRawEditor from './components/Icon/IconRawEditor';
 import IconTextEditor from './components/Icon/IconTextEditor';
 import IconMove from './components/Icon/IconMove';
+import IconSearch from './components/Icon/IconSearch';
 import IconFileType from './components/Icon/IconFileType';
 import IconFileTypeAudio from './components/Icon/FileType/IconFileTypeAudio';
 import IconFileTypeImage from './components/Icon/FileType/IconFileTypeImage';
@@ -58,6 +60,7 @@ export {
   EditableLabel,
   Alert,
   DatePicker,
+  SearchBox,
   IconAdd,
   IconRemove,
   IconUpload,
@@ -65,6 +68,7 @@ export {
   IconTextEditor,
   IconRawEditor,
   IconMove,
+  IconSearch,
   IconFileType,
   IconFileTypeAudio,
   IconFileTypeImage,

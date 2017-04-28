@@ -76,6 +76,29 @@ const
     return formInput.getAttribute(attributeName);
   };
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+// Utility methods.
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+
+const
+  getUuid = () => {
+    let d = new Date().getTime();
+    if (typeof performance !== 'undefined' && typeof performance.now === 'function'){
+      d += performance.now(); //use high-precision timer if available
+    }
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+      const r = (d + Math.random() * 16) % 16 | 0;
+      d = Math.floor(d / 16);
+      return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+    });
+  },
+  buildQuery = (endpoint, paramsObj) => {
+    const queryParams = Object.keys(paramsObj)
+      .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(paramsObj[key])}`)
+      .join('&');
+    return queryParams !== '' ? `${endpoint}?${queryParams}` : endpoint;
+  };
+
 export {
   makeCancelable,
   reactPropType,
@@ -84,5 +107,7 @@ export {
   reactPropTypeInstanceOf,
   setFormInputValue,
   getFormInputValue,
-  getFormInputAttribute
+  getFormInputAttribute,
+  getUuid,
+  buildQuery
 };

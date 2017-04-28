@@ -11,6 +11,7 @@
 
 import {React, uppy} from './../../bundle.dependencies';
 import {Tabbed, FileGallery, Alert, IconGallery, IconUpload} from './../../bundle.components';
+import {getUuid} from './../../bundle.util';
 
 import Tab from './../Tabbed/Tab';
 
@@ -24,6 +25,7 @@ class FileSelector extends React.Component {
 
   static propTypes = {
     galleryEndpoint: React.PropTypes.string.isRequired,
+    galleryPageLimit: React.PropTypes.number,
     id: React.PropTypes.string.isRequired,
     mimeTypes: React.PropTypes.array.isRequired,
     onCancel: React.PropTypes.func,
@@ -32,6 +34,7 @@ class FileSelector extends React.Component {
   };
 
   static defaultProps = {
+    galleryPageLimit: 40,
     onCancel: () => {}
   };
 
@@ -44,7 +47,7 @@ class FileSelector extends React.Component {
     this.state = {
       isUppyInitialized: false,
       selectedTabIndex: 0,
-      needsDataReload: true,
+      queryId: undefined,
       uploadResult: undefined
     };
 
@@ -94,9 +97,9 @@ class FileSelector extends React.Component {
   }
 
   onUploadStarted(fileId) {
-    this.setState({
-      needsDataReload: false
-    });
+//    this.setState({
+//      needsDataReload: false
+//    });
   }
 
   onFileUploadError(fileId, xhr) {
@@ -110,7 +113,7 @@ class FileSelector extends React.Component {
   onUploadResult(success, fileCount) {
     this.setState({
       selectedTabIndex: 0,
-      needsDataReload: true, // mark as new data available,
+      queryId: getUuid(), // mark as new data available,
       uploadResult: {
         success: success,
         message: this.getFileUploadResultMessage(success, fileCount)
@@ -147,8 +150,8 @@ class FileSelector extends React.Component {
   }
 
   render() {
-    const {selectedTabIndex, needsDataReload, uploadResult} = this.state;
-    const {galleryEndpoint, onFileSelected, onCancel} = this.props;
+    const {selectedTabIndex, queryId, uploadResult} = this.state;
+    const {galleryEndpoint, galleryPageLimit, onFileSelected, onCancel} = this.props;
 
     this.removeUppyInputs();
 
@@ -166,7 +169,8 @@ class FileSelector extends React.Component {
               <Alert type={uploadResult.success ? Alert.TYPE.SUCCESS : Alert.TYPE.ERROR} message={uploadResult.message} onRemove={this.boundOnAlertRemove}/>
             }
             <FileGallery
-              needsDataReload={needsDataReload}
+              pageLimit={galleryPageLimit}
+              queryId={queryId}
               endpoint={galleryEndpoint}
               onAccept={onFileSelected}
               onCancel={onCancel}/>

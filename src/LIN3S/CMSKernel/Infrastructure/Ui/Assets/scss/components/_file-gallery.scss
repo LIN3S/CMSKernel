@@ -17,6 +17,10 @@ $file-gallery-control-button-background-color: $color-white;
   flex: 1;
   flex-direction: column;
   justify-content: space-between;
+
+  .search-box {
+    margin: 20px;
+  }
 }
 
 .file-gallery__files-wrapper {
@@ -45,6 +49,16 @@ $file-gallery-control-button-background-color: $color-white;
   .button {
     margin-left: 10px;
   }
+}
+
+.file-gallery__search-box {
+  width: 100%;
+}
+
+.file-gallery__pagination {
+  align-items: center;
+  display: flex;
+  justify-content: center;
 }
 
 @media #{$medium-up} {

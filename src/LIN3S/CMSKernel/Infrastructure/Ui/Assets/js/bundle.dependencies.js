@@ -21,6 +21,8 @@ import $ from 'jquery';
 import * as uppy from 'uppy';
 import * as ReactDates from 'react-dates';
 import moment from 'moment';
+import debounce from 'lodash.debounce';
+import Pagination from 'react-js-pagination';
 
 export {
   lin3sEventBus,
@@ -34,5 +36,7 @@ export {
   $,
   uppy,
   ReactDates,
-  moment
+  moment,
+  debounce,
+  Pagination
 }
