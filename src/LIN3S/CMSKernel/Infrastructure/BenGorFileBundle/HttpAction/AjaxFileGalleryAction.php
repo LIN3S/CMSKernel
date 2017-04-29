@@ -11,28 +11,48 @@
 
 namespace LIN3S\CMSKernel\Infrastructure\BenGorFileBundle\HttpAction;
 
-use BenGorFile\File\Application\Query\AllFilesHandler;
-use BenGorFile\File\Application\Query\AllFilesQuery;
+use BenGorFile\File\Application\Query\CountFilesHandler;
+use BenGorFile\File\Application\Query\CountFilesQuery;
+use BenGorFile\File\Application\Query\FilterFilesHandler;
+use BenGorFile\File\Application\Query\FilterFilesQuery;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * @author Beñat Espiña <benatespina@gmail.com>
  */
 class AjaxFileGalleryAction
 {
-    private $allFilesHandler;
+    private $filterFilesHandler;
+    private $countFilesHandler;
 
-    public function __construct(AllFilesHandler $allFilesHandler)
+    public function __construct(FilterFilesHandler $filterFilesHandler, CountFilesHandler $countFilesHandler)
     {
-        $this->allFilesHandler = $allFilesHandler;
+        $this->filterFilesHandler = $filterFilesHandler;
+        $this->countFilesHandler = $countFilesHandler;
     }
 
-    public function __invoke()
+    public function __invoke(Request $request)
     {
-        $files = $this->allFilesHandler->__invoke(
-            new AllFilesQuery()
+        $query = $request->query->get('q');
+        $limit = $request->query->get('limit');
+        $offset = $request->query->get('page');
+
+        $files = $this->filterFilesHandler->__invoke(
+            new FilterFilesQuery(
+                $query,
+                $offset,
+                $limit
+            )
         );
 
-        return new JsonResponse($files);
+        $filesTotalCount = $this->countFilesHandler->__invoke(
+            new CountFilesQuery(null)
+        );
+
+        return new JsonResponse([
+            'files'           => $files,
+            'filesTotalCount' => $filesTotalCount,
+        ]);
     }
 }

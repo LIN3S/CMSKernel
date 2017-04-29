@@ -42,7 +42,8 @@ class DeclareHttpActionsPass implements CompilerPassInterface
                 'cms_kernel_bengor_file.http_action.' . $fileType . '_gallery',
                 (new Definition(
                     AjaxFileGalleryAction::class, [
-                        $container->getDefinition('bengor.file.application.query.all_' . $fileType . 's'),
+                        $container->getDefinition('bengor.file.application.query.filter_' . $fileType . 's'),
+                        $container->getDefinition('bengor.file.application.query.count_' . $fileType . 's'),
                     ]
                 ))
             );
