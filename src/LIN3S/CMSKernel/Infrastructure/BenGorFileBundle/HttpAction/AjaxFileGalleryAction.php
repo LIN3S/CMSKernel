@@ -17,6 +17,7 @@ use BenGorFile\File\Application\Query\FilterFilesHandler;
 use BenGorFile\File\Application\Query\FilterFilesQuery;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
  * @author Beñat Espiña <benatespina@gmail.com>
@@ -25,14 +26,19 @@ class AjaxFileGalleryAction
 {
     private $filterFilesHandler;
     private $countFilesHandler;
+    private $urlGenerator;
 
-    public function __construct(FilterFilesHandler $filterFilesHandler, CountFilesHandler $countFilesHandler)
-    {
+    public function __construct(
+        FilterFilesHandler $filterFilesHandler,
+        CountFilesHandler $countFilesHandler,
+        UrlGeneratorInterface $urlGenerator
+    ) {
         $this->filterFilesHandler = $filterFilesHandler;
         $this->countFilesHandler = $countFilesHandler;
+        $this->urlGenerator = $urlGenerator;
     }
 
-    public function __invoke(Request $request)
+    public function __invoke(Request $request, $fileType)
     {
         $query = $request->query->get('q');
         $limit = $request->query->get('limit');
@@ -46,6 +52,10 @@ class AjaxFileGalleryAction
             )
         );
 
+        foreach ($files as $key => $file) {
+            $files[$key]['preview_path'] = $this->previewPath($file['file_name'], $fileType);
+        }
+
         $filesTotalCount = $this->countFilesHandler->__invoke(
             new CountFilesQuery(null)
         );
@@ -54,5 +64,15 @@ class AjaxFileGalleryAction
             'files'           => $files,
             'filesTotalCount' => $filesTotalCount,
         ]);
+    }
+
+    private function previewPath($filename, $fileType)
+    {
+        return $this->urlGenerator->generate(
+            'bengor_file_' . $fileType . '_download',
+            [
+                'filename' => $filename,
+            ]
+        );
     }
 }

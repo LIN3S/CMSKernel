@@ -32,6 +32,7 @@ class GalleryRouteLoader extends RoutesLoader
                 $config['path'],
                 [
                     '_controller' => 'cms_kernel_bengor_file.http_action.' . $file . '_gallery:__invoke',
+                    'fileType'    => $file,
                 ],
                 [],
                 [],
