@@ -116,7 +116,7 @@ class FileGallery extends React.Component {
     this.mainPromise.promise.then((response) => {
       const
         jsonFiles = response.files,
-        totalFilesCount = response.filesTotalCount;
+        totalFilesCount = response.files_total_count;
 
       this.setState({
         files: jsonFiles.map(jsonFile => FileModel.fromJson(jsonFile)),

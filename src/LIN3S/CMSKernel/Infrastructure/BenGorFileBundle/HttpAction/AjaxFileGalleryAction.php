@@ -61,8 +61,8 @@ class AjaxFileGalleryAction
         );
 
         return new JsonResponse([
-            'files'           => $files,
-            'filesTotalCount' => $filesTotalCount,
+            'files'             => $files,
+            'files_total_count' => $filesTotalCount,
         ]);
     }
 
