@@ -1,0 +1,39 @@
+// This file is part of the CMS Kernel package.
+//
+// Copyright (c) 2016-present LIN3S <info@lin3s.com>
+//
+// For the full copyright and license information, please view the LICENSE
+// file that was distributed with this source code.
+//
+// @author Mikel Tuesta <mikeltuesta@gmail.com>
+
+@import './../variables/colors';
+
+$searchbox-text-color: $color-black;
+$searchbox-border-color: $color-alto;
+$searchbox-border-color--focus: $color-cerulean;
+$searchbox-box-shadow-color--focus: rgba($color-bondi-blue, 0.8);
+
+.search-box {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+
+  .icon--search {
+    margin-right: 10px;
+  }
+}
+
+.search-box__input {
+  border: 1px solid $searchbox-border-color;
+  color: $searchbox-text-color;
+  flex: 1;
+  outline: 0;
+  padding: 8px 12px;
+  transition: .1s border-color ease-in-out;
+
+  &:focus {
+    border-color: $searchbox-border-color--focus;
+    box-shadow: 0 0 2px $searchbox-box-shadow-color--focus;
+  }
+}

@@ -29,6 +29,8 @@ const
       'uppy':                                             'uppy',
       'react-dates':                                      'ReactDates',
       'moment':                                           'moment',
+      'lodash.debounce':                                  'debounce',
+      'react-js-pagination':                              'Pagination',
 
       // relative to the webpack's build entry-point (js/bundle.js)
 
@@ -46,6 +48,8 @@ const
       './components/EditableLabel/EditableLabel':         'EditableLabel',
       './components/Alert/Alert':                         'Alert',
       './components/DatePicker/DatePicker':               'DatePicker',
+      './components/SearchBox/SearchBox':                 'SearchBox',
+      './components/Loader/Loader':                       'Loader',
       './components/Icon/IconAdd':                        'IconAdd',
       './components/Icon/IconRemove':                     'IconRemove',
       './components/Icon/IconUpload':                     'IconUpload',
@@ -53,6 +57,7 @@ const
       './components/Icon/IconTextEditor':                 'IconTextEditor',
       './components/Icon/IconRawEditor':                  'IconRawEditor',
       './components/Icon/IconMove':                       'IconMove',
+      './components/Icon/IconSearch':                      'IconSearch',
       './components/Icon/IconFileType':                   'IconFileType',
       './components/Icon/FileType/IconFileTypeAudio':     'IconFileTypeAudio',
       './components/Icon/FileType/IconFileTypeImage':     'IconFileTypeImage',

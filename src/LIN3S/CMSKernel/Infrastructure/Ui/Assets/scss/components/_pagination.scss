@@ -1,0 +1,96 @@
+// This file is part of the CMS Kernel package.
+//
+// Copyright (c) 2016-present LIN3S <info@lin3s.com>
+//
+// For the full copyright and license information, please view the LICENSE
+// file that was distributed with this source code.
+//
+// @author Mikel Tuesta <mikeltuesta@gmail.com>
+
+@import './../base/row';
+@import './../variables/colors';
+@import './../variables/transitions';
+
+$pagination-text-color: $color-bondi-blue;
+$pagination-text-color--hover: darken($pagination-text-color, 20%);
+$pagination-text-color--active: $color-white;
+$pagination-text-color--disabled: $color-mine-shaft;
+$pagination-background-color: $color-white;
+$pagination-background-color--hover: $color-seashell;
+$pagination-background-color--active: $color-bondi-blue;
+$pagination-border-color: $color-alto;
+$pagination-border-color--hover: darken($pagination-border-color, 20%);
+$pagination-border-color--active: $color-bondi-blue;
+
+$pagination-transition-duration: $transition-duration-200;
+$pagination-transition-ease: $transition-ease-main;
+
+// These are Bootstrap based styles
+
+.pagination {
+  display: inline-block;
+  margin: 20px 0;
+  padding-left: 0;
+
+  > li {
+    display: inline;
+
+    &:first-child > a,
+    &:first-child > span {
+      margin-left: 0;
+    }
+  }
+
+  > li > a,
+  > li > span {
+    background-color: $pagination-background-color;
+    border: 1px solid $pagination-border-color;
+    color: $pagination-text-color;
+    float: left;
+    line-height: 1.42857143;
+    margin-left: -1px;
+    padding: 6px 12px;
+    position: relative;
+    text-decoration: none;
+    transition: background-color $pagination-transition-duration $pagination-transition-ease,
+      border-color $pagination-transition-duration $pagination-transition-ease,
+      color $pagination-transition-duration $pagination-transition-ease;
+
+    &:focus,
+    &:hover {
+      background-color: $pagination-background-color--hover;
+      border-color: $pagination-border-color--hover;
+      color: $pagination-text-color--hover;
+      z-index: 2;
+    }
+  }
+
+  .disabled {
+    > a,
+    > a:focus,
+    > a:hover,
+    > span,
+    > span:focus,
+    > span:hover {
+      background-color: $pagination-background-color;
+      border-color: $pagination-border-color;
+      color: $pagination-text-color--disabled;
+      cursor: not-allowed;
+    }
+  }
+
+  .active {
+    > a,
+    > a:focus,
+    > a:hover,
+    > span,
+    > span:focus,
+    > span:hover {
+      background-color: $pagination-background-color--active;
+      border-color: $pagination-border-color--active;
+      color: $pagination-text-color--active;
+      cursor: default;
+      z-index: 3;
+    }
+  }
+}

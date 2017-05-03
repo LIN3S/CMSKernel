@@ -25,3 +25,6 @@ import './../scss/components/_menu-tree-item.scss';
 import './../scss/components/_editable-label.scss';
 import './../scss/components/_alert.scss';
 import './../scss/components/_date-picker.scss';
+import './../scss/components/_search-box.scss';
+import './../scss/components/_pagination.scss';
+import './../scss/components/_loader.scss';

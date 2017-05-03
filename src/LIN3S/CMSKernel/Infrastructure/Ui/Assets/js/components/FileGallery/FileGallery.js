@@ -10,23 +10,27 @@
  */
 
 import {React} from './../../bundle.dependencies';
-import {FilePreview} from './../../bundle.components';
+import {FilePreview, Loader, SearchBox} from './../../bundle.components';
 import {FileModel} from './../../bundle.model';
-import {makeCancelable} from './../../bundle.util';
+import {makeCancelable, buildQuery} from './../../bundle.util';
 
 class FileGallery extends React.Component {
 
   static propTypes = {
-    needsDataReload: React.PropTypes.bool,
     endpoint: React.PropTypes.string.isRequired,
     onAccept: React.PropTypes.func,
-    onCancel: React.PropTypes.func
+    onCancel: React.PropTypes.func,
+    pageLimit: React.PropTypes.number.isRequired,
+    queryId: React.PropTypes.string
   };
 
   static defaultProps = {
     onAccept: () => {},
-    onCancel: () => {}
+    onCancel: () => {},
+    queryId: ''
   };
+
+  static PAGINATION_RANGE_DISPLAYED = 10;
 
   mainPromise;
 
@@ -35,16 +39,23 @@ class FileGallery extends React.Component {
 
     this.state = {
       files: [],
+      filesTotalCount: 0,
+      loading: false,
+      page: 1,
+      queryString: '',
       selectedFile: undefined
     };
 
     // Pre-bind methods' context
     this.boundOnAccept = this.onAccept.bind(this);
     this.boundOnCancel = this.onCancel.bind(this);
+
+    this.boundOnSearchQueryUpdated = this.onSearchQueryUpdated.bind(this);
+    this.boundOnPageChange = this.onPageChange.bind(this);
   }
 
   componentDidMount() {
-    if (!this.props.needsDataReload) {
+    if (this.props.queryId !== '') {
       return;
     }
 
@@ -57,20 +68,44 @@ class FileGallery extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.needsDataReload !== this.props.needsDataReload && nextProps.needsDataReload) {
-      // Reload data
-      this.fetchFiles();
+    if (nextProps.queryId !== this.props.queryId || nextProps.pageLimit !== this.props.pageLimit) {
+      this.setState({
+        page: 1
+      }, this.fetchFiles.bind(this));
     }
   }
 
+  onSearchQueryUpdated(queryString) {
+    this.setState({
+      page: 1,
+      queryString: queryString
+    }, this.fetchFiles.bind(this));
+  }
+
+  onPageChange(page) {
+    this.setState({
+      page: page
+    }, this.fetchFiles.bind(this));
+  }
+
   fetchFiles() {
+    this.setState({
+      loading: true
+    });
+
     // fetch files from server
-    const {endpoint} = this.props;
+    const {endpoint, pageLimit} = this.props;
+    const {page, queryString} = this.state;
+    const query = buildQuery(endpoint, {
+      q: queryString,
+      page: page,
+      limit: pageLimit
+    });
 
     this.mainPromise = makeCancelable(
       new Promise((resolve, reject) => {
         fetch(
-          endpoint,
+          query,
           {method: 'GET'}
         )
           .then(response => response.json())
@@ -83,9 +118,15 @@ class FileGallery extends React.Component {
       })
     );
 
-    this.mainPromise.promise.then((jsonFiles) => {
+    this.mainPromise.promise.then((response) => {
+      const
+        jsonFiles = response.files,
+        totalFilesCount = response.files_total_count;
+
       this.setState({
-        files: jsonFiles.map(jsonFile => FileModel.fromJson(jsonFile))
+        files: jsonFiles.map(jsonFile => FileModel.fromJson(jsonFile)),
+        filesTotalCount: totalFilesCount,
+        loading: false
       });
     });
   }
@@ -120,11 +161,20 @@ class FileGallery extends React.Component {
   }
 
   render() {
-    const {files, selectedFile} = this.state;
+    const {files, filesTotalCount, loading, page, selectedFile} = this.state;
+    const {pageLimit} = this.props;
 
     return <div className="file-gallery">
       <div className="file-gallery__files-wrapper">
-        {files.map((file) =>
+        <div className="file-gallery__search-box">
+          <SearchBox onQueryUpdated={this.boundOnSearchQueryUpdated}/>
+        </div>
+
+        {loading &&
+        <Loader/>}
+
+        {!loading &&
+        files.map((file) =>
           <div
             className="file-gallery__file-wrapper"
             key={`file-${file.id}`}>
@@ -135,18 +185,30 @@ class FileGallery extends React.Component {
           </div>
         )}
       </div>
-      <div className="file-gallery__controls">
-        <button
-          className="button"
-          onClick={this.boundOnCancel}>
-          Cancelar
-        </button>
-        {selectedFile !== undefined &&
-        <button
-          className="button button--secondary"
-          onClick={this.boundOnAccept}>
-          Aceptar
-        </button>}
+      <div>
+        <div className="file-gallery__pagination">
+          <Pagination
+            activePage={page}
+            hideDisabled={true}
+            itemsCountPerPage={pageLimit}
+            onChange={this.boundOnPageChange}
+            pageRangeDisplayed={FileGallery.PAGINATION_RANGE_DISPLAYED}
+            totalItemsCount={filesTotalCount}
+          />
+        </div>
+        <div className="file-gallery__controls">
+          <button
+            className="button"
+            onClick={this.boundOnCancel}>
+            Cancelar
+          </button>
+          {selectedFile !== undefined &&
+          <button
+            className="button button--secondary"
+            onClick={this.boundOnAccept}>
+            Aceptar
+          </button>}
+        </div>
       </div>
     </div>;
   }

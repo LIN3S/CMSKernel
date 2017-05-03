@@ -1,0 +1,53 @@
+// This file is part of the CMS Kernel package.
+//
+// Copyright (c) 2016-present LIN3S <info@lin3s.com>
+//
+// For the full copyright and license information, please view the LICENSE
+// file that was distributed with this source code.
+//
+// @author Mikel Tuesta <mikeltuesta@gmail.com>
+
+@import './../variables/colors';
+
+$loader-ball-background-color: $color-bondi-blue;
+$loader-ball-side: 10px;
+
+@keyframes loading-animation {
+  0%,
+  80%,
+  100% {
+    transform: scale(0);
+  }
+
+  40% {
+    transform: scale(1);
+  }
+}
+
+@mixin loader_ball($ball-side, $ball-background-color) {
+  animation: loading-animation 1.4s infinite ease-in-out both;
+  background-color: $ball-background-color;
+  border-radius: 100%;
+  display: inline-block;
+  height: $ball-side;
+  margin: 0 5px;
+  width: $ball-side;
+}
+
+.loader {
+  margin: 100px auto;
+  text-align: center;
+  width: 70px;
+}
+
+.loader__ball {
+  @include loader_ball($loader-ball-side, $loader-ball-background-color);
+
+  &:nth-child(2) {
+    animation-delay: 0.16s;
+  }
+
+  &:nth-child(3) {
+    animation-delay: 0.32s;
+  }
+}

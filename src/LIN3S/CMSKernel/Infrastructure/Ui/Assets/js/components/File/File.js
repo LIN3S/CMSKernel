@@ -105,6 +105,7 @@ class File extends React.Component {
         onClickOutside={this.boundOnModalClose}>
         <FileSelector
           galleryEndpoint={getFormInputAttribute(formInput, 'data-gallery-endpoint')}
+          galleryPageLimit={parseInt(getFormInputAttribute(formInput, 'data-gallery-page-limit'))}
           id={formInput.id}
           mimeTypes={this.getArrayFromJsonString(getFormInputAttribute(formInput, 'data-mime-types'))}
           onCancel={this.boundOnModalClose}

@@ -11,28 +11,68 @@
 
 namespace LIN3S\CMSKernel\Infrastructure\BenGorFileBundle\HttpAction;
 
-use BenGorFile\File\Application\Query\AllFilesHandler;
-use BenGorFile\File\Application\Query\AllFilesQuery;
+use BenGorFile\File\Application\Query\CountFilesHandler;
+use BenGorFile\File\Application\Query\CountFilesQuery;
+use BenGorFile\File\Application\Query\FilterFilesHandler;
+use BenGorFile\File\Application\Query\FilterFilesQuery;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
  * @author Beñat Espiña <benatespina@gmail.com>
  */
 class AjaxFileGalleryAction
 {
-    private $allFilesHandler;
+    private $filterFilesHandler;
+    private $countFilesHandler;
+    private $urlGenerator;
 
-    public function __construct(AllFilesHandler $allFilesHandler)
-    {
-        $this->allFilesHandler = $allFilesHandler;
+    public function __construct(
+        FilterFilesHandler $filterFilesHandler,
+        CountFilesHandler $countFilesHandler,
+        UrlGeneratorInterface $urlGenerator
+    ) {
+        $this->filterFilesHandler = $filterFilesHandler;
+        $this->countFilesHandler = $countFilesHandler;
+        $this->urlGenerator = $urlGenerator;
     }
 
-    public function __invoke()
+    public function __invoke(Request $request, $fileType)
     {
-        $files = $this->allFilesHandler->__invoke(
-            new AllFilesQuery()
+        $query = $request->query->get('q');
+        $limit = $request->query->get('limit');
+        $offset = $request->query->get('page');
+
+        $files = $this->filterFilesHandler->__invoke(
+            new FilterFilesQuery(
+                $query,
+                $offset,
+                $limit
+            )
         );
 
-        return new JsonResponse($files);
+        foreach ($files as $key => $file) {
+            $files[$key]['preview_path'] = $this->previewPath($file['file_name'], $fileType);
+        }
+
+        $filesTotalCount = $this->countFilesHandler->__invoke(
+            new CountFilesQuery(null)
+        );
+
+        return new JsonResponse([
+            'files'             => $files,
+            'files_total_count' => $filesTotalCount,
+        ]);
+    }
+
+    private function previewPath($filename, $fileType)
+    {
+        return $this->urlGenerator->generate(
+            'bengor_file_' . $fileType . '_download',
+            [
+                'filename' => $filename,
+            ]
+        );
     }
 }
