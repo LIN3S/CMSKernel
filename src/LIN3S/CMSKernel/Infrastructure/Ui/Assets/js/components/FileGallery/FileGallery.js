@@ -10,7 +10,7 @@
  */
 
 import {React} from './../../bundle.dependencies';
-import {FilePreview, SearchBox} from './../../bundle.components';
+import {FilePreview, Loader, SearchBox} from './../../bundle.components';
 import {FileModel} from './../../bundle.model';
 import {makeCancelable, buildQuery} from './../../bundle.util';
 
@@ -40,6 +40,7 @@ class FileGallery extends React.Component {
     this.state = {
       files: [],
       filesTotalCount: 0,
+      loading: false,
       page: 1,
       queryString: '',
       selectedFile: undefined
@@ -88,6 +89,10 @@ class FileGallery extends React.Component {
   }
 
   fetchFiles() {
+    this.setState({
+      loading: true
+    });
+
     // fetch files from server
     const {endpoint, pageLimit} = this.props;
     const {page, queryString} = this.state;
@@ -120,7 +125,8 @@ class FileGallery extends React.Component {
 
       this.setState({
         files: jsonFiles.map(jsonFile => FileModel.fromJson(jsonFile)),
-        filesTotalCount: totalFilesCount
+        filesTotalCount: totalFilesCount,
+        loading: false
       });
     });
   }
@@ -155,7 +161,7 @@ class FileGallery extends React.Component {
   }
 
   render() {
-    const {files, filesTotalCount, page, selectedFile} = this.state;
+    const {files, filesTotalCount, loading, page, selectedFile} = this.state;
     const {pageLimit} = this.props;
 
     return <div className="file-gallery">
@@ -164,7 +170,11 @@ class FileGallery extends React.Component {
           <SearchBox onQueryUpdated={this.boundOnSearchQueryUpdated}/>
         </div>
 
-        {files.map((file) =>
+        {loading &&
+        <Loader/>}
+
+        {!loading &&
+        files.map((file) =>
           <div
             className="file-gallery__file-wrapper"
             key={`file-${file.id}`}>

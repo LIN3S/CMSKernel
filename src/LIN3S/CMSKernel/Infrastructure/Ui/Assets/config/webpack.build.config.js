@@ -49,6 +49,7 @@ const
       './components/Alert/Alert':                         'Alert',
       './components/DatePicker/DatePicker':               'DatePicker',
       './components/SearchBox/SearchBox':                 'SearchBox',
+      './components/Loader/Loader':                       'Loader',
       './components/Icon/IconAdd':                        'IconAdd',
       './components/Icon/IconRemove':                     'IconRemove',
       './components/Icon/IconUpload':                     'IconUpload',
