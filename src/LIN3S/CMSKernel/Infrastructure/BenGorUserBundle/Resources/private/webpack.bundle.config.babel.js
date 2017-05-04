@@ -26,7 +26,7 @@ export default {
   output: {
     path: `${outputPath}/js`,
     publicPath: '/',
-    filename: '/bundle.min.js',
+    filename: 'bundle.min.js',
     libraryTarget: 'umd'
   },
   module: {

@@ -9,10 +9,12 @@
  * @author Mikel Tuesta <mikeltuesta@gmail.com>
  */
 
-import FileModel from './model/FileModel';
-import MenuTreeItemModel from './model/MenuTreeItemModel';
+import NodeAddedObserver from './observer/NodeAddedObserver';
+import NodeAddedEvent from './observer/NodeAddedEvent';
+import NodeAddedEventSubscriber from './observer/NodeAddedEventSubscriber';
 
 export {
-  FileModel,
-  MenuTreeItemModel
+  NodeAddedObserver,
+  NodeAddedEvent,
+  NodeAddedEventSubscriber
 }

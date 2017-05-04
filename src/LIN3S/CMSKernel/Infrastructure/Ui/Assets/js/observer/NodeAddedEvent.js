@@ -11,5 +11,22 @@
 
 import {lin3sEventBus} from './../bundle.dependencies';
 
-lin3sEventBus.listenDomReady();
-lin3sEventBus.listenDomLoaded();
+const Event = lin3sEventBus.Event;
+
+class NodeAddedEvent extends Event {
+
+  static NAME = 'NODE_ADDED';
+
+  node;
+
+  constructor(node, domSelectorClassName) {
+    super(NodeAddedEvent.NAME);
+
+    this.node = node;
+    this.domSelectorClassName = domSelectorClassName;
+  }
+
+
+}
+
+export default NodeAddedEvent;

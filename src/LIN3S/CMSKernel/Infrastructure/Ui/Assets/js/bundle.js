@@ -14,3 +14,4 @@ export * from './bundle.model';
 export * from './bundle.util';
 export * from './bundle.dependencies';
 export * from './bundle.components';
+export * from './bundle.observer';
