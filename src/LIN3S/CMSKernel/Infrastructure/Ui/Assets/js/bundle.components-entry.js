@@ -9,10 +9,4 @@
  * @author Mikel Tuesta <mikeltuesta@gmail.com>
  */
 
-export * from './bundle.styles';
-export * from './bundle.model';
-export * from './bundle.util';
-export * from './bundle.dependencies';
-export * from './bundle.components';
-
-import './bundle.components-entry';
+import './components/File/init';
