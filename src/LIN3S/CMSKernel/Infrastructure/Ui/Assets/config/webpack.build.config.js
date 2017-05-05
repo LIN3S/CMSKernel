@@ -74,11 +74,7 @@ const
       './model/model/FileModel':                          'FileModel',
       './model/model/MenuTreeItemModel':                  'MenuTreeItemModel',
 
-      './util/Util':                                      'Util',
-
-      './observer/NodeAddedObserver':                     'NodeAddedObserver',
-      './observer/NodeAddedEvent':                        'NodeAddedEvent',
-      './observer/NodeAddedEventSubscriber':              'NodeAddedEventSubscriber'
+      './util/Util':                                      'Util'
     }
   };
 

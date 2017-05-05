@@ -11,11 +11,11 @@
 
 import {ReactDOM, lin3sEventBus} from './../../bundle.dependencies';
 import {File} from './../../bundle.components';
-import {NodeAddedObserver} from '../../bundle.observer';
+
+const NodeAddedObserver = lin3sEventBus.NodeAddedObserver;
 
 const
   mountFileComponentOnNode = (fileNode) => {
-    console.log(fileNode);
     const
       fileReactWrapper = fileNode.querySelector('.file__react-wrapper'),
       fileFormInput = fileNode.querySelector('.file__form-input');
@@ -31,7 +31,9 @@ const
       files = document.querySelectorAll(`.${fileSelectorClassName}`);
     files.forEach(file => mountFileComponentOnNode(file));
 
-    NodeAddedObserver.subscribe(fileSelectorClassName, nodeAddedEvent => mountFileComponentOnNode(nodeAddedEvent.node));
+    NodeAddedObserver.subscribe(fileSelectorClassName, nodeAddedEvent =>
+      mountFileComponentOnNode(nodeAddedEvent.node)
+    );
   };
 
 lin3sEventBus.onDomReady(onDomReady);
