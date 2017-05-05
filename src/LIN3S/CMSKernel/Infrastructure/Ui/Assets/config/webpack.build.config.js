@@ -57,7 +57,7 @@ const
       './components/Icon/IconTextEditor':                 'IconTextEditor',
       './components/Icon/IconRawEditor':                  'IconRawEditor',
       './components/Icon/IconMove':                       'IconMove',
-      './components/Icon/IconSearch':                      'IconSearch',
+      './components/Icon/IconSearch':                     'IconSearch',
       './components/Icon/IconFileType':                   'IconFileType',
       './components/Icon/FileType/IconFileTypeAudio':     'IconFileTypeAudio',
       './components/Icon/FileType/IconFileTypeImage':     'IconFileTypeImage',
