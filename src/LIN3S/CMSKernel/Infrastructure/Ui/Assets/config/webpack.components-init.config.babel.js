@@ -27,7 +27,7 @@ export default {
   output: {
     path: `${outputPath}/js`,
     publicPath: '/',
-    filename: '/components/[name].min.js'
+    filename: 'components/[name].min.js'
   },
   module: {
     rules: [
