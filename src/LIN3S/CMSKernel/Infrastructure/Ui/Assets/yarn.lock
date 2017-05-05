@@ -2761,9 +2761,9 @@ lin3s-css-grid@^0.3.0:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/lin3s-css-grid/-/lin3s-css-grid-0.3.0.tgz#be4f60bc1ac5a829f117646c73562eab01dc293f"
 
-lin3s-event-bus@^0.5.0:
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/lin3s-event-bus/-/lin3s-event-bus-0.5.0.tgz#bb53f6860a79e8a4d7b3e9490a4d7d2bf67a5af9"
+lin3s-event-bus@^0.5.1:
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/lin3s-event-bus/-/lin3s-event-bus-0.5.1.tgz#baa0553eec6ed9d9d14afeb6d178bb1efe8070ac"
   dependencies:
     lodash.debounce "^4.0.8"
 
