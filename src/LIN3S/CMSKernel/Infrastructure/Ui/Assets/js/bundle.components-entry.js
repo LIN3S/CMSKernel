@@ -9,4 +9,8 @@
  * @author Mikel Tuesta <mikeltuesta@gmail.com>
  */
 
+import './components/TemplateSelector/init';
+import './components/DatePicker/init';
 import './components/File/init';
+import './components/MenuTree/init';
+import './components/Wysiwyg/init';

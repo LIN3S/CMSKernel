@@ -12,24 +12,28 @@
 import {ReactDOM, lin3sEventBus} from './../../bundle.dependencies';
 import {Wysiwyg} from './../../bundle.components';
 
-const init = () => {
+const NodeAddedObserver = lin3sEventBus.NodeAddedObserver;
 
-  const wysiwygs = document.querySelectorAll('.wysiwyg');
-
-  if (wysiwygs.length === 0) {
-    return;
-  }
-
-  wysiwygs.forEach((wysiwyg) => {
+const
+  mountWysiwygComponentOnNode = (wysiwygNode) => {
     const
-      wysiwygReactWrapper = wysiwyg.querySelector('.wysiwyg__react-wrapper'),
-      wysiwygFormInput = wysiwyg.querySelector('.wysiwyg__form-input');
+      wysiwygReactWrapper = wysiwygNode.querySelector('.wysiwyg__react-wrapper'),
+      wysiwygFormInput = wysiwygNode.querySelector('.wysiwyg__form-input');
 
     ReactDOM.render(
       <Wysiwyg formInput={wysiwygFormInput}/>,
       wysiwygReactWrapper
     );
-  });
-};
+  },
+  onDomReady = () => {
+    const
+      wysiwygSelectorClassName = 'wysiwyg',
+      wysiwygs = document.querySelectorAll(`.${wysiwygSelectorClassName}`);
+    wysiwygs.forEach(wysiwyg => mountWysiwygComponentOnNode(wysiwyg));
 
-lin3sEventBus.onDomReady(init);
+    NodeAddedObserver.subscribe(wysiwygSelectorClassName, nodeAddedEvent =>
+      mountWysiwygComponentOnNode(nodeAddedEvent.node)
+    );
+  };
+
+lin3sEventBus.onDomReady(onDomReady);

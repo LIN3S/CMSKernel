@@ -12,24 +12,28 @@
 import {ReactDOM, lin3sEventBus} from './../../bundle.dependencies';
 import {DatePicker} from './../../bundle.components';
 
-const init = () => {
+const NodeAddedObserver = lin3sEventBus.NodeAddedObserver;
 
-  const datePickers = document.querySelectorAll('.datepicker');
-
-  if (datePickers.length === 0) {
-    return;
-  }
-
-  datePickers.forEach((datePicker) => {
+const
+  mountDatePickerComponentOnNode = (datePickerNode) => {
     const
-      datePickerReactWrapper = datePicker.querySelector('.datepicker__react-wrapper'),
-      datePickerFormInput = datePicker.querySelector('.datepicker__form-input');
+      datePickerReactWrapper = datePickerNode.querySelector('.datepicker__react-wrapper'),
+      datePickerFormInput = datePickerNode.querySelector('.datepicker__form-input');
 
     ReactDOM.render(
       <DatePicker formInput={datePickerFormInput}/>,
       datePickerReactWrapper
     );
-  });
-};
+  },
+  onDomReady = () => {
+    const
+      datePickerSelectorClassName = 'datepicker',
+      datePickers = document.querySelectorAll(`.${datePickerSelectorClassName}`);
+    datePickers.forEach(datePicker => mountDatePickerComponentOnNode(datePicker));
 
-lin3sEventBus.onDomReady(init);
+    NodeAddedObserver.subscribe(datePickerSelectorClassName, nodeAddedEvent =>
+      mountDatePickerComponentOnNode(nodeAddedEvent.node)
+    );
+  };
+
+lin3sEventBus.onDomReady(onDomReady);

@@ -12,16 +12,21 @@
 import {lin3sEventBus} from './../../bundle.dependencies';
 import {TemplateSelector} from './../../bundle.components';
 
-const init = () => {
-  const templateSelectors = document.querySelectorAll('.template-selector');
+const NodeAddedObserver = lin3sEventBus.NodeAddedObserver;
 
-  if (templateSelectors.length === 0) {
-    return;
-  }
+const
+  initTemplateSelectorComponentOnNode = (templateSelectorNode) => {
+    new TemplateSelector(templateSelectorNode);
+  },
+  onDomReady = () => {
+    const
+      templateSelectorSelectorClassName = 'template-selector',
+      templateSelectors = document.querySelectorAll(`.${templateSelectorSelectorClassName}`);
+    templateSelectors.forEach(templateSelector => initTemplateSelectorComponentOnNode(templateSelector));
 
-  templateSelectors.forEach((templateSelector) => {
-      new TemplateSelector(templateSelector);
-  });
-};
+    NodeAddedObserver.subscribe(templateSelectorSelectorClassName, nodeAddedEvent =>
+      initTemplateSelectorComponentOnNode(nodeAddedEvent.node)
+    );
+  };
 
-lin3sEventBus.onDomReady(init);
+lin3sEventBus.onDomReady(onDomReady);

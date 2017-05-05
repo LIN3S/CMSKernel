@@ -12,24 +12,28 @@
 import {ReactDOM, lin3sEventBus} from './../../bundle.dependencies';
 import {MenuTree} from './../../bundle.components';
 
-const init = () => {
+const NodeAddedObserver = lin3sEventBus.NodeAddedObserver;
 
-  const menuTrees = document.querySelectorAll('.menu-tree');
-
-  if (menuTrees.length === 0) {
-    return;
-  }
-
-  menuTrees.forEach((menuTree) => {
+const
+  mountMenuTreeComponentOnNode = (menuTreeNode) => {
     const
-      menuTreeReactWrapper = menuTree.querySelector('.menu-tree__react-wrapper'),
-      menuTreeFormInput = menuTree.querySelector('.menu-tree__form-input');
+      menuTreeReactWrapper = menuTreeNode.querySelector('.menu-tree__react-wrapper'),
+      menuTreeFormInput = menuTreeNode.querySelector('.menu-tree__form-input');
 
     ReactDOM.render(
       <MenuTree formInput={menuTreeFormInput}/>,
       menuTreeReactWrapper
     );
-  });
-};
+  },
+  onDomReady = () => {
+    const
+      menuTreeSelectorClassName = 'menu-tree',
+      menuTrees = document.querySelectorAll(`.${menuTreeSelectorClassName}`);
+    menuTrees.forEach(menuTree => mountMenuTreeComponentOnNode(menuTree));
 
-lin3sEventBus.onDomReady(init);
+    NodeAddedObserver.subscribe(menuTreeSelectorClassName, nodeAddedEvent =>
+      mountMenuTreeComponentOnNode(nodeAddedEvent.node)
+    );
+  };
+
+lin3sEventBus.onDomReady(onDomReady);
