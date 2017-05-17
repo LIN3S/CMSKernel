@@ -6,6 +6,13 @@
 # file that was distributed with this source code.
 
 services:
+    twig.extension.intl:
+        class: Twig_Extensions_Extension_Intl
+        public: false
+        tags:
+            -
+                name: twig.extension
+
     lin3s.cms_kernel.twig.menu_renderer:
         class: LIN3S\CMSKernel\Infrastructure\Symfony\Bundle\Twig\MenuRendererFunction
         public: false
