@@ -3,7 +3,7 @@
 {% set url = 'bengor_user_' ~ cms_kernel_admin_bridge.user_type ~ '_logout' %}
 
 <div class="layout-header">
-    {% if cms_kernel_admin_bridge.locales is not empty and cms_kernel_admin_bridge.locales[0] != null %}
+    {% if cms_kernel_admin_bridge.locales|length > 1 %}
         <div class="layout-header__language-switcher">
             {% include '@CmsKernelAdminBridge/components/language_switcher.html.twig' %}
         </div>
