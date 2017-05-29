@@ -21,6 +21,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Translation\TranslatorInterface;
 
 /**
  * @author Beñat Espiña <benatespina@gmail.com>
@@ -31,17 +32,20 @@ final class TranslateActionType implements ActionType
     private $flashBag;
     private $formFactory;
     private $twig;
+    private $translator;
 
     public function __construct(
         FormFactoryInterface $formFactory,
         CommandBus $commandBus,
         \Twig_Environment $twig,
-        FlashBagInterface $flashBag
+        FlashBagInterface $flashBag,
+        TranslatorInterface $translator
     ) {
         $this->commandBus = $commandBus;
         $this->flashBag = $flashBag;
         $this->formFactory = $formFactory;
         $this->twig = $twig;
+        $this->translator = $translator;
     }
 
     public function execute($entity, Entity $config, Request $request, $options = null)
@@ -142,7 +146,8 @@ final class TranslateActionType implements ActionType
         $exceptionClassName = get_class($exception);
 
         if (array_key_exists($exceptionClassName, $exceptions)) {
-            $this->flashBag->add('lin3s_admin_error', $exceptions[$exceptionClassName]);
+            $error = $this->translator->trans($exceptions[$exceptionClassName]);
+            $this->flashBag->add('lin3s_admin_error', $error);
         }
     }
 
