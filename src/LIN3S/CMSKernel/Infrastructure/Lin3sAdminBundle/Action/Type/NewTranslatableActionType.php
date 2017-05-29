@@ -22,6 +22,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Translation\TranslatorInterface;
 
 /**
  * @author Beñat Espiña <benatespina@gmail.com>
@@ -33,19 +34,22 @@ class NewTranslatableActionType implements ActionType
     private $formFactory;
     private $commandBus;
     private $urlGenerator;
+    private $translator;
 
     public function __construct(
         FormFactoryInterface $formFactory,
         CommandBus $commandBus,
         \Twig_Environment $twig,
         FlashBagInterface $flashBag,
-        UrlGeneratorInterface $urlGenerator
+        UrlGeneratorInterface $urlGenerator,
+        TranslatorInterface $translator
     ) {
         $this->twig = $twig;
         $this->flashBag = $flashBag;
         $this->formFactory = $formFactory;
         $this->commandBus = $commandBus;
         $this->urlGenerator = $urlGenerator;
+        $this->translator = $translator;
     }
 
     public function execute($entity, Entity $config, Request $request, $options = null)
@@ -137,7 +141,8 @@ class NewTranslatableActionType implements ActionType
         $exceptionClassName = get_class($exception);
 
         if (array_key_exists($exceptionClassName, $exceptions)) {
-            $this->flashBag->add('lin3s_admin_error', $exceptions[$exceptionClassName]);
+            $error = $this->translator->trans($exceptions[$exceptionClassName]);
+            $this->flashBag->add('lin3s_admin_error', $error);
         }
     }
 
