@@ -37,6 +37,7 @@ services:
             - "@twig"
             - "@session.flash_bag"
             - "@router"
+            - "@translator"
         tags:
             - { name: "lin3s_admin.action", alias: new_translatable }
 
@@ -47,6 +48,7 @@ services:
             - "@lin3s.cms_kernel.application.command_bus"
             - "@twig"
             - "@session.flash_bag"
+            - "@translator"
         tags:
             - { name: "lin3s_admin.action", alias: translate }
 
