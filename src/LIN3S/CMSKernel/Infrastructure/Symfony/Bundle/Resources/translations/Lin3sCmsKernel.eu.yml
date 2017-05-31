@@ -17,5 +17,7 @@ lin3s_cms_kernel:
                 robots_yes: Bai
             template_selector:
                 name: Izena
+            slug:
+                slug: Slug-a
             menu:
                 menu: Menua

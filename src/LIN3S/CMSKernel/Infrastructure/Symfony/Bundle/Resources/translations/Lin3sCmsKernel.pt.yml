@@ -17,6 +17,8 @@ lin3s_cms_kernel:
                 robots_yes: Sim
             template_selector:
                 name: Nome
+            slug:
+                slug: Slug
             menu:
                 menu: Menu
                 error:

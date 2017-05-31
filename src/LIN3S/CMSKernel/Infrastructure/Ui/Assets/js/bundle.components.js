@@ -24,6 +24,7 @@ import EditableLabel from './components/EditableLabel/EditableLabel';
 import Alert from './components/Alert/Alert';
 import DatePicker from './components/DatePicker/DatePicker';
 import SearchBox from './components/SearchBox/SearchBox';
+import Slug from './components/Slug/Slug';
 import Loader from './components/Loader/Loader';
 import IconAdd from './components/Icon/IconAdd';
 import IconRemove from './components/Icon/IconRemove';
@@ -63,6 +64,7 @@ export {
   DatePicker,
   SearchBox,
   Loader,
+  Slug,
   IconAdd,
   IconRemove,
   IconUpload,

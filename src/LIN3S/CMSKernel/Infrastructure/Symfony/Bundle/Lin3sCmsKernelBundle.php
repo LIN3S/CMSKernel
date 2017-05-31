@@ -72,11 +72,12 @@ class Lin3sCmsKernelBundle extends Bundle
                 $this->twigBasePath(),
             ],
             'form_themes' => [
+                'Form/date_picker.html.twig',
                 'Form/file.html.twig',
+                'Form/menu_tree.html.twig',
+                'Form/slug.html.twig',
                 'Form/template_selector.html.twig',
                 'Form/wysiwyg.html.twig',
-                'Form/menu_tree.html.twig',
-                'Form/date_picker.html.twig',
             ],
         ]);
     }

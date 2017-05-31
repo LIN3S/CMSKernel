@@ -1,0 +1,47 @@
+{#
+    This file is part of the CMS Kernel package.
+
+    Copyright (c) 2016-present LIN3S <info@lin3s.com>
+
+    For the full copyright and license information, please view the LICENSE
+    file that was distributed with this source code.
+
+    @author Beñat Espiña <benatespina@gmail.com>
+#}
+
+{% block icon_edit %}
+    <svg class="icon stroked-icon" viewBox="0 0 64 64">
+        <line class="icon__glyph icon__glyph--primary" x1="44" y1="10" x2="54" y2="20"></line>
+        <polygon class="icon__glyph icon__glyph--secondary" points="30,44 17,47 20,34 50,4 60,14"></polygon>
+        <polyline class="icon__glyph icon__glyph--primary" points=" 26,12 2,12 2,62 52,62 52,38"></polyline>
+    </svg>
+{% endblock %}
+
+{% block icon_close %}
+    <svg class="icon stroked-icon" viewBox="0 0 64 64">
+        <line class="icon__glyph icon__glyph--primary" x1="44" y1="20" x2="20" y2="44"></line>
+        <line class="icon__glyph icon__glyph--primary" x1="44" y1="44" x2="20" y2="20"></line>
+        <rect x="2" y="2" class="icon__glyph icon__glyph--secondary" width="60" height="60"></rect>
+    </svg>
+{% endblock %}
+
+{%- block lin3s_cms_slug_widget -%}
+    {% set data_from_id = form.parent.vars.id ~ '_' ~ form.vars.from %}
+
+    <div class="form__group slug">
+        <div class="slug__element">
+            {{- form_widget(form.slug, {
+                attr: {
+                    'class': 'slug__input slug__input--disabled',
+                    'data-from-id': data_from_id,
+                    'disabled': 'disabled'
+                }
+            }) -}}
+            <div class="js-slug-click-action">
+                <div class="slug__action slug__action--edit slug__action--visible">{{ block('icon_edit') }}</div>
+                <div class="slug__action slug__action--close">{{ block('icon_close') }}</div>
+            </div>
+        </div>
+        {{- form_label(form.slug) }}
+    </div>
+{%- endblock lin3s_cms_slug_widget -%}

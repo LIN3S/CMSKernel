@@ -1,0 +1,38 @@
+// This file is part of the CMS Kernel package.
+//
+// Copyright (c) 2016-present LIN3S <info@lin3s.com>
+//
+// For the full copyright and license information, please view the LICENSE
+// file that was distributed with this source code.
+//
+// @author Beñat Espiña <benatespina@gmail.com>
+
+@import '../variables/colors';
+
+$slug-element-disable-color: $color-alto;
+
+.slug__element {
+  position: relative;
+  order: 2;
+}
+
+.slug__input {
+  width: 100%;
+}
+
+.slug__input--disabled {
+  background-color: $slug-element-disable-color;
+}
+
+.slug__action {
+  cursor: pointer;
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.slug__action--visible {
+  display: flex;
+}
