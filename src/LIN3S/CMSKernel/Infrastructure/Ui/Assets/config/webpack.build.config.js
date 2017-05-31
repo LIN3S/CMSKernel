@@ -47,6 +47,7 @@ const
       './components/MenuTree/MenuTree':                   'MenuTree',
       './components/EditableLabel/EditableLabel':         'EditableLabel',
       './components/Alert/Alert':                         'Alert',
+      './components/Slug/Slug':                           'Slug',
       './components/DatePicker/DatePicker':               'DatePicker',
       './components/SearchBox/SearchBox':                 'SearchBox',
       './components/Loader/Loader':                       'Loader',
