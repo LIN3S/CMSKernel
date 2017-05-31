@@ -17,6 +17,8 @@ lin3s_cms_kernel:
                 robots_yes: Sí
             template_selector:
                 name: Nombre
+            slug:
+                slug: Slug
             menu:
                 menu: Menú
                 error:

@@ -14,6 +14,7 @@ import './../scss/components/_button.scss';
 import './../scss/components/_tabbed.scss';
 import './../scss/components/_full-screen-modal.scss';
 import './../scss/components/_file-selector.scss';
+import './../scss/components/_slug.scss';
 import './../scss/components/_template-selector.scss';
 import './../scss/components/_wysiwyg.scss';
 import './../scss/components/_file-gallery.scss';

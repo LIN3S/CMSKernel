@@ -39,3 +39,23 @@ $icon-side--medium: 30px;
   height: $icon-side--medium;
   width: $icon-side--medium;
 }
+
+
+// This is a hack before upgrading the whole iconography
+.stroked-icon {
+  $icon-color-primary: $color-silver-chalice;
+  $icon-stroke-miterlimit: 10 !default;
+  $icon-stroke-width: 1.5;
+  $icon-vector-effect: non-scaling-stroke !default;
+
+  &.icon {
+    fill: none;
+    stroke: $icon-color-primary;
+    stroke-miterlimit: $icon-stroke-miterlimit;
+    stroke-width: $icon-stroke-width;
+  }
+
+  .icon__glyph {
+    vector-effect: $icon-vector-effect;
+  }
+}
