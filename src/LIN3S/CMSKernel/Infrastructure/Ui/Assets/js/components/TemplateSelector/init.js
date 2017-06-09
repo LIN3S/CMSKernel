@@ -25,7 +25,7 @@ const
     templateSelectors.forEach(templateSelector => initTemplateSelectorComponentOnNode(templateSelector));
 
     NodeAddedObserver.subscribe(templateSelectorSelectorClassName, nodeAddedEvent =>
-      initTemplateSelectorComponentOnNode(nodeAddedEvent.node)
+      nodeAddedEvent.nodes.forEach(node => initTemplateSelectorComponentOnNode(node))
     );
   };
 

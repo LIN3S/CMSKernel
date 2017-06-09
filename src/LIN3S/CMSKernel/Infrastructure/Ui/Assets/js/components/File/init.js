@@ -32,7 +32,7 @@ const
     files.forEach(file => mountFileComponentOnNode(file));
 
     NodeAddedObserver.subscribe(fileSelectorClassName, nodeAddedEvent =>
-      mountFileComponentOnNode(nodeAddedEvent.node)
+      nodeAddedEvent.nodes.forEach(node => mountFileComponentOnNode(node))
     );
   };
 

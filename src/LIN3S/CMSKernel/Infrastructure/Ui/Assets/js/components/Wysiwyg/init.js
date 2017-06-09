@@ -32,7 +32,7 @@ const
     wysiwygs.forEach(wysiwyg => mountWysiwygComponentOnNode(wysiwyg));
 
     NodeAddedObserver.subscribe(wysiwygSelectorClassName, nodeAddedEvent =>
-      mountWysiwygComponentOnNode(nodeAddedEvent.node)
+      nodeAddedEvent.nodes.forEach(node => mountWysiwygComponentOnNode(node))
     );
   };
 

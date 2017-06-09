@@ -25,7 +25,7 @@ const
     slugs.forEach(slug => initSlugComponentOnNode(slug));
 
     NodeAddedObserver.subscribe(slugSelectorClassName, nodeAddedEvent =>
-      initSlugComponentOnNode(nodeAddedEvent.node)
+      nodeAddedEvent.nodes.forEach(node => initSlugComponentOnNode(node))
     );
   };
 
