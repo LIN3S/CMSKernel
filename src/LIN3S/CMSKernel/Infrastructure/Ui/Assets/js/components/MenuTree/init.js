@@ -32,7 +32,7 @@ const
     menuTrees.forEach(menuTree => mountMenuTreeComponentOnNode(menuTree));
 
     NodeAddedObserver.subscribe(menuTreeSelectorClassName, nodeAddedEvent =>
-      mountMenuTreeComponentOnNode(nodeAddedEvent.node)
+      nodeAddedEvent.nodes.forEach(node => mountMenuTreeComponentOnNode(node))
     );
   };
 

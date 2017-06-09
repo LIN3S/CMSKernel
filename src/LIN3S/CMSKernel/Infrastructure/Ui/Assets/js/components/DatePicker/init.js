@@ -32,7 +32,7 @@ const
     datePickers.forEach(datePicker => mountDatePickerComponentOnNode(datePicker));
 
     NodeAddedObserver.subscribe(datePickerSelectorClassName, nodeAddedEvent =>
-      mountDatePickerComponentOnNode(nodeAddedEvent.node)
+      nodeAddedEvent.nodes.forEach(node => mountDatePickerComponentOnNode(node))
     );
   };
 
