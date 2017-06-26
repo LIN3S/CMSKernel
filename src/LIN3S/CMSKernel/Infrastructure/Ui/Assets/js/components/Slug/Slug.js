@@ -51,20 +51,17 @@ class Slug {
 
   toggleDisabled() {
     if (this.edit.classList.contains('slug__action--visible')) {
-      this.input.setAttribute('disabled', true);
       this.input.classList.add('slug__input--disabled');
 
       return;
     }
     this.input.classList.remove('slug__input--disabled');
-    this.input.removeAttribute('disabled');
   }
 
   makeDisabled() {
     this.edit.classList.add('slug__action--visible');
     this.close.classList.remove('slug__action--visible');
 
-    this.input.setAttribute('disabled', true);
     this.input.classList.add('slug__input--disabled');
   }
 }
