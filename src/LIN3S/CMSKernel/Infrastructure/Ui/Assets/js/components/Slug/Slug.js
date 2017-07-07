@@ -19,8 +19,11 @@ class Slug {
     const dataFromId = this.input.getAttribute('data-from-id');
     this.from = document.getElementById(dataFromId);
 
-    this.input.addEventListener('focusout', this.onFocusOut.bind(this));
-    this.action.addEventListener('click', this.onClick.bind(this));
+    this.disableSlugInput();
+
+    this.input.addEventListener('focusout', this.handleInputFocusOut.bind(this));
+    this.from.addEventListener('focusout', this.handleInputFocusOut.bind(this));
+    this.action.addEventListener('click', this.handleActionClicked.bind(this));
   }
 
   static slugify(string) {
@@ -30,39 +33,34 @@ class Slug {
       .replace(/^-+|-+$/g, '');
   }
 
-  onClick() {
-    this.edit.classList.toggle('slug__action--visible');
-    this.close.classList.toggle('slug__action--visible');
-
-    this.slug();
-    this.toggleDisabled();
+  handleActionClicked() {
+    this.fillSlugValue();
+    this.enableSlugInput();
   }
 
-  onFocusOut() {
-    this.slug();
-    this.makeDisabled();
+  handleInputFocusOut() {
+    this.fillSlugValue();
+    this.disableSlugInput();
   }
 
-  slug() {
+  fillSlugValue() {
     this.input.value = this.input.value
       ? this.constructor.slugify(this.input.value)
       : this.constructor.slugify(this.from.value);
   }
 
-  toggleDisabled() {
-    if (this.edit.classList.contains('slug__action--visible')) {
-      this.input.classList.add('slug__input--disabled');
-
-      return;
-    }
+  enableSlugInput() {
+    this.edit.classList.remove('slug__action--visible');
+    this.close.classList.add('slug__action--visible');
     this.input.classList.remove('slug__input--disabled');
+    this.input.disabled = true;
   }
 
-  makeDisabled() {
+  disableSlugInput() {
     this.edit.classList.add('slug__action--visible');
     this.close.classList.remove('slug__action--visible');
-
     this.input.classList.add('slug__input--disabled');
+    this.input.disabled = true;
   }
 }
 
