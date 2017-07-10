@@ -32,10 +32,10 @@
         <div class="slug__element">
             {{- form_widget(form.slug, {
                 attr: {
-                    'class': 'slug__input slug__input--disabled',
                     'data-from-id': data_from_id
                 }
             }) -}}
+            <input type="text" class="form__input slug__input slug__input--disabled" disabled/>
             <div class="js-slug-click-action">
                 <div class="slug__action slug__action--edit slug__action--visible">{{ block('icon_edit') }}</div>
                 <div class="slug__action slug__action--close">{{ block('icon_close') }}</div>

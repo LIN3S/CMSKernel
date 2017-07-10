@@ -7,11 +7,13 @@
  * file that was distributed with this source code.
  *
  * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Mikel Tuesta <mikeltuesta@gmail.com>
  */
 
 class Slug {
   constructor(rootNode) {
-    this.input = rootNode.querySelector('.slug__input');
+    this.input = rootNode.querySelector('input[type=hidden]');
+    this.mirrorInput = rootNode.querySelector('.slug__input');
     this.action = rootNode.querySelector('.js-slug-click-action');
     this.edit = this.action.querySelector('.slug__action--edit');
     this.close = this.action.querySelector('.slug__action--close');
@@ -19,11 +21,8 @@ class Slug {
     const dataFromId = this.input.getAttribute('data-from-id');
     this.from = document.getElementById(dataFromId);
 
-    this.disableSlugInput();
-
-    this.input.addEventListener('focusout', this.handleInputFocusOut.bind(this));
-    this.from.addEventListener('focusout', this.handleInputFocusOut.bind(this));
-    this.action.addEventListener('click', this.handleActionClicked.bind(this));
+    this.bindListeners();
+    this.fillSlugValue();
   }
 
   static slugify(string) {
@@ -33,9 +32,21 @@ class Slug {
       .replace(/^-+|-+$/g, '');
   }
 
+  bindListeners() {
+    this.mirrorInput.addEventListener('focusout', this.handleInputFocusOut.bind(this));
+    this.from.addEventListener('focusout', this.handleInputFocusOut.bind(this));
+    this.action.addEventListener('click', this.handleActionClicked.bind(this));
+  }
+
   handleActionClicked() {
     this.fillSlugValue();
-    this.enableSlugInput();
+
+    if (this.mirrorInput.disabled) {
+      this.enableSlugInput();
+      this.mirrorInput.focus();
+    } else {
+      this.disableSlugInput();
+    }
   }
 
   handleInputFocusOut() {
@@ -44,23 +55,27 @@ class Slug {
   }
 
   fillSlugValue() {
-    this.input.value = this.input.value
-      ? this.constructor.slugify(this.input.value)
+    this.mirrorInput.value = this.mirrorInput.value
+      ? this.constructor.slugify(this.mirrorInput.value)
       : this.constructor.slugify(this.from.value);
+
+    this.input.value = this.mirrorInput.value;
   }
 
   enableSlugInput() {
     this.edit.classList.remove('slug__action--visible');
     this.close.classList.add('slug__action--visible');
-    this.input.classList.remove('slug__input--disabled');
-    this.input.disabled = true;
+
+    this.mirrorInput.classList.remove('slug__input--disabled');
+    this.mirrorInput.disabled = false;
   }
 
   disableSlugInput() {
     this.edit.classList.add('slug__action--visible');
     this.close.classList.remove('slug__action--visible');
-    this.input.classList.add('slug__input--disabled');
-    this.input.disabled = true;
+
+    this.mirrorInput.classList.add('slug__input--disabled');
+    this.mirrorInput.disabled = true;
   }
 }
 
