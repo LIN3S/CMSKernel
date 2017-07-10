@@ -75,8 +75,10 @@ $tabbed-content-min-height: 480px;
 .tab {
   display: flex;
   flex: 1;
+  max-width: 100%;
 
   > div { // uppy doesn't add a class to the first div
     flex: 1;
+    max-width: 100%;
   }
 }
