@@ -21,7 +21,9 @@ class WysiwygType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('wysiwyg', HiddenType::class)
+            ->add('wysiwyg', HiddenType::class, [
+                'attr' => array_key_exists('attr', $options) ? $options['attr'] : null,
+            ])
             ->addModelTransformer(new CallbackTransformer(
                 function ($value) {
                     return ['wysiwyg' => $value];

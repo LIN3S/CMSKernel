@@ -45,7 +45,9 @@ class FileType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('file', HiddenType::class)
+            ->add('file', HiddenType::class, [
+                'attr' => array_key_exists('attr', $options) ? $options['attr'] : null,
+            ])
             ->addModelTransformer(new CallbackTransformer(
                 function ($value) {
                     return ['file' => $value];
