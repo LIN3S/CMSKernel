@@ -15,7 +15,7 @@
         <field name="parentId" type="menu_item_id" column="parent_id" nullable="true"/>
 
         <many-to-one field="menuTranslation" target-entity="LIN3S\CMSKernel\Domain\Model\Menu\MenuTranslation"
-                     inversed-by="translations">
+                     inversed-by="tree">
             <join-column name="menu_translation_id" referenced-column-name="id"/>
         </many-to-one>
     </entity>
