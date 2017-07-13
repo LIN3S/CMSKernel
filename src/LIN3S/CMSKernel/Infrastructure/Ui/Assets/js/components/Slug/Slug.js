@@ -10,6 +10,8 @@
  * @author Mikel Tuesta <mikeltuesta@gmail.com>
  */
 
+import slugify from 'slugify';
+
 class Slug {
   constructor(rootNode) {
     this.input = rootNode.querySelector('input[type=hidden]');
@@ -23,13 +25,6 @@ class Slug {
 
     this.bindListeners();
     this.fillSlugValue();
-  }
-
-  static slugify(string) {
-    return string.toLowerCase()
-      .replace(/[^\w\s-]/g, '')
-      .replace(/[\s_-]+/g, '-')
-      .replace(/^-+|-+$/g, '');
   }
 
   bindListeners() {
@@ -56,8 +51,8 @@ class Slug {
 
   fillSlugValue() {
     this.mirrorInput.value = this.mirrorInput.value
-      ? this.constructor.slugify(this.mirrorInput.value)
-      : this.constructor.slugify(this.from.value);
+      ? slugify(this.mirrorInput.value)
+      : slugify(this.from.value);
 
     this.input.value = this.mirrorInput.value;
   }
