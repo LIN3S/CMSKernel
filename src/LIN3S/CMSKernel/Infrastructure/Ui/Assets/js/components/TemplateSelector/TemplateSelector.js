@@ -9,8 +9,14 @@
  * @author Beñat Espiña <benatespina@gmail.com>
  */
 
+import {excludeFormFieldsFromParsley} from 'lin3s-front-foundation';
+
 class TemplateSelector {
+  static INPUT_SELECTORS = '.template-selector__template:not(.template-selector__template--selected) input';
+
   constructor(rootNode) {
+    excludeFormFieldsFromParsley(TemplateSelector.INPUT_SELECTORS);
+
     this.templateName = rootNode.querySelector('.template-selector__name');
     this.templates = rootNode.querySelectorAll('.template-selector__template');
 
@@ -19,18 +25,22 @@ class TemplateSelector {
   }
 
   onChange() {
-    const
-      SELECTED_CLASS = 'template-selector__template--selected',
-      selectedValue = this.templateName.querySelector('select').value;
+    const SELECTED_CLASS = 'template-selector__template--selected';
 
     this.templates.forEach((template) => {
-      const templateValue = template.getAttribute('data-template-index');
-
       template.classList.remove(SELECTED_CLASS);
-      if (templateValue === selectedValue) {
+      if (this.isCurrentTemplate(template)) {
         template.classList.add(SELECTED_CLASS);
       }
     });
+  }
+
+  isCurrentTemplate(template) {
+    const
+      templateValue = template.getAttribute('data-template-index'),
+      selectedValue = this.templateName.querySelector('select').value;
+
+    return templateValue === selectedValue
   }
 }
 
