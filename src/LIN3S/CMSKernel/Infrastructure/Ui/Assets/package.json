@@ -22,7 +22,6 @@
     "postcss-loader": "^1.2.2",
     "precss": "^1.4.0",
     "sass-loader": "^6.0.2",
-    "slugify": "^1.1.0",
     "style-loader": "^0.13.1",
     "uglify-js": "^2.7.5",
     "webpack": "^2.2.1"
@@ -45,6 +44,7 @@
     "react-js-pagination": "^2.0.2",
     "react-modal": "^1.6.5",
     "react-motion": "^0.4.7",
+    "slug": "^0.9.1",
     "uppy": "^0.15.0",
     "whatwg-fetch": "^2.0.3"
   },

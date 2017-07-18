@@ -10,7 +10,7 @@
  * @author Mikel Tuesta <mikeltuesta@gmail.com>
  */
 
-import slugify from 'slugify';
+import slugify from 'slug';
 
 class Slug {
   constructor(rootNode) {
@@ -51,8 +51,8 @@ class Slug {
 
   fillSlugValue() {
     this.mirrorInput.value = this.mirrorInput.value
-      ? slugify(this.mirrorInput.value)
-      : slugify(this.from.value);
+      ? slugify(this.mirrorInput.value, {lower: true})
+      : slugify(this.from.value, {lower: true});
 
     this.input.value = this.mirrorInput.value;
   }
