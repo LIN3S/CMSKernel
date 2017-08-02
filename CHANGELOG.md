@@ -5,6 +5,8 @@ This changelog references the relevant changes done between versions.
 To get the diff for a specific change, go to https://github.com/LIN3S/CMSKernel/commit/XXX where XXX is the change hash 
 To get the diff between two versions, go to https://github.com/LIN3S/CMSKernel/compare/v0.1.0...v0.2.0
 
+* 0.2.1
+    * Removed parsley dependency and updated lin3s-front-foundation
 * 0.2.0
     * Added set of a complete frontend components
         * Wysiwyg
