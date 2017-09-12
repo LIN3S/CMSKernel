@@ -24,34 +24,39 @@ class Slug {
     this.from = document.getElementById(dataFromId);
 
     this.bindListeners();
-    this.fillSlugValue();
+    this.fillInitialSlugValue();
   }
 
   bindListeners() {
-    this.mirrorInput.addEventListener('focusout', this.handleInputFocusOut.bind(this));
-    this.from.addEventListener('focusout', this.handleInputFocusOut.bind(this));
-    this.action.addEventListener('click', this.handleActionClicked.bind(this));
+    this.mirrorInput.addEventListener('focusout', this.fillAndDisableInput.bind(this));
+    this.from.addEventListener('focusout', this.fillAndDisableInput.bind(this));
+
+    this.edit.addEventListener('click', this.fillAndEnableInput.bind(this));
+    this.close.addEventListener('click', this.fillAndDisableInput.bind(this));
   }
 
-  handleActionClicked() {
+  fillAndEnableInput() {
     this.fillSlugValue();
-
-    if (this.mirrorInput.disabled) {
-      this.enableSlugInput();
-      this.mirrorInput.focus();
-    } else {
-      this.disableSlugInput();
-    }
+    this.enableSlugInput();
+    this.mirrorInput.focus();
   }
 
-  handleInputFocusOut() {
+  fillAndDisableInput() {
     this.fillSlugValue();
     this.disableSlugInput();
   }
 
+  fillInitialSlugValue() {
+    if (!this.input.value) {
+      return;
+    }
+
+    this.mirrorInput.value = this.input.value;
+  }
+
   fillSlugValue() {
     this.mirrorInput.value = this.mirrorInput.value
-      ? slugify(this.mirrorInput.value, {lower: true})
+      ? slugify(this.mirrorInput.value)
       : slugify(this.from.value, {lower: true});
 
     this.input.value = this.mirrorInput.value;
