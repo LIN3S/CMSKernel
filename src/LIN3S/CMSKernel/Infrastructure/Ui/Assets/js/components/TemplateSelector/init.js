@@ -15,9 +15,7 @@ import {TemplateSelector} from './../../bundle.components';
 const NodeAddedObserver = lin3sEventBus.NodeAddedObserver;
 
 const
-  initTemplateSelectorComponentOnNode = (templateSelectorNode) => {
-    new TemplateSelector(templateSelectorNode);
-  },
+  initTemplateSelectorComponentOnNode = templateSelectorNode => new TemplateSelector(templateSelectorNode),
   onDomReady = () => {
     const
       templateSelectorSelectorClassName = 'template-selector',

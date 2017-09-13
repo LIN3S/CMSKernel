@@ -9,13 +9,13 @@
  * @author Beñat Espiña <benatespina@gmail.com>
  */
 
-import {excludeFormFieldsFromParsley} from 'lin3s-front-foundation';
+import {Parsley} from 'lin3s-front-foundation';
 
 class TemplateSelector {
   static INPUT_SELECTORS = '.template-selector__template:not(.template-selector__template--selected) input';
 
   constructor(rootNode) {
-    excludeFormFieldsFromParsley(TemplateSelector.INPUT_SELECTORS);
+    Parsley.excludeFormFields(TemplateSelector.INPUT_SELECTORS);
 
     this.templateName = rootNode.querySelector('.template-selector__name');
     this.templates = rootNode.querySelectorAll('.template-selector__template');
