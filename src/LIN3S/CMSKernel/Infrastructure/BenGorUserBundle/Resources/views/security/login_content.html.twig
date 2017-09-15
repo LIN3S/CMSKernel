@@ -8,8 +8,14 @@
 <link rel="stylesheet" href="{{ asset('bundles/cmskernelbengoruserbridge/css/bundle.min.css') }}" type="text/css">
 
 <article class="bengor-user-login">
-    <img class="bengor-user-login__background"
-         src="{{ asset('bundles/cmskernelbengoruserbridge/images/login-bg.jpg') }}"/>
+    <picture>
+        <source srcset="{{ asset('bundles/cmskernelbengoruserbridge/images/login-bg.webp') }}" type="image/webp">
+        <source srcset="{{ asset('bundles/cmskernelbengoruserbridge/images/login-bg.jpg') }}" type="image/jpeg">
+        <img class="bengor-user-login__background"
+             src="{{ asset('bundles/cmskernelbengoruserbridge/images/login-bg.jpg') }}"
+             alt="Admin login background"
+        />
+    </picture>
 
     <form action="{{ path(login_check) }}" method="post" class="bengor-user-login__form">
         <div class="bengor-user-login-form__group">
@@ -23,7 +29,7 @@
                 class: 'bengor-user-login__icon'
             } %}
             <label class="bengor-user-login__form-label" for="email">
-                {{- 'security.view_email_label' | trans -}}
+                {{- 'security.view_email_label'|trans -}}
             </label>
             <input class="bengor-user-login__form-input" type="email" id="email" name="_email" autofocus
                    value="{{ last_email }}"/>
@@ -34,7 +40,7 @@
                 class: 'bengor-user-login__icon'
             } %}
             <label class="bengor-user-login__form-label" for="password">
-                {{- 'security.view_password_label' | trans -}}
+                {{- 'security.view_password_label'|trans -}}
             </label>
             <input class="bengor-user-login__form-input" type="password" id="password" name="_password"/>
         </div>
@@ -44,14 +50,14 @@
         {% if error %}
             <div class="bengor-user-login-form__group">
                 <div class="bengor-user-login__form-error">
-                    {{ error.messageKey | trans(error.messageData) }}
+                    {{ error.messageKey|trans(error.messageData) }}
                 </div>
             </div>
         {% endif %}
 
         <div class="bengor-user-login-form__group">
             <button class="bengor-user-login__form-submit" type="submit">
-                {{ 'security.view_submit_button' | trans }}
+                {{ 'security.view_submit_button'|trans }}
             </button>
         </div>
     </form>
@@ -64,12 +70,11 @@
             } %}
         </p>
         <p>
-            {{ date() | date('h:i a') }} <br>
-            {{ date() | localizeddate('full', 'none', app.request.locale) }}
+            {{ date()|date('h:i a') }} <br>
+            {{ date()|localizeddate('full', 'none', app.request.locale) }}
         </p>
     </section>
 </article>
 
 <script src="{{ asset('bundles/lin3scmskernel/js/bundle.min.js') }}"></script>
-<script src="{{ asset('bundles/lin3scmskernel/js/event-bus-js-init.min.js') }}"></script>
 <script src="{{ asset('bundles/cmskernelbengoruserbridge/js/bundle.min.js') }}"></script>
