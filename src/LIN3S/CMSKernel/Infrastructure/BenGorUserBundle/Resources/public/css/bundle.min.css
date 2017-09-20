@@ -1,14 +1,8 @@
 .bengor-user-login {
-  -ms-flex-align: center;
-      align-items: center;
-  display: -ms-flexbox;
-  display: flex;
   font-family: "Roboto", sans-serif;
   font-size: 16px;
   font-weight: 400;
   height: 100vh;
-  -ms-flex-pack: center;
-      justify-content: center;
   position: relative; }
 
 .bengor-user-login__background {
@@ -82,9 +76,11 @@
   padding-left: 35px;
   padding-top: 15px;
   transition: border .3s; }
-  .bengor-user-login__form-input:-webkit-autofill, .bengor-user-login__form-input:-webkit-autofill:hover, .bengor-user-login__form-input:-webkit-autofill:focus, .bengor-user-login__form-input:-webkit-autofill::selection, .bengor-user-login__form-input:-webkit-autofill:active {
-    color: #fff;
-    -webkit-text-fill-color: #fff; }
+  .bengor-user-login__form-input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 30px transparent inset; }
+    .bengor-user-login__form-input:-webkit-autofill, .bengor-user-login__form-input:-webkit-autofill:hover, .bengor-user-login__form-input:-webkit-autofill:focus, .bengor-user-login__form-input:-webkit-autofill::selection, .bengor-user-login__form-input:-webkit-autofill:active {
+      color: #fff;
+      -webkit-text-fill-color: #fff; }
 
 .bengor-user-login__form-label {
   -ms-flex-align: center;
@@ -96,7 +92,7 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  transition: all .3s; }
+  transition: color .3s ease-in-out, font-size .3s ease-in-out, transform .3s ease-in-out; }
 
 .bengor-user-login__form-label--focused {
   color: rgba(255, 255, 255, 0.8);
@@ -147,9 +143,9 @@
     margin-left: 0;
     margin-right: 0;
     max-width: 100%;
-    right: initial;
+    right: inherit;
     transform: translate(-50%, -50%); }
-  .bengor-user-login__form-input {
+  .bengor-user-login__form-input, .bengor-user-login__form-submit {
     width: 350px; }
   .bengor-user-login__footer {
     -ms-flex-pack: justify;

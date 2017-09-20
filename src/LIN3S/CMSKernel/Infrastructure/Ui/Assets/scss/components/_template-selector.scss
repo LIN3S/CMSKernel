@@ -14,6 +14,8 @@ $template-selector-margin-bottom: 15px;
   margin-bottom: 0;
   height: 0;
   opacity: 0;
+  position: absolute;
+  top: 0;
   transition: opacity $template-selector-transition-duration, visibility $template-selector-transition-duration;
   visibility: hidden;
 }
@@ -22,5 +24,6 @@ $template-selector-margin-bottom: 15px;
   height: 100%;
   margin-bottom: $template-selector-margin-bottom;
   opacity: 1;
+  position: static;
   visibility: visible;
 }
