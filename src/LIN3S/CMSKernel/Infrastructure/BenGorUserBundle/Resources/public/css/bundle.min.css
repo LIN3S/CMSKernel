@@ -5,6 +5,9 @@
   height: 100vh;
   position: relative; }
 
+_:-ms-lang(x), .bengor-user-login {
+  overflow: hidden; }
+
 .bengor-user-login__background {
   height: 100%;
   width: 100%; }
@@ -68,6 +71,11 @@
   padding-right: 30px;
   position: relative; }
 
+.bengor-user-login__form-input:focus ~ .bengor-user-login__form-label, .bengor-user-login__form-input--filled ~ .bengor-user-login__form-label {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 12px;
+  transform: translateY(-90%); }
+
 .bengor-user-login__form-input {
   background-color: transparent;
   border: 1px solid #fff;
@@ -94,11 +102,6 @@
   transform: translateY(-50%);
   transition: color .3s ease-in-out, font-size .3s ease-in-out, transform .3s ease-in-out; }
 
-.bengor-user-login__form-label--focused {
-  color: rgba(255, 255, 255, 0.8);
-  font-size: 12px;
-  transform: translateY(-90%); }
-
 .bengor-user-login__icon {
   fill: #fff;
   height: 16px;
@@ -122,8 +125,7 @@
   background-color: #fff;
   border: 0;
   cursor: pointer;
-  display: -ms-flexbox;
-  display: flex;
+  display: block;
   font-family: "Montserrat", sans-serif;
   font-size: 16px;
   font-weight: 700;
@@ -131,6 +133,7 @@
       justify-content: center;
   padding-bottom: 11px;
   padding-top: 11px;
+  text-align: center;
   text-transform: uppercase;
   transition: background-color .4s;
   width: 100%; }

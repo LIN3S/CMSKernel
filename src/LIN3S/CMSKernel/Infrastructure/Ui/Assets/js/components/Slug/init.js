@@ -22,7 +22,7 @@ const
     const
       slugSelectorClassName = 'slug',
       slugs = document.querySelectorAll(`.${slugSelectorClassName}`);
-    slugs.forEach(slug => initSlugComponentOnNode(slug));
+    Array.from(slugs).forEach(slug => initSlugComponentOnNode(slug));
 
     NodeAddedObserver.subscribe(slugSelectorClassName, nodeAddedEvent =>
       nodeAddedEvent.nodes.forEach(node => initSlugComponentOnNode(node))

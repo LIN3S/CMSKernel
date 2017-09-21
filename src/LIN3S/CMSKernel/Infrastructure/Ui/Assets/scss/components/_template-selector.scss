@@ -8,22 +8,23 @@
 // @author Beñat Espiña <benatespina@gmail.com>
 
 $template-selector-transition-duration: .4s;
+$template-selector-transition-type: ease-in-out;
 $template-selector-margin-bottom: 15px;
 
+.template-selector__templates {
+  overflow: hidden;
+}
+
 .template-selector__template {
-  margin-bottom: 0;
   height: 0;
+  margin-bottom: 0;
   opacity: 0;
-  position: absolute;
-  top: 0;
-  transition: opacity $template-selector-transition-duration, visibility $template-selector-transition-duration;
-  visibility: hidden;
+  transition: opacity $template-selector-transition-duration $template-selector-transition-type;
 }
 
 .template-selector__template--selected {
+  display: block;
   height: 100%;
   margin-bottom: $template-selector-margin-bottom;
   opacity: 1;
-  position: static;
-  visibility: visible;
 }

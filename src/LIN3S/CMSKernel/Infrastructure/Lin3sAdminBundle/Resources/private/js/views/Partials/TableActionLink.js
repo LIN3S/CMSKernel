@@ -24,7 +24,7 @@ const init = () => {
   if (removeActions.length === 0) {
     return;
   }
-  removeActions.forEach((removeAction) => {
+  Array.from(removeActions).forEach((removeAction) => {
     const trigger = {
       content: removeAction.getAttribute('data-button-title'),
       style: removeAction.getAttribute('data-button-style'),

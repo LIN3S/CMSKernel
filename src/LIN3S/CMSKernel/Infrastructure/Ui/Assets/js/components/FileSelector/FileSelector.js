@@ -144,7 +144,8 @@ class FileSelector extends React.Component {
   removeUppyInputs() {
     // Hacky remove uppy input files
     const uppyInputs = document.querySelectorAll('.UppyDashboard-input');
-    uppyInputs.forEach((uppyInput) => {
+
+    Array.from(uppyInputs).forEach((uppyInput) => {
       uppyInput.removeAttribute('name');
     });
   }

@@ -35,6 +35,9 @@ $bengor-user-login-font-family-main: 'Roboto', sans-serif;
   position: relative;
 }
 
+//IE + edge hack
+_:-ms-lang(x), .bengor-user-login { overflow: hidden; }
+
 .bengor-user-login__background {
   height: 100%;
   width: 100%;
@@ -96,6 +99,12 @@ $bengor-user-login-font-family-main: 'Roboto', sans-serif;
   position: relative;
 }
 
+%input-filled {
+  color: rgba($bengor-user-login-form-white, .8);
+  font-size: 12px;
+  transform: translateY(-90%);
+}
+
 .bengor-user-login__form-input {
   background-color: transparent;
   border: 1px solid $bengor-user-login-form-white;
@@ -117,6 +126,16 @@ $bengor-user-login-font-family-main: 'Roboto', sans-serif;
       -webkit-text-fill-color: $bengor-user-login-form-white;
     }
   }
+
+  &:focus ~ .bengor-user-login__form-label {
+    @extend %input-filled;
+  }
+}
+
+.bengor-user-login__form-input--filled {
+  & ~ .bengor-user-login__form-label {
+    @extend %input-filled;
+  }
 }
 
 .bengor-user-login__form-label {
@@ -127,14 +146,7 @@ $bengor-user-login-font-family-main: 'Roboto', sans-serif;
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  //transition: all .3s;
   transition: color .3s ease-in-out, font-size .3s ease-in-out, transform .3s ease-in-out;
-}
-
-.bengor-user-login__form-label--focused {
-  color: rgba($bengor-user-login-form-white, .8);
-  font-size: 12px;
-  transform: translateY(-90%);
 }
 
 .bengor-user-login__icon {
@@ -160,13 +172,14 @@ $bengor-user-login-font-family-main: 'Roboto', sans-serif;
   background-color: $bengor-user-login-form-submit-primary-color;
   border: 0;
   cursor: pointer;
-  display: flex;
+  display: block;
   font-family: $bengor-user-login-font-family-title;
   font-size: 16px;
   font-weight: $bengor-user-login-font-weight-bold;
   justify-content: center;
   padding-bottom: 11px;
   padding-top: 11px;
+  text-align: center;
   text-transform: uppercase;
   transition: background-color .4s;
   width: 100%;
