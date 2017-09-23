@@ -9,33 +9,27 @@
 
 import {$, lin3sEventBus} from './../../../../../Ui/Assets/js/bundle.dependencies';
 
-const focusIn = (event) => {
-  $(event.currentTarget).prev().addClass('bengor-user-login__form-label--focused');
+const INPUT_CSS_CLASS_SELECTOR = 'bengor-user-login__form-input';
+
+const inputChange = (input) => {
+  if ($(input).val()) {
+    $(input).addClass(`${INPUT_CSS_CLASS_SELECTOR}--filled`);
+  } else {
+    $(input).removeClass(`${INPUT_CSS_CLASS_SELECTOR}--filled`);
+  }
 };
 
-const focusOut = (event) => {
-  if (!$(event.currentTarget).val()) {
-    $(event.currentTarget).prev().removeClass('bengor-user-login__form-label--focused');
-  }
+const bindInputOnChangeListener = (domNode) => {
+  $(domNode).on('change', (event) => {
+    inputChange($(event.currentTarget));
+  });
 };
 
 const init = () => {
-  const $input = $('.bengor-user-login__form-input');
+  bindInputOnChangeListener($(`.${INPUT_CSS_CLASS_SELECTOR}`));
 
-  if ($input.length === 0) {
-    return;
-  }
-
-  $input.each(function (index, element) {
-    $(element).focus((event) => {
-      $(event.currentTarget).prev().addClass('bengor-user-login__form-label--focused');
-    });
-  });
-
-  $('input[autofocus]').trigger('focus');
-
-  $input.focusin(focusIn);
-  $input.focusout(focusOut);
+  lin3sEventBus.NodeAddedObserver.subscribe(INPUT_CSS_CLASS_SELECTOR, nodeAddedEvent =>
+    bindInputOnChangeListener(nodeAddedEvent.nodes));
 };
 
 lin3sEventBus.onDomReady(init);

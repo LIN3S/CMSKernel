@@ -13,11 +13,6 @@
 $file-gallery-control-button-background-color: $color-white;
 
 .file-gallery {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  justify-content: space-between;
-
   .search-box {
     margin: 20px;
   }

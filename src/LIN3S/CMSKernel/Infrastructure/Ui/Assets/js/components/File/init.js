@@ -29,7 +29,7 @@ const
     const
       fileSelectorClassName = 'file',
       files = document.querySelectorAll(`.${fileSelectorClassName}`);
-    files.forEach(file => mountFileComponentOnNode(file));
+    Array.from(files).forEach(file => mountFileComponentOnNode(file));
 
     NodeAddedObserver.subscribe(fileSelectorClassName, nodeAddedEvent =>
       nodeAddedEvent.nodes.forEach(node => mountFileComponentOnNode(node))

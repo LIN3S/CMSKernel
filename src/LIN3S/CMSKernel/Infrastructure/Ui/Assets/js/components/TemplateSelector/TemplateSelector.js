@@ -27,8 +27,9 @@ class TemplateSelector {
   onChange() {
     const SELECTED_CLASS = 'template-selector__template--selected';
 
-    this.templates.forEach((template) => {
+    Array.from(this.templates).forEach((template) => {
       template.classList.remove(SELECTED_CLASS);
+
       if (this.isCurrentTemplate(template)) {
         template.classList.add(SELECTED_CLASS);
       }

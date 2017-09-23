@@ -29,7 +29,8 @@ const
     const
       menuTreeSelectorClassName = 'menu-tree',
       menuTrees = document.querySelectorAll(`.${menuTreeSelectorClassName}`);
-    menuTrees.forEach(menuTree => mountMenuTreeComponentOnNode(menuTree));
+
+    Array.from(menuTrees).forEach(menuTree => mountMenuTreeComponentOnNode(menuTree));
 
     NodeAddedObserver.subscribe(menuTreeSelectorClassName, nodeAddedEvent =>
       nodeAddedEvent.nodes.forEach(node => mountMenuTreeComponentOnNode(node))

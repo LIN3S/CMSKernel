@@ -29,7 +29,8 @@ const
     const
       datePickerSelectorClassName = 'datepicker',
       datePickers = document.querySelectorAll(`.${datePickerSelectorClassName}`);
-    datePickers.forEach(datePicker => mountDatePickerComponentOnNode(datePicker));
+
+    Array.from(datePickers).forEach(datePicker => mountDatePickerComponentOnNode(datePicker));
 
     NodeAddedObserver.subscribe(datePickerSelectorClassName, nodeAddedEvent =>
       nodeAddedEvent.nodes.forEach(node => mountDatePickerComponentOnNode(node))

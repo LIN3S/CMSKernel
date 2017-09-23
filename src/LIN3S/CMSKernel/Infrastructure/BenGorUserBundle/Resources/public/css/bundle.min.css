@@ -1,15 +1,12 @@
 .bengor-user-login {
-  -ms-flex-align: center;
-      align-items: center;
-  display: -ms-flexbox;
-  display: flex;
   font-family: "Roboto", sans-serif;
   font-size: 16px;
   font-weight: 400;
   height: 100vh;
-  -ms-flex-pack: center;
-      justify-content: center;
   position: relative; }
+
+_:-ms-lang(x), .bengor-user-login {
+  overflow: hidden; }
 
 .bengor-user-login__background {
   height: 100%;
@@ -74,6 +71,11 @@
   padding-right: 30px;
   position: relative; }
 
+.bengor-user-login__form-input:focus ~ .bengor-user-login__form-label, .bengor-user-login__form-input--filled ~ .bengor-user-login__form-label {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 12px;
+  transform: translateY(-90%); }
+
 .bengor-user-login__form-input {
   background-color: transparent;
   border: 1px solid #fff;
@@ -82,9 +84,11 @@
   padding-left: 35px;
   padding-top: 15px;
   transition: border .3s; }
-  .bengor-user-login__form-input:-webkit-autofill, .bengor-user-login__form-input:-webkit-autofill:hover, .bengor-user-login__form-input:-webkit-autofill:focus, .bengor-user-login__form-input:-webkit-autofill::selection, .bengor-user-login__form-input:-webkit-autofill:active {
-    color: #fff;
-    -webkit-text-fill-color: #fff; }
+  .bengor-user-login__form-input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 30px transparent inset; }
+    .bengor-user-login__form-input:-webkit-autofill, .bengor-user-login__form-input:-webkit-autofill:hover, .bengor-user-login__form-input:-webkit-autofill:focus, .bengor-user-login__form-input:-webkit-autofill::selection, .bengor-user-login__form-input:-webkit-autofill:active {
+      color: #fff;
+      -webkit-text-fill-color: #fff; }
 
 .bengor-user-login__form-label {
   -ms-flex-align: center;
@@ -96,12 +100,7 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  transition: all .3s; }
-
-.bengor-user-login__form-label--focused {
-  color: rgba(255, 255, 255, 0.8);
-  font-size: 12px;
-  transform: translateY(-90%); }
+  transition: color .3s ease-in-out, font-size .3s ease-in-out, transform .3s ease-in-out; }
 
 .bengor-user-login__icon {
   fill: #fff;
@@ -126,8 +125,7 @@
   background-color: #fff;
   border: 0;
   cursor: pointer;
-  display: -ms-flexbox;
-  display: flex;
+  display: block;
   font-family: "Montserrat", sans-serif;
   font-size: 16px;
   font-weight: 700;
@@ -135,6 +133,7 @@
       justify-content: center;
   padding-bottom: 11px;
   padding-top: 11px;
+  text-align: center;
   text-transform: uppercase;
   transition: background-color .4s;
   width: 100%; }
@@ -147,9 +146,9 @@
     margin-left: 0;
     margin-right: 0;
     max-width: 100%;
-    right: initial;
+    right: inherit;
     transform: translate(-50%, -50%); }
-  .bengor-user-login__form-input {
+  .bengor-user-login__form-input, .bengor-user-login__form-submit {
     width: 350px; }
   .bengor-user-login__footer {
     -ms-flex-pack: justify;

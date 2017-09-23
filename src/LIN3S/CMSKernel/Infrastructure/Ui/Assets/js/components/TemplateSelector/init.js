@@ -20,7 +20,8 @@ const
     const
       templateSelectorSelectorClassName = 'template-selector',
       templateSelectors = document.querySelectorAll(`.${templateSelectorSelectorClassName}`);
-    templateSelectors.forEach(templateSelector => initTemplateSelectorComponentOnNode(templateSelector));
+
+    Array.from(templateSelectors).forEach(templateSelector => initTemplateSelectorComponentOnNode(templateSelector));
 
     NodeAddedObserver.subscribe(templateSelectorSelectorClassName, nodeAddedEvent =>
       nodeAddedEvent.nodes.forEach(node => initTemplateSelectorComponentOnNode(node))

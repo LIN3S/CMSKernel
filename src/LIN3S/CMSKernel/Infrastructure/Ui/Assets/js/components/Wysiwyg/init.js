@@ -29,7 +29,8 @@ const
     const
       wysiwygSelectorClassName = 'wysiwyg',
       wysiwygs = document.querySelectorAll(`.${wysiwygSelectorClassName}`);
-    wysiwygs.forEach(wysiwyg => mountWysiwygComponentOnNode(wysiwyg));
+
+    Array.from(wysiwygs).forEach(wysiwyg => mountWysiwygComponentOnNode(wysiwyg));
 
     NodeAddedObserver.subscribe(wysiwygSelectorClassName, nodeAddedEvent =>
       nodeAddedEvent.nodes.forEach(node => mountWysiwygComponentOnNode(node))

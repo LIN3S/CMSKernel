@@ -28,21 +28,21 @@
             {% include '@CmsKernelBenGorUserBridge/svg/login_user.svg.twig' with {
                 class: 'bengor-user-login__icon'
             } %}
+            <input class="bengor-user-login__form-input" type="email" id="email" name="_email" autofocus
+                   value="{{ last_email }}"/>
             <label class="bengor-user-login__form-label" for="email">
                 {{- 'security.view_email_label'|trans -}}
             </label>
-            <input class="bengor-user-login__form-input" type="email" id="email" name="_email" autofocus
-                   value="{{ last_email }}"/>
         </div>
 
         <div class="bengor-user-login-form__group">
             {% include '@CmsKernelBenGorUserBridge/svg/login_key.svg.twig' with {
                 class: 'bengor-user-login__icon'
             } %}
+            <input class="bengor-user-login__form-input" type="password" id="password" name="_password"/>
             <label class="bengor-user-login__form-label" for="password">
                 {{- 'security.view_password_label'|trans -}}
             </label>
-            <input class="bengor-user-login__form-input" type="password" id="password" name="_password"/>
         </div>
 
         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"/>
