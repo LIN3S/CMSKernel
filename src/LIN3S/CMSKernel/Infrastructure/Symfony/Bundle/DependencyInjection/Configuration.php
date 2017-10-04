@@ -27,6 +27,7 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $treeBuilder->root('lin3s_cms_kernel')
             ->children()
+                ->scalarNode('command_bus')->defaultValue('simple_bus')->end()
                 ->arrayNode('templates')
                     ->children()
                         ->arrayNode('class_map')

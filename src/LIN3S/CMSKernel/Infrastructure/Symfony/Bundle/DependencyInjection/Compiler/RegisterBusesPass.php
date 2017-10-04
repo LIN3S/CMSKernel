@@ -52,14 +52,29 @@ class RegisterBusesPass implements CompilerPassInterface
         if (!$container->hasDefinition('lin3s_admin_ddd_extension.action.type.handle_command')) {
             return;
         }
+        $config = $container->getParameter('lin3s_cms_kernel.config');
 
         $container
             ->findDefinition('lin3s_admin_ddd_extension.action.type.handle_command')
             ->replaceArgument(
                 1,
                 $container->getDefinition(
-                    'lin3s.cms_kernel.application.command_bus'
+                    $this->busOfName($config['command_bus'])
                 )
             );
+    }
+
+    private function busOfName($name)
+    {
+        $buses = [
+            'simple_bus' => 'lin3s.cms_kernel.application.command_bus',
+            'tactician'  => 'lin3s.application.tactician_command_bus',
+        ];
+
+        if (!array_key_exists($name, $buses)) {
+            throw new \LogicException('The "command_bus" configuration option must be "tactician" or "simple_bus"');
+        }
+
+        return $buses[$name];
     }
 }
