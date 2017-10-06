@@ -5,6 +5,14 @@ This changelog references the relevant changes done between versions.
 To get the diff for a specific change, go to https://github.com/LIN3S/CMSKernel/commit/XXX where XXX is the change hash 
 To get the diff between two versions, go to https://github.com/LIN3S/CMSKernel/compare/v0.1.0...v0.2.0
 
+* 0.3.0
+    * Added support for tactician command bus.
+    * Added styles that keeps compatibility with IE11.
+    * Become less strict shared kernel dependency.
+    * Removed unused script, and optimized login page bg image.
+    * Improved the Slug component behaviour.
+    * Removed Parsleyjs dependency in favour of `lin3s-front-foundation`.
+    * Fixed `react-dates` dependency.
 * 0.2.1
     * Removed parsley dependency and updated lin3s-front-foundation
 * 0.2.0
