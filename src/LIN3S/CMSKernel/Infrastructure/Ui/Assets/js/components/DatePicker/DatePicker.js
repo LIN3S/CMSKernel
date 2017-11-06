@@ -26,6 +26,8 @@ class DatePicker extends React.Component {
   constructor(props) {
     super(props);
 
+    moment.locale('es');
+
     this.state = {
       selectedDate: toMomentObject(getFormInputValue(this.props.formInput)),
       focused: false
